@@ -1,0 +1,72 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-lg-4" style="text-align:left;">
+			<a href="#forumModal"  data-toggle="modal">
+				<span style="color:red; font-size:15px;"class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+			</a>
+		</div>
+	</div>
+	<div class="row">
+		<span style="font-size:14px; float:left;">{{post?.timestamp | date:'MM/dd/yyyy'}}</span>
+		<span style="font-size:25px; float:right;" (click)="likePost()" [ngStyle]="{'color':+post?.LIKEID | liked:userID}" class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+	</div>
+	<div class="row">
+		<div class="col-lg-3" style="text-align:center;">
+			<div class="row">
+				<img src="{{post?.IMAGE_URL}}" style="height:100px; width:auto; border-radius:7px;" alt="">
+				<p> {{post?.NAME}}</p>
+			</div>
+			<div class="row">
+				<p *ngIf="post?.AUTHOR_TITLE" style="margin: 0; font-size: 12px;">
+					<span>[{{post?.AUTHOR_TITLE}}]</span>
+				</p>
+				<progress max="1000" value="{{popularity ? popularity : 0}}" style="margin:0; width:100%;"> </progress>
+				<div class="col-lg-8" style="padding-left:0;">	
+					<span *ngFor="let badge of post?.userbadges">
+						<img src="{{badge.icon}}" alt="" style="height:15px; width:auto;">
+					</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-lg-9" style="padding-left:0;">
+			<h2>{{post?.title}}</h2>
+			<hr>
+		</div>
+		<div class="row">
+			<p style="padding:15px;">{{post?.body}}</p>
+		</div>
+	</div>
+	<hr>
+	<div class="row">
+		<div class="form-group">
+			<div class="input-group">
+			  <textarea class="form-control" rows="4"  aria-describedby="basic-addon2" id="comment" [(ngModel)]="reply" placeholder="Leave a comment..."></textarea>
+			  <span class="input-group-addon" id="basic-addon2" (click)="sendReply(reply); reply = '';">Send Reply</span>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="well" *ngFor="let reply of post?.replies; let i = index">
+			<div class="row">
+				<div class="col-lg-2" style="text-align:center;">
+					<img src="{{reply.IMAGE_URL || reply.image_url}}" style="height:60px; width:auto; border-radius:7px;" alt="">
+					<p style="font-size:12px; margin:0;"> <b>{{reply.NAME}}</b> </p>
+					<p style="font-size:12px;">Post Count: {{reply.POSTCOUNT || reply.forum_activity}}</p>
+				</div>
+				<div class="col-lg-7">
+					<p style="font-size:14px;">{{reply.body}}</p>
+				</div>
+				<div class="col-lg-3" style="text-align:right;">
+					<p style="font-size:12px; margin:0;">{{reply.timestamp | timeAgo }}</p>
+					<p style="font-size:12px; margin:0;">Likes: {{reply.likes}}</p>
+					<span style="font-size:17px;" (click)="likeReply(i)"[ngStyle]="{'color':+reply.LIKEID | liked:userID}" class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<button type="button" *ngIf="post?.replies?.length % 20 == 0 && post?.replies?.length > 0" (click)="loadMore()" style="border-color:rgb(149, 107, 185); margin-bottom:15px;"class="btn btn-primary btn-lg btn-block">Load More</button>
+	</div>
+</div>
+

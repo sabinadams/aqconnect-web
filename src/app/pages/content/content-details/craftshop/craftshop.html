@@ -1,0 +1,70 @@
+<div id="item">
+	<!-- Title -->
+	<div class="row">
+		<div class="col-lg-4" style="text-align:left;">
+			<a href="#contentModal"  data-toggle="modal">
+				<span style="color:red; font-size:15px;"class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+			</a>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12 text-center">
+			<h2>{{craftshop?.name}}</h2>
+		</div>
+	</div>
+	<br>
+	<!-- Images -->
+	<div class="row">
+		<div class="col-lg-12 text-center">
+			<img *ngIf="craftshop?.images[0].image_url" style="height:300px; width:auto; border-radius:7px;" src="{{craftshop?.images[0]?.image_url}}" alt="">
+			<img *ngIf="item?.images.length > 1" style="height:300px; width:auto; border-radius:7px;" src="{{craftshop?.images[1]?.image_url}}" alt="{{craftshop?.name}}'s Image"><br>
+		</div>			
+	</div>
+
+	<hr class="full-length">
+
+	<!-- Dropdown Options -->
+	<div class="row">
+		<div class="col-lg-12">
+
+			<!-- Locations -->
+			<div class="col-lg-3" *ngIf="craftshop?.locations.length > 0">
+				<div class="panel panel-info">
+					<div class="panel-heading panel-location">
+						<h3 class="panel-title">Locations</h3>
+					</div>
+					<ul class="list-group">
+						<li *ngFor="let location of craftshop.locations" class="list-group-item"
+							(click)="openRoute(location.ID, 'locations')">{{location.name}}</li>	
+					</ul>
+				</div>
+			</div>
+
+			<!-- Recipes -->
+			<div class="col-lg-3" *ngIf="craftshop?.recipes.length > 0">
+				<div class="panel panel-info">
+					<div class="panel-heading panel-recipe">
+						<h3 class="panel-title">Crafting Recipe</h3>
+					</div>
+					<ul class="list-group">
+						<li *ngFor="let recipe of craftshop.recipes" class="list-group-item"
+							(click)="openRoute(recipe.ID, 'recipes')">{{recipe.name}}</li>	
+					</ul>
+				</div>
+			</div>
+
+		</div> 
+	</div> 
+
+	
+
+	<!-- Last Edit/Notes -->
+	<div class="row">
+		<div class="col-lg-4 col-lg-offset-8" style="text-align:right;">
+			<p><small>Last edited by {{craftshop?.last_edit}}</small></p>
+		</div>
+	</div>
+
+
+
+</div>

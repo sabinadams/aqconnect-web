@@ -1,0 +1,135 @@
+<div id="item">
+	<!-- Title -->
+	<div class="row">
+		<div class="col-lg-4" style="text-align:left;">
+			<a href="#contentModal"  data-toggle="modal">
+				<span style="color:red; font-size:15px;"class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+			</a>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12 text-center">
+			<h2 >{{npc?.name}}</h2>
+		</div>
+	</div>
+	<br>
+	<!-- Images -->
+	<div class="row">
+		<div class="col-lg-12 text-center">
+			<img *ngIf="npc?.images[0].image_url" style="height:300px; width:auto; border-radius:7px;" src="{{npc?.images[0]?.image_url}}" alt="{{npc?.name}}'s Image">
+			
+			<!-- <div *ngIf="npc?.images.length == 1">
+				<span class="label label-default">View in 3D</span>
+			</div> -->
+		</div>			
+	</div>
+
+	<hr class="full-length">
+
+	<!-- Stats -->
+	<div class="row">
+		<div class="col-lg-12 text-center">
+			<h3>Stats</h3>
+			<hr>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-8 col-lg-offset-2">
+			<div class="col-lg-3 col-sm-3 col-md-3 col-xs-4 text-center"><p class="stats">Health: {{npc?.health}}</p> </div>
+			<div class="col-lg-3 col-sm-3 col-md-3 col-xs-4 text-center"><p class="stats">Mana: {{npc?.mana}}</p> </div>
+			<div class="col-lg-3 col-sm-3 col-md-3 col-xs-4 text-center"><p class="stats">Attack: {{npc?.attack}}</p> </div>
+			<div class="col-lg-3 col-sm-3 col-md-3 col-xs-4 text-center"><p class="stats">Defense: {{npc?.defense}}</p> </div>
+			<div class="col-lg-3 col-sm-3 col-md-3 col-xs-4 text-center"><p class="stats">Crit: {{npc?.crit}}</p> </div>
+			<div class="col-lg-3 col-sm-3 col-md-3 col-xs-4 text-center"><p class="stats">Hit: {{npc?.hit}}</p> </div>
+			<div class="col-lg-3 col-sm-3 col-md-3 col-xs-4 text-center"><p class="stats">Crit Power: {{npc?.crit_power}}</p> </div>
+			<div class="col-lg-3 col-sm-3 col-md-3 col-xs-3 text-center"><p class="stats">Dodge: {{npc?.dodge}}</p> </div>
+		</div>
+	</div>
+
+	<hr class="full-length">
+
+	<!-- Message and Talk -->
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="col-lg-6" *ngIf="quest?.message != ''">
+				<h2 class="text-primary">Message</h2>
+				<p>{{npc?.message}}</p>
+			</div>
+			<div class="col-lg-6" *ngIf="quest?.talk != ''">
+				<h2 class="text-primary">Talk</h2>
+				<p>{{npc?.talk}}</p>
+			</div>
+		</div>
+	</div>
+
+	<hr class="full-length">
+
+	<!-- Dropdown Options -->
+	<div class="row">
+		<div class="col-lg-12">
+
+			<!-- Locations -->
+			<div class="col-lg-3" *ngIf="npc?.locations.length > 0">
+				<div class="panel panel-info">
+					<div class="panel-heading panel-location">
+						<h3 class="panel-title">Locations</h3>
+					</div>
+					<ul class="list-group">
+						<li *ngFor="let location of npc.locations" class="list-group-item"
+							(click)="openRoute(location.ID, 'locations')">{{location.name}}</li>	
+					</ul>
+				</div>
+			</div>
+
+			<!-- Shops -->
+			<div class="col-lg-3" *ngIf="npc?.shoppes.length > 0">
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<h3 class="panel-title">Shops</h3>
+					</div>
+					<ul class="list-group">
+						<li *ngFor="let shop of npc.shoppes" class="list-group-item"
+							(click)="openRoute(shop.ID, 'shoppes')">{{shop.name}}</li>	
+					</ul>
+				</div>
+			</div>
+			
+			<!-- Craft Shops -->
+			<div class="col-lg-3" *ngIf="npc?.craftshoppes.length > 0">
+				<div class="panel panel-info">
+					<div class="panel-heading panel-craftshop">
+						<h3 class="panel-title">Craft Shops</h3>
+					</div>
+					<ul class="list-group">
+						<li *ngFor="let craftshop of npc.craftshoppes" class="list-group-item"
+							(click)="openRoute(craftshop.ID, 'craftshoppes')">{{craftshop.name}}</li>	
+					</ul>
+				</div>
+			</div>
+			
+			<!-- Quests -->
+			<div class="col-lg-3" *ngIf="npc?.quests.length > 0">
+				<div class="panel panel-info">
+					<div class="panel-heading panel-quest">
+						<h3 class="panel-title">Quests</h3>
+					</div>
+					<ul class="list-group">
+						<li *ngFor="let quest of npc.quests" class="list-group-item"
+							(click)="openRoute(quest.ID, 'quests')">{{quest.name}}</li>	
+					</ul>
+				</div>
+			</div>
+		</div> 
+	</div> 
+
+	
+
+	<!-- Last Edit/Notes -->
+	<div class="row">
+		<div class="col-lg-4 col-lg-offset-8" style="text-align:right;">
+			<p><small>Last edited by {{npc?.last_edit}}</small></p>
+		</div>
+	</div>
+
+
+</div>

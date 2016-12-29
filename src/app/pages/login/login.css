@@ -1,0 +1,15 @@
+#login{
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    width:30%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+#login .btn {
+	background-color: #36333d;
+}
+
+#login .btn:hover {
+	color: #d3d3d3;
+}

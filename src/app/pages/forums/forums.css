@@ -1,0 +1,27 @@
+#forums{
+	padding-top:70px;
+}
+#forums .col-lg-8 {
+	float:none;
+	margin:auto;
+}
+
+#forums .panel {
+    border:0;
+}
+
+#forums .panel-heading {
+    background-color:#1d1d1d;
+    border:0;
+}
+
+#forums .panel-title {
+    color:white;
+    font-weight:700;
+}
+
+#forums .panel-body {
+    background-color:#1d1d1d;
+}
+
+

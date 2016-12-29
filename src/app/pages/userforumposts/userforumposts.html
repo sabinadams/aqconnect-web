@@ -1,0 +1,31 @@
+<div id="userforumposts">
+	<div class="container-fluid">
+			<h2 style="text-align:center;">My Forum Posts</h2>
+		<div class="col-lg-12">
+			<ul class="list-group">
+			  <li *ngFor="let post of posts; let i = index;" class="list-group-item">
+			  	<div class="row">
+			  		<div class="col-lg-7">
+			  			<p (click)="openPost(post.ID)" data-toggle="modal" href="#forumModal">{{post.title}}</p>
+			  		</div>
+					<div class="col-lg-5">
+						<div class="col-lg-3" style="text-align:right;">
+							<img src="{{post.IMAGE_URL || post.image_url}}" style="height:50px; width:auto; border-radius:7px;" alt="">
+						</div>
+						<div class="col-lg-9" style="text-align:left;">
+							<b>Last Reply: </b>
+							<span *ngIf="post.lastReplier">
+								{{post.lastReplier}} {{post.reply_timestamp | timeAgo }}
+							</span>
+							<span *ngIf="!post.lastReplier"> None </span><br>
+							Likes: {{post.likes}}
+							<span style="font-size:25px; float:right; color:red;" (click)="deletePost(post, i)" class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+						</div>
+					</div>
+			  	</div>
+			  </li>
+			  <li *ngIf="!posts?.length" class="list-group-item">You have no posts.</li>
+			</ul>
+		</div>
+	</div>
+</div>

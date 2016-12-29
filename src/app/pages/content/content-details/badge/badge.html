@@ -1,0 +1,43 @@
+<div id="item">
+	<!-- Title -->
+	<div class="row">
+		<div class="col-lg-4" style="text-align:left;">
+			<a href="#contentModal"  data-toggle="modal">
+				<span style="color:red; font-size:15px;"class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+			</a>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12 text-center">
+			<h2>{{badge?.name}}</h2>
+		</div>
+	</div>
+	<br>
+	<!-- Images -->
+	<div class="row">
+		<div class="col-lg-12 text-center">
+			<img style="height:300px; width:auto; border-radius:7px;" *ngIf="badge?.images[0].image_url" src="{{badge?.images[0]?.image_url}}" alt="{{badge?.name}}'s Image">
+		</div>			
+	</div>
+
+	<hr class="full-length">
+
+	<!-- Quest Description and Ending Message -->
+	<div class="row">
+		<div class="col-lg-12">
+			<h2 class="text-primary">Description</h2>
+			<p>{{badge?.description}}</p>
+		</div>
+	</div>
+
+	<hr class="full-length">
+
+	<!-- Last Edit/Notes -->
+	<div class="row">
+		<div class="col-lg-4 col-lg-offset-8" style="text-align:right;">
+			<p><small>Last edited by {{badge?.last_edit}}</small></p>
+		</div>
+	</div>
+
+
+</div>

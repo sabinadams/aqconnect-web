@@ -1,0 +1,31 @@
+hr {
+	max-width:100%;
+	width:100%;
+}
+
+li.list-group-item {
+    background-color: #1D1D1D;
+    border: 1px solid rgb(149, 107, 185);
+} 
+
+.well {
+    min-height: 20px;
+    padding: 19px;
+    margin-bottom: 20px;
+    background-color: #000000;
+    border: 1px solid rgb(149, 107, 185);
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+}
+.input-group-addon:last-child {
+    border-left:1px;
+    border-right:0;
+    border-top:0;
+    border-bottom:0;
+	background-color:#28252d;
+}
+.input-group-addon:hover {
+	color:#4c4a4a;
+	background-color:rgb(35, 32, 39);
+}

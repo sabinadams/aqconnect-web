@@ -1,0 +1,108 @@
+<div id="location">
+	<!-- Title -->
+	<div class="row">
+		<div class="col-lg-4" style="text-align:left;">
+			<a href="#contentModal"  data-toggle="modal">
+				<span style="color:red; font-size:15px;"class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+			</a>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12 text-center">
+			<h2>{{location?.name}}</h2>
+			<p><small>{{location?.join_command}}</small></p>
+		</div>
+	</div>
+	<br>
+	<!-- Images -->
+	<div class="row">
+		<div class="col-lg-12 text-center">
+			<img *ngIf="location?.images[0].image_url" style="height:300px; width:auto; border-radius:7px;" src="{{location?.images[0]?.image_url}}" alt="{{location?.name}}'s Image">
+		</div>			
+	</div>
+
+	<hr class="full-length">
+
+	<!-- Dropdown Options -->
+	<div class="row">
+		<div class="col-lg-12">
+
+			<!-- Shops -->
+			<div class="col-lg-3" *ngIf="location?.shoppes.length > 0">
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<h3 class="panel-title">Shops</h3>
+					</div>
+					<ul class="list-group">
+						<li *ngFor="let shop of location.shoppes" class="list-group-item"
+							(click)="openRoute(shop.ID, 'shoppes')">{{shop.name}}</li>	
+					</ul>
+				</div>
+			</div>
+			
+			<!-- Craft Shops -->
+			<div class="col-lg-3" *ngIf="location?.craftshoppes.length > 0">
+				<div class="panel panel-info">
+					<div class="panel-heading panel-craftshop">
+						<h3 class="panel-title">Craft Shops</h3>
+					</div>
+					<ul class="list-group">
+						<li *ngFor="let craftshop of location.craftshoppes" class="list-group-item"
+							(click)="openRoute(craftshop.ID, 'craftshoppes')">{{craftshop.name}}</li>	
+					</ul>
+				</div>
+			</div>
+
+			<!-- NPCs -->
+			<div class="col-lg-3" *ngIf="location?.npcs.length > 0">
+				<div class="panel panel-info">
+					<div class="panel-heading panel-npc">
+						<h3 class="panel-title">NPCs</h3>
+					</div>
+					<ul class="list-group">
+						<li *ngFor="let npc of location.npcs" class="list-group-item"
+							(click)="openRoute(npc.ID, 'npcs')">{{npc.name}}</li>	
+					</ul>
+				</div>
+			</div>
+
+			<!-- Monsters -->
+			<div class="col-lg-3" *ngIf="location?.monsters.length > 0">
+				<div class="panel panel-info">
+					<div class="panel-heading panel-monster">
+						<h3 class="panel-title">Monsters</h3>
+					</div>
+					<ul class="list-group">
+						<li *ngFor="let monster of location.monsters" class="list-group-item"
+							(click)="openRoute(monster.ID, 'monsters')">{{monster.name}}</li>	
+					</ul>
+				</div>
+			</div>
+			
+			<!-- Dungeons -->
+			<div class="col-lg-3" *ngIf="location?.dungeons.length > 0">
+				<div class="panel panel-info">
+					<div class="panel-heading panel-dungeon">
+						<h3 class="panel-title">Dungeons Found In</h3>
+					</div>
+					<ul class="list-group">
+						<li *ngFor="let dungeon of location.dungeons" class="list-group-item"
+							(click)="openRoute(dungeon.ID, 'dungeons')">{{dungeon.name}}</li>	
+					</ul>
+				</div>
+			</div>
+
+		</div> 
+	</div> 
+
+	
+
+	<!-- Last Edit/Notes -->
+	<div class="row">
+		<div class="col-lg-4 col-lg-offset-8" style="text-align:right;">
+			<p><small>Last edited by {{location?.last_edit}}</small></p>
+		</div>
+	</div>
+
+
+</div>

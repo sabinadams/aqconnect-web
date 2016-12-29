@@ -1,0 +1,112 @@
+<div id="item">
+	<!-- Title -->
+	<div class="row">
+		<div class="col-lg-4" style="text-align:left;">
+			<a href="#contentModal"  data-toggle="modal">
+				<span style="color:red; font-size:15px;"class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+			</a>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12 text-center">
+			<h2>{{monster?.name}}</h2>
+			<p><small>Lvl. {{monster?.level}}</small></p>
+		</div>
+	</div>
+	<br>
+	<!-- Images -->
+	<div class="row">
+		<div class="col-lg-12 text-center">
+			<div class="sketchfab-embed-wrapper" style="display:inline;" *ngIf="model">
+				<iframe width="auto" height="300" [src]="url | safe:'url'" frameborder="0" allowvr allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" onmousewheel=""></iframe>
+			</div>
+			<img *ngIf="monster?.images[0].image_url && !model" style="height:300px; width:auto; border-radius:7px;" src="{{monster?.images[0]?.image_url}}" alt="{{monster?.name}}'s Image">
+			<div *ngIf="monster?.model_uuid">
+				<span class="label label-default" *ngIf="!model" (click)="toggleModel()">View Model in 3D</span>
+				<span class="label label-default" *ngIf="model" (click)="toggleModel()">Close Model</span>
+			</div>
+		</div>			
+	</div>
+
+	<hr class="full-length">
+
+	<!-- Stats -->
+	<div class="row">
+		<div class="col-lg-12 text-center">
+			<h3>Stats</h3>
+			<hr>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-8 col-lg-offset-2">
+			<div class="col-lg-3 col-sm-3 col-md-3 col-xs-4 text-center"><p class="stats">Health: {{monster?.health}}</p> </div>
+			<div class="col-lg-3 col-sm-3 col-md-3 col-xs-4 text-center"><p class="stats">Mana: {{monster?.mana}}</p> </div>
+			<div class="col-lg-3 col-sm-3 col-md-3 col-xs-4 text-center"><p class="stats">Attack: {{monster?.attack}}</p> </div>
+			<div class="col-lg-3 col-sm-3 col-md-3 col-xs-4 text-center"><p class="stats">Defense: {{monster?.defense}}</p> </div>
+			<div class="col-lg-3 col-sm-3 col-md-3 col-xs-4 text-center"><p class="stats">Crit: {{monster?.crit}}</p> </div>
+			<div class="col-lg-3 col-sm-3 col-md-3 col-xs-4 text-center"><p class="stats">Hit: {{monster?.hit}}</p> </div>
+			<div class="col-lg-3 col-sm-3 col-md-3 col-xs-4 text-center"><p class="stats">Crit Power: {{monster?.crit_power}}</p> </div>
+			<div class="col-lg-3 col-sm-3 col-md-3 col-xs-3 text-center"><p class="stats">Dodge: {{monster?.dodge}}</p> </div>
+		</div>
+	</div>
+
+	<hr class="full-length">
+
+	<!-- Dropdown Options -->
+	<div class="row">
+		<div class="col-lg-12">
+
+			<!-- Locations -->
+			<div class="col-lg-3" *ngIf="monster?.locations.length > 0">
+				<div class="panel panel-info">
+					<div class="panel-heading panel-location">
+						<h3 class="panel-title">Locations</h3>
+					</div>
+					<ul class="list-group">
+						<li *ngFor="let location of monster.locations" class="list-group-item"
+							(click)="openRoute(location.ID, 'locations')">{{location.name}}</li>	
+					</ul>
+				</div>
+			</div>
+
+			<!-- Dungeons -->
+			<div class="col-lg-3" *ngIf="monster?.dungeons.length > 0">
+				<div class="panel panel-info">
+					<div class="panel-heading panel-dungeon">
+						<h3 class="panel-title">Dungeons Found In</h3>
+					</div>
+					<ul class="list-group">
+						<li *ngFor="let dungeon of monster.dungeons" class="list-group-item"
+							(click)="openRoute(dungeon.ID, 'dungeons')">{{dungeon.name}}</li>	
+					</ul>
+				</div>
+			</div>
+			
+			<!-- Drops -->
+			<div class="col-lg-3" *ngIf="monster?.content.length > 0">
+				<div class="panel panel-info">
+					<div class="panel-heading panel-content">
+						<h3 class="panel-title">Item Drops</h3>
+					</div>
+					<ul class="list-group">
+						<li *ngFor="let item of monster.content" class="list-group-item"
+							(click)="openRoute(item.ID, 'items')">{{item.name}}</li>	
+					</ul>
+				</div>
+			</div>
+			
+		</div> 
+	</div> 
+
+	
+
+	<!-- Last Edit/Notes -->
+	<div class="row">
+		<div class="col-lg-4 col-lg-offset-8" style="text-align:right;">
+			<p><small>Last edited by {{monster?.last_edit}}</small></p>
+		</div>
+	</div>
+
+
+
+</div>

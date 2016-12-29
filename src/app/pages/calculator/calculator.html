@@ -1,0 +1,234 @@
+<div class="row">
+		<div class="col-lg-4" style="text-align:left;">
+			<a href="#calculatorModal"  data-toggle="modal">
+				<span style="color:red; font-size:15px;"class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+			</a>
+		</div>
+	</div>
+<h2 style="text-align:center;">Build Stat Calculator 
+<span><small>(You can close the calculator and search for items. Your criteria will be saved.)</small></span></h2>
+<div class="row">
+	<div class="col-lg-6" style="text-align:left;">
+		<button type="button" (click)="restart()" style="border-color:#f37070; border-radius:7px" class="btn btn-primary btn-md">
+			Restart
+		</button>
+	</div>
+	<div class="col-lg-6" style="text-align:right;">
+		<button type="button" (click)="calculate()" style="border-color:#9494f3; border-radius:7px" class="btn btn-primary btn-md">
+			Calculate
+		</button>
+	</div>
+</div>
+<hr>
+<!-- Sort and Search -->
+<div class="row" *ngIf="!showResults">
+    <div class="col-lg-4 col-sm-4 col-xs-12" style="text-align:left;">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search {{itemtype}}" [(ngModel)]="filter" style="border-radius:5px;">
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-4 col-xs-12" style="text-align:center;">
+        <select [(ngModel)]="itemtype" (change)="changeListener($event)" name="search" placeholder="Item Type" class="ui fluid search selection dropdown">
+            <option value="armors">Armors</option>
+            <option value="belts">Belts</option>
+            <option value="boots">Boots</option>
+            <option value="capes">Capes</option>
+            <option value="classes">Classes</option>
+            <option value="gloves">Gloves</option>
+            <option value="helms">Helms</option>
+            <option value="shoulderplates">Shoulderplates</option>
+            <option value="weapons">Weapons</option>
+        </select>
+    </div>
+    <div class="col-lg-4 col-sm-4 col-xs-12" style="text-align:right;">
+        <select [(ngModel)]="filtertype" name="search" placeholder="Select A Filter" class="ui fluid search selection dropdown">
+            <option value="alpha">Alphabetical</option>
+            <option value="name">Reverse Alphabetical</option>
+            <option value="ID">Most Recent</option>
+            <option value="level">Level</option>
+            <option value="rarity">Rarity</option>
+            <option value="health">Health</option>
+            <option value="mana">Mana</option>
+            <option value="attack">Attack</option>
+            <option value="defense">Defense</option>
+            <option value="crit">Crit</option>
+            <option value="hit">Hit</option>
+            <option value="crit_power">Crit Power</option>
+            <option value="dodge">Dodge</option>
+        </select>
+    </div>
+</div><hr *ngIf="!showResults">
+<div class="row text-center" *ngIf="!showResults">
+	<div class="col-lg-1">
+		<button type="button" (click)="resetField()" style="border-color:#cec464; border-radius:7px" class="btn btn-primary btn-md">
+			Deselect {{itemtype}}
+		</button>
+	</div>
+	<div class="col-lg-1 col-lg-offset-1"><p><span class="label label-default" (click)="changeItemType('armors')" [ngStyle]="{'background-color':selecteditems.armors ? '#76bb76' : '#946bb8'}">Armor</span></p></div>
+	<div class="col-lg-1"><p><span class="label label-default" (click)="changeItemType('belts')" [ngStyle]="{'background-color':selecteditems.belts ? '#76bb76' : '#946bb8'}">Belt</span></p></div>
+	<div class="col-lg-1"><p><span class="label label-default" (click)="changeItemType('boots')" [ngStyle]="{'background-color':selecteditems.boots ? '#76bb76' : '#946bb8'}">Boots</span></p></div>
+	<div class="col-lg-1"><p><span class="label label-default" (click)="changeItemType('capes')" [ngStyle]="{'background-color':selecteditems.capes ? '#76bb76' : '#946bb8'}">Cape</span></p></div>
+	<div class="col-lg-1"><p><span class="label label-default" (click)="changeItemType('classes')" [ngStyle]="{'background-color':selecteditems.classes ? '#76bb76' : '#946bb8'}">Class</span></p></div>
+	<div class="col-lg-1"><p><span class="label label-default" (click)="changeItemType('gloves')" [ngStyle]="{'background-color':selecteditems.gloves ? '#76bb76' : '#946bb8'}">Gloves</span></p></div>
+	<div class="col-lg-1"><p><span class="label label-default" (click)="changeItemType('helms')" [ngStyle]="{'background-color':selecteditems.helms ? '#76bb76' : '#946bb8'}">Helm/Hood</span></p></div>
+	<div class="col-lg-1"><p><span class="label label-default" (click)="changeItemType('shoulderplates')" [ngStyle]="{'background-color':selecteditems.shoulderplates ? '#76bb76' : '#946bb8'}">Shoulderplates</span></p></div>
+	<div class="col-lg-1"><p><span class="label label-default" (click)="changeItemType('weapons')" [ngStyle]="{'background-color':selecteditems.weapons ? '#76bb76' : '#946bb8'}">Weapon</span></p></div>
+	<div class="col-lg-1">
+		<select [(ngModel)]="level" name="User Level" class="ui fluid search selection dropdown" style="width:100%">
+            <option value="0">Level (0)</option>
+            <option value="1">1</option>
+            <option value="2">2 </option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+        </select>
+	</div>
+
+</div><hr *ngIf="!showResults">
+<div class="row" *ngIf="!showResults">
+	<div class="loader" *ngIf="!selectedtype?.length">Loading...</div>
+	<div class="col-lg-4" *ngFor="let item of (selectedtype | search:filter | sort:filtertype) " (click)="selectItem(item)">
+		<div class="panel panel-info">
+			<div class="panel-heading panel-monster">
+				<h3 class="panel-title" [ngStyle]="{'color':item.rarity | itemRarity:'calc_color'}">{{item.name}}</h3><hr>
+				<div class="row">
+					<div class="col-lg-12" *ngIf="itemtype != 'classes' && itemtype != 'armors'">
+						<div class="col-lg-6 col-sm-6 col-md-6 col-xs-6" ><p class="stats">Health: {{item?.health}}</p> </div>
+						<div class="col-lg-6 col-sm-6 col-md-6 col-xs-6" ><p class="stats">Mana: {{item?.mana}}</p> </div>
+						<div class="col-lg-6 col-sm-6 col-md-6 col-xs-6" ><p class="stats">Attack: {{item?.attack}}</p> </div>
+						<div class="col-lg-6 col-sm-6 col-md-6 col-xs-6" ><p class="stats">Defense: {{item?.defense}}</p> </div>
+						<div class="col-lg-6 col-sm-6 col-md-6 col-xs-6" ><p class="stats">Crit: {{item?.crit}}</p> </div>
+						<div class="col-lg-6 col-sm-6 col-md-6 col-xs-6" ><p class="stats">Hit: {{item?.hit}}</p> </div>
+						<div class="col-lg-6 col-sm-6 col-md-6 col-xs-6" ><p class="stats">Crit Power: {{item?.crit_power}}</p> </div>
+						<div class="col-lg-6 col-sm-6 col-md-6 col-xs-6" ><p class="stats">Dodge: {{item?.dodge}}</p> </div>
+					</div>
+					<div class="col-lg-12" *ngIf="itemtype == 'classes'" style="height:200px; overflow-y: scroll;">
+						<h3 class="text-center">Skills</h3>
+						<div class="col-lg-12"><p class="stats">{{item?.skill_one}}</p><hr></div>
+						<div class="col-lg-12"><p class="stats">{{item?.skill_two}}</p><hr></div>
+						<div class="col-lg-12"><p class="stats">{{item?.skill_three}}</p><hr></div>
+						<div class="col-lg-12"><p class="stats">{{item?.skill_four}}</p></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row text-center" *ngIf="showResults">
+	<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+	  <!-- Wrapper for slides -->
+	  <div class="carousel-inner" role="listbox">
+	    <div class="item active" *ngIf="results.armors">
+	      <img src="{{results.armors.images[0].image_url}}" alt="test">
+	      <div class="carousel-caption">
+	        <!-- <h2>Armor [Male]</h2> -->
+			{{results.armors.name}} [Male]
+	      </div>
+	    </div>
+	    <div class="item" *ngIf="results.armors">
+	      <img *ngIf="results.armors.images[1]" src="{{results.armors.images[1].image_url}}" alt="test">
+	      <div class="carousel-caption">
+	        <!-- Armor [Female] -->
+	        {{results.armors.name}} [Female]
+	      </div>
+	    </div>
+	    <div class="item" *ngIf="results.belts">
+	      <img *ngIf="results.belts.images[0]" src="{{results.belts.images[0].image_url}}" alt="test">
+	      <div class="carousel-caption">
+	        <!-- Belt -->
+	        {{results.belts.name}}
+	      </div>
+	    </div>
+	    <div class="item" *ngIf="results.boots">
+	      <img *ngIf="results.boots.images[0]" src="{{results.boots.images[0].image_url}}" alt="test">
+	      <div class="carousel-caption">
+	        <!-- Boots -->
+	        {{results.boots.name}}
+	      </div>
+	    </div>
+	    <div class="item" *ngIf="results.capes">
+	      <img *ngIf="results.capes.images[0]" src="{{results.capes.images[0].image_url}}" alt="test">
+	      <div class="carousel-caption">
+	        <!-- Cape -->
+	        {{results.capes.name}}
+	      </div>
+	    </div>
+	    <div class="item" *ngIf="results.classes">
+	      <img *ngIf="results.classes.images[0]" src="{{results.classes.images[0].image_url}}" alt="test">
+	      <div class="carousel-caption">
+	        <!-- Class -->
+	        {{results.classes.name}} Class
+	      </div>
+	    </div>
+	    <div class="item" *ngIf="results.gloves">
+	      <img *ngIf="results.gloves.images[0]" src="{{results.gloves.images[0].image_url}}" alt="test">
+	      <div class="carousel-caption">
+	        <!-- Gloves -->
+	        {{results.gloves.name}}
+	      </div>
+	    </div>
+	    <div class="item" *ngIf="results.helms">
+	      <img *ngIf="results.helms.images[0]" src="{{results.helms.images[0].image_url}}" alt="test">
+	      <div class="carousel-caption">
+	        <!-- Helm -->
+	        {{results.helms.name}}
+	      </div>
+	    </div>
+	    <div class="item" *ngIf="results.shoulderplates">
+	      <img *ngIf="results.shoulderplates.images[0]" src="{{results.shoulderplates.images[0].image_url}}" alt="test">
+	      <div class="carousel-caption">
+	        <!-- Shoulderplates -->
+	        {{results.shoulderplates.name}}
+	      </div>
+	    </div>
+	    <div class="item" *ngIf="results.weapons">
+	      <img *ngIf="results.weapons.images[0]" src="{{results.weapons.images[0].image_url}}" alt="test">
+	      <div class="carousel-caption">
+	        <!-- Weapon -->
+	        {{results.weapons.name}}
+	      </div>
+	    </div>
+	  </div>
+
+	  <!-- Controls -->
+	  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+	    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+	    <span class="sr-only">Previous</span>
+	  </a>
+	  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+	    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+	    <span class="sr-only">Next</span>
+	  </a>
+	</div>
+
+	<br>
+	<div class="col-lg-6" style="float:none; margin:auto;">
+		<h2>Stats</h2><hr>
+	    <div class="col-lg-3 col-sm-3 col-md-3 col-xs-3" ><p class="stats">Health: {{results?.health}}</p> </div>
+		<div class="col-lg-3 col-sm-3 col-md-3 col-xs-3" ><p class="stats">Mana: {{results?.mana}}</p> </div>
+		<div class="col-lg-3 col-sm-3 col-md-3 col-xs-3" ><p class="stats">Attack: {{results?.attack}}</p> </div>
+		<div class="col-lg-3 col-sm-3 col-md-3 col-xs-3" ><p class="stats">Defense: {{results?.defense}}</p> </div>
+		<div class="col-lg-3 col-sm-3 col-md-3 col-xs-3" ><p class="stats">Crit: {{results?.crit}}</p> </div>
+		<div class="col-lg-3 col-sm-3 col-md-3 col-xs-3" ><p class="stats">Hit: {{results?.hit}}</p> </div>
+		<div class="col-lg-3 col-sm-3 col-md-3 col-xs-3" ><p class="stats">Crit Power: {{results?.crit_power}}</p> </div>
+		<div class="col-lg-3 col-sm-3 col-md-3 col-xs-3" ><p class="stats">Dodge: {{results?.dodge}}</p> </div>
+	</div><br>
+	
+	<div class="col-lg-6" style="float:none; margin:auto;">
+		<h2 style="margin-top:40px;">Skills</h2><hr>
+	    <div class="col-lg-12" ><p class="result-skills"> 1) {{results?.skill_one}}</p> </div>
+		<div class="col-lg-12" ><p class="result-skills"> 2) {{results?.skill_two}}</p> </div>
+		<div class="col-lg-12" ><p class="result-skills"> 3) {{results?.skill_three}}</p> </div>
+		<div class="col-lg-12" ><p class="result-skills"> 4) {{results?.skill_four}}</p> </div>
+	</div>
+</div>

@@ -1,0 +1,84 @@
+<div id="item">
+	<!-- Title -->
+	<div class="row">
+		<div class="col-lg-4" style="text-align:left;">
+			<a href="#contentModal"  data-toggle="modal">
+				<span style="color:red; font-size:15px;"class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+			</a>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12 text-center">
+			<h2>{{dungeon?.name}}</h2>
+		</div>
+	</div>
+	<br>
+	<!-- Images -->
+	<div class="row">
+		<div class="col-lg-12 text-center">
+			<img *ngIf="dungeon?.images[0].image_url" style="height:300px; width:auto; border-radius:7px;" src="{{dungeon?.images[0]?.image_url}}" alt="{{dungeon?.name}}'s Image">
+			<div class="text-center">
+				<p class="stats">Lvl.{{dungeon?.level}} |  <b>Key Cost:</b> {{dungeon?.key_cost}} </p>
+			</div>
+		</div>			
+	</div>
+
+	<hr class="full-length">
+
+	<!-- Dropdown Options -->
+	<div class="row">
+		<div class="col-lg-12">
+
+			<!-- Locations -->
+			<div class="col-lg-3" *ngIf="dungeon?.locations.length > 0">
+				<div class="panel panel-info">
+					<div class="panel-heading panel-location">
+						<h3 class="panel-title">Locations of Entrance</h3>
+					</div>
+					<ul class="list-group">
+						<li *ngFor="let location of dungeon.locations" class="list-group-item"
+							(click)="openRoute(location.ID, 'locations')">{{location.name}}</li>	
+					</ul>
+				</div>
+			</div>
+
+			<!-- Monsters -->
+			<div class="col-lg-3" *ngIf="dungeon?.monsters.length > 0">
+				<div class="panel panel-info">
+					<div class="panel-heading panel-monster">
+						<h3 class="panel-title">Monsters</h3>
+					</div>
+					<ul class="list-group">
+						<li *ngFor="let monster of dungeon.monsters" class="list-group-item"
+							(click)="openRoute(monster.ID, 'monsters')">{{monster.name}}</li>	
+					</ul>
+				</div>
+			</div>
+			
+			<!-- Content -->
+			<div class="col-lg-3" *ngIf="dungeon?.content.length > 0">
+				<div class="panel panel-info">
+					<div class="panel-heading panel-content">
+						<h3 class="panel-title">Items</h3>
+					</div>
+					<ul class="list-group">
+						<li *ngFor="let item of dungeon.content" class="list-group-item"
+							(click)="openRoute(item.ID, 'items')">{{item.name}}</li>	
+					</ul>
+				</div>
+			</div>
+
+		</div> 
+	</div> 
+
+	
+
+	<!-- Last Edit/Notes -->
+	<div class="row">
+		<div class="col-lg-4 col-lg-offset-8" style="text-align:right;">
+			<p><small>Last edited by {{dungeon?.last_edit}}</small></p>
+		</div>
+	</div>
+
+
+</div>

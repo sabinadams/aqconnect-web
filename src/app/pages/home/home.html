@@ -1,0 +1,178 @@
+<header id="first">
+    <div class="header-content">
+        <div class="inner">
+            <img style="height:300px; width:auto; border-radius:7px;" src="http://i.imgur.com/uIsOLj2.png" alt="Post's Image">
+            <h1 class="cursive">AQConnect</h1>
+            <h4>Explore, Interact, Connect!</h4>
+            <hr>
+            <a href="#latest" class="btn btn-primary btn-xl page-scroll">Latest News</a>
+            <a href="#team" class="btn btn-primary btn-xl page-scroll">The Team</a>
+            <a href="#about" class="btn btn-primary btn-xl page-scroll">About AQC</a>
+        </div>
+    </div>
+</header>
+<div class="container-fluid bg-dark" id="latest">
+    <div class="row" style="padding-top:10px;">
+        <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 text-center">
+            <h2 class="margin-top-0 text-primary">Latest News!</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                   <div class="new_html_code">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h2 style="text-align:center;">{{news[0]?.name}} <span><small><p>by {{news[0]?.AUTHOR}} on {{news[0]?.date | date:"MM/dd/yy"}}</p></small></span></h2><hr>
+                                </div>
+                            </div>
+                            <div class="row" style="margin:auto;">
+                                <div class="col-lg-10 col-lg-offset-1 text-center" style="padding-bottom:20px;">
+                                    <p>{{news[0]?.text_preview}}</p>
+                                     <a (click)="openDetail(news[0]?.ID)" style="color:#956bb9; border-color:#956bb9;" data-toggle="modal" href="#newsModal" class="btn btn-primary btn-md page-scroll">Read More</a><br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item" *ngFor="let post of news.slice(1)">
+                   <div class="new_html_code">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h2 style="text-align:center;">{{post?.name}} <span><small><p>by {{post?.AUTHOR}} on {{post?.date | date:"MM/dd/yy"}}</p></small></span></h2><hr>
+                                </div>
+                            </div>
+                            <div class="row" style="margin:auto;">
+                                <div class="col-lg-10 col-lg-offset-1 text-center" style="padding-bottom:20px;">
+                                    <!-- <div [innerHTML]="post?.text"></div> -->
+                                    <p>{{post?.text_preview}}</p>
+                                    <a (click)="openDetail(post.ID)" class="btn btn-primary btn-md page-scroll" data-toggle="modal" href="#newsModal" style="color:#956bb9; border-color:#956bb9;">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Controls -->
+            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- All images must be scaled properly -->
+<section id="team">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 text-center">
+                <h2 class="margin-top-0 text-primary">Our Team!</h2>        
+                <br>            
+            </div>
+        </div>
+        <div class="row no-gutter">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6" *ngFor="let member of team" (click)="focusMember(member)">
+                <a href="#galleryModal" class="gallery-box" data-toggle="modal">
+                    <img src="{{member.image_url}}" class="img-responsive" alt="{{member.name}}'s Image">
+                    <div class="gallery-box-caption">
+                        <div class="gallery-box-content">
+                            <div>
+                                <h2 [ngStyle]="{'color':member?.access_level | staffType:'name_color'}">{{member.name}}</h2>
+                                <p>{{member.access_level | staffType:'job_title'}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<footer id="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="margin-top-0 text-primary">About AQConnect</h2>
+                <br>
+                <div class="col-lg-4">
+                    <div class="media wow fadeInRight">
+                        <div class="media-body media-middle">
+                            <p class="text-faded">
+                                This project is dedicated to helping unite and build the AQ3D Community! Meant to be used as a meeting place, info broker, social interaction tool, and more!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="media wow fadeIn">
+                        <div class="media-body media-middle">
+                            <p class="text-faded">
+                                We started with a simple app, but as our community has grown and a greater need for maximum useablility of AQConnect arose, we decided it was time to get serious and build a website.
+                            </p>
+                        </div>
+                    </div>  
+                </div>
+                <div class="col-lg-4">
+                    <div class="media wow fadeInLeft">
+                        <div class="media-body media-middle">
+                            <p class="text-faded">
+                                We hope you enjoy our growing community! If you have any suggestions, concerns, problems please feel free to contact us and we will be happy to talk with you.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="social">
+        <a class="twitterBtn-home smGlobalBtn" href="https://twitter.com/OfficialAQC" ></a>
+    </div>
+    <br>
+    <span class="pull-right text-muted small">AQConnect</span>
+</footer>
+
+<!-- Popup for opening an image in the gallery -->
+<div id="galleryModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <img src="{{current_member?.image_url}}" id="galleryImage" class="img-responsive staff-modal" />
+                        <h2 class="staff-name"  [ngStyle]="{'color':current_member?.access_level | staffType:'name_color'}">{{current_member?.name}} <span><small>{{current_member?.access_level | staffType:'job_title'}}</small></span></h2>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="row">
+                            <h2 class="text-primary">About {{current_member?.name}}</h2>
+                            <p>{{current_member?.description}}</p> 
+                        </div>
+                        <div class="row">
+                            <h2 class="text-primary">Contact Info/Social Media</h2>
+                            <!-- Only display each if the staff member has one -->
+                            <div id="social" style="text-align:left;">
+                                <a *ngIf="current_member?.facebook" class="facebookBtn smGlobalBtn" href="{{current_member?.facebook}}" ></a>
+                                <a *ngIf="current_member?.twitter" class="twitterBtn smGlobalBtn" href="{{current_member?.twitter}}" ></a>
+                                <a *ngIf="current_member?.tumblr" class="tumblrBtn smGlobalBtn" href="{{current_member?.tumblr}}" ></a>
+                            </div>
+                            <p *ngIf="!current_member?.facebook && !current_member?.twitter && !current_member?.tumblr">None Provided</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <button class="btn btn-primary btn-lg center-block" data-dismiss="modal" aria-hidden="true">Close <i class="ion-android-close"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

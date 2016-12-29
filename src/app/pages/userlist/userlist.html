@@ -1,0 +1,36 @@
+<div id="userlist">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-lg-12" style="margin-bottom:10px;">
+				<div class="col-lg-4" *ngIf="users || users?.length">
+					<div class="input-group">
+			          <input type="text" style="text-align:left;" class="form-control" placeholder="Search Users" [(ngModel)]="filter" style="border-radius:5px;">
+			        </div>
+				</div>
+				<div class="col-lg-4" style="text-align:center;" *ngIf="users || users?.length">
+					{{users?.length}} Users
+				</div>
+			</div>
+			<div class="loader" *ngIf="!users || !users?.length">Loading...</div>
+			<div class="col-lg-4" *ngFor="let user of (users | search:filter)" (click)="openProfile(user?.ID)" data-toggle="modal" href="#userModal">
+				<div class="well">
+					<div class="media">
+					  <div class="media-left">
+					      <img class="media-object" src="{{user?.image_url}}" style="height:75px; width:auto; border-radius:7px;" alt="">
+					      <span *ngIf="user?.online == 1" class="label label-success">Online</span>
+					      <span *ngIf="user?.online == 2" class="label label-warning">Away</span>
+						  <span *ngIf="user?.online == 3 && user?.last_online" class="label label-default">Last Online {{user?.last_online | timeAgo}}</span>
+					  </div>
+					  <div class="media-body">
+					    <h4 class="media-heading">{{user?.name}}
+					    	<span style="font-size:12px;" *ngIf="user?.title.length">[{{user?.title}}]</span>
+					    </h4>
+					    <hr>
+					    <p style="height:70px; overflow-y:scroll;"><small>{{user?.description}}</small></p>
+					  </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

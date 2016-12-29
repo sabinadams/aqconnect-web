@@ -1,0 +1,17 @@
+:host >>> .post-body img {
+  max-width:100%;
+  height:auto !important;
+  text-align:center;
+  margin:auto;
+  display:block;
+}
+#newsdetail hr{
+	max-width:85%;
+	width:85%;
+	margin:auto;
+}
+
+#newsdetail .thumbnail {
+	background:transparent;
+	border:0;
+}

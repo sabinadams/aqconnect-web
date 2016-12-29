@@ -1,0 +1,81 @@
+<div id="item">
+	<!-- Title -->
+	<div class="row">
+		<div class="col-lg-4" style="text-align:left;">
+			<a href="#contentModal"  data-toggle="modal">
+				<span style="color:red; font-size:15px;"class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+			</a>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12 text-center">
+			<h2>{{shop?.name}}</h2>
+		</div>
+	</div>
+	<br>
+	<!-- Images -->
+	<div class="row">
+		<div class="col-lg-12 text-center">
+			<img *ngIf="shop?.images[0]?.image_url" style="height:300px; width:auto; border-radius:7px;" src="{{shop?.images[0]?.image_url}}" alt="{{shop?.name}}'s Image">
+			<img *ngIf="shop?.images?.length > 1" style="height:300px; width:auto; border-radius:7px;" src="{{shop?.images[1]?.image_url}}" alt=""><br>
+		</div>			
+	</div>
+
+	<hr class="full-length">
+
+	<!-- Dropdown Options -->
+	<div class="row">
+		<div class="col-lg-12">
+
+			<!-- Locations -->
+			<div class="col-lg-3" *ngIf="shop?.locations.length > 0">
+				<div class="panel panel-info">
+					<div class="panel-heading panel-location">
+						<h3 class="panel-title">Locations</h3>
+					</div>
+					<ul class="list-group">
+						<li *ngFor="let location of shop.locations" class="list-group-item"
+							(click)="openRoute(location.ID, 'locations')">{{location.name}}</li>	
+					</ul>
+				</div>
+			</div>
+
+			<!-- Content -->
+			<div class="col-lg-3" *ngIf="shop?.content.length > 0">
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<h3 class="panel-title">Content</h3>
+					</div>
+					<ul class="list-group">
+						<li *ngFor="let item of shop.content" class="list-group-item"
+							(click)="openRoute(item.ID, 'items')">{{item.name}}: {{item.price}} g</li>	
+					</ul>
+				</div>
+			</div>
+			
+			<!-- NPC -->
+			<div class="col-lg-3" *ngIf="shop?.npcs.length > 0">
+				<div class="panel panel-info">
+					<div class="panel-heading panel-npc">
+						<h3 class="panel-title">NPCs</h3>
+					</div>
+					<ul class="list-group">
+						<li *ngFor="let npc of shop.npcs" class="list-group-item"
+							(click)="openRoute(npc.ID, 'npcs')">{{npc.name}}</li>	
+					</ul>
+				</div>
+			</div>
+
+		</div> 
+	</div> 
+
+	<!-- Last Edit/Notes -->
+	<div class="row">
+		<div class="col-lg-4 col-lg-offset-8" style="text-align:right;">
+			<p><small>Last edited by {{shop?.last_edit}}</small></p>
+		</div>
+	</div>
+
+
+
+</div>

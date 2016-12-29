@@ -1,0 +1,88 @@
+<div id="item">
+	<!-- Title -->
+	<div class="row">
+		<div class="col-lg-4" style="text-align:left;">
+			<a href="#contentModal"  data-toggle="modal">
+				<span style="color:red; font-size:15px;"class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+			</a>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12 text-center">
+			<h2>{{quest?.name}}</h2>
+			<span class="label label-default" *ngIf="quest?.repeatable">Repeatable</span>
+		</div>
+	</div>
+	<br>
+	<!-- Images -->
+	<div class="row">
+		<div class="col-lg-12 text-center">
+			<img *ngIf="quest?.images[0]?.image_url" style="height:300px; width:auto; border-radius:7px;" src="{{quest?.images[0]?.image_url}}" alt="{{quest?.name}}'s Image">
+			<img *ngIf="quest?.images.length > 1" style="height:300px; width:auto; border-radius:7px;" src="{{quest?.images[1]?.image_url}}" alt=""><br>
+		</div>			
+	</div>
+
+	<hr class="full-length">
+
+	<!-- Quest Description and Ending Message -->
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="col-lg-6">
+				<h2 class="text-primary">Description</h2>
+				<p>{{quest?.description}}</p>
+			</div>
+			<div class="col-lg-6">
+				<h2 class="text-primary">Completion Text</h2>
+				<p>{{quest?.quest_complete}}</p>
+			</div>
+		</div>
+	</div>
+
+	<hr class="full-length">
+
+	<!-- Dropdown Options -->
+	<div class="row">
+		<div class="col-lg-12">
+
+			<!-- Requirements -->
+			<div class="col-lg-6" *ngIf="quest?.quests_requirements.length > 0">
+				<div class="panel panel-info">
+					<div class="panel-heading panel-location">
+						<h3 class="panel-title">Requirements</h3>
+					</div>
+					<ul class="list-group">
+						<li *ngFor="let item of quest.quests_requirements" class="list-group-item"
+							(click)="openRoute(item.ID, 'items')">{{item.name}}</li>	
+					</ul>
+				</div>
+			</div>
+
+			<!-- Requirements -->
+			<div class="col-lg-6" *ngIf="quest?.content.length > 0 || quest?.exp_reward || quest?.gold_reward">
+				<div class="panel panel-info">
+					<div class="panel-heading panel-content">
+						<h3 class="panel-title">Rewards</h3>
+					</div>
+					<ul class="list-group">
+						<li *ngFor="let item of quest.content" class="list-group-item"
+							(click)="openRoute(item.ID, 'items')">{{item.name}}</li>	
+						<li class="list-group-item">{{quest?.gold_reward}} g</li>
+						<li class="list-group-item">{{quest?.exp_reward}} exp</li>
+					</ul>
+				</div>
+			</div>
+
+		</div> 
+	</div> 
+
+	
+
+	<!-- Last Edit/Notes -->
+	<div class="row">
+		<div class="col-lg-4 col-lg-offset-8" style="text-align:right;">
+			<p><small>Last edited by {{quest?.last_edit}}</small></p>
+		</div>
+	</div>
+
+
+</div>

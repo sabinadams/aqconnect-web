@@ -1,0 +1,29 @@
+<div id="newsdetail">
+	<div class="row">
+		<div class="col-lg-4" style="text-align:left;">
+			<a href="#newsModal"  data-toggle="modal">
+				<span style="color:red; font-size:15px;"class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+			</a>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12 text-center">
+			<h2> {{post?.name}}</h2>
+			<img  style="border-radius:7px;height:40px;width:auto; margin-right:10px;" src="{{post?.staff[0]?.image_url}}" alt="..."><p style="display:inline;"><small> By {{post?.staff[0].name}} on {{post?.date | date: "MM/dd/yyyy"}}</small></p>
+		</div>
+	</div>
+	<hr class="full-length">
+	<br>
+	<!-- Images -->
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="text-center">
+				<img *ngIf="post?.images[0]?.image_url" style="height:300px; width:auto; border-radius:7px; margin-bottom:15px;" src="{{post?.images[0]?.image_url}}" alt="Post's Image">
+			</div>
+
+			<div class="post-body" [innerHTML]="post?.text | safe:'html'">
+				
+			</div>
+		</div>			
+	</div>
+</div>

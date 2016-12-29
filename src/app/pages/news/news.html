@@ -1,0 +1,26 @@
+<div id="news">
+	<div class="container-fluid">
+		<div class="col-lg-12">
+			<ul class="list-group">
+			  <div class="loader" *ngIf="!news || !news.length">Loading...</div>
+			  <li *ngFor="let post of news" class="list-group-item" data-toggle="modal" href="#newsModal" (click)="openDetail(post.ID)">
+			  	<div class="row">
+			  		<div class="col-lg-2">
+			  			<span class="label label-default" [ngStyle]="{'background-color':+post?.news_type | newsType:'color'}">
+			  				{{post.news_type | newsType}} 
+			  			</span>
+			  		</div>
+			  		<div class="col-lg-7">
+			  			<p>{{post.name}}</p>
+			  			<hr>
+			  			<p style="color: #956bb9;"><small>{{post.text_preview}}</small></p>
+			  		</div>
+					<div class="col-lg-3">
+						{{post.AUTHOR}} on {{post.date | date:"MM/dd/yyyy"}}
+					</div>
+			  	</div>
+			  </li>
+			</ul>
+		</div>
+	</div>
+</div>

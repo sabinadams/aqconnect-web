@@ -1,0 +1,195 @@
+<div id="item">
+	<!-- Title -->
+	<div class="row">
+		<div class="col-lg-4" style="text-align:left;">
+			<a href="#contentModal"  data-toggle="modal">
+				<span style="color:red; font-size:15px;"class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+			</a>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12 text-center">
+			<h2 [ngStyle]="{'color':+item?.rarity | itemRarity:'rare_color'}">{{item?.name}} <br><small>Stack: x{{item?.stack}}</small></h2>
+			<p><small>{{item?.description}}</small></p>
+		</div>
+	</div>
+	<br>
+	<!-- Images -->
+	<div class="row">
+		<div class="col-lg-12 text-center">
+			<img *ngIf="!malemodel && !femalemodel && !model && item?.images[0]?.image_url" style="height:300px; width:auto; border-radius:7px;" src="{{item?.images[0]?.image_url}}" alt="{{item?.name}}'s Image">
+
+			<!-- Male 3D -->
+			<div class="sketchfab-embed-wrapper" style="display:inline;" *ngIf="malemodel || model">
+				<iframe width="auto" height="300" [src]="srcMale | safe:'url'" frameborder="0" allowvr allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" onmousewheel=""></iframe>
+			</div>
+			<!-- Female 3D -->
+			<div class="sketchfab-embed-wrapper" style="display:inline;" *ngIf="femalemodel">
+				<iframe width="auto" height="300" [src]="srcFemale | safe:'url'" frameborder="0" allowvr allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" onmousewheel=""></iframe>
+			</div>
+
+			<img *ngIf="item?.images.length > 1 && !femalemodel && !malemodel && !model" style="height:300px; width:auto; border-radius:7px;" src="{{item?.images[1]?.image_url}}" alt=""><br>
+
+			<!-- Male -->
+			<div *ngIf="item?.female_model_uuid || item?.male_model_uuid" style="display:inline;">
+				<span class="label label-default" *ngIf="malemodel && !femalemodel && item?.male_model_uuid" (click)="toggleMale3D()">Close Male 3D</span>
+				<span class="label label-default" *ngIf="!malemodel && !femalemodel && item?.male_model_uuid" (click)="toggleMale3D()">View Male Model in 3D</span>
+				<span class="label label-default" *ngIf="femalemodel && !malemodel && item?.female_model_uuid" (click)="toggleFemale3D()">Close Female 3D</span>
+				<span class="label label-default" *ngIf="!femalemodel && !malemodel && item?.female_model_uuid" (click)="toggleFemale3D()">View Female Model in 3D</span>
+			</div>
+
+	
+
+			<!-- Item -->
+			<div *ngIf="item?.content_types_ID != 1">
+				<span class="label label-default" *ngIf="model && item?.male_model_uuid"  (click)="toggleModel()">Close 3D View</span>
+				<span class="label label-default" *ngIf="!model && item?.male_model_uuid"  (click)="toggleModel()">View in 3D</span>
+			</div>
+
+
+			<div class="text-center">
+				<p class="stats">
+					<span *ngIf="item?.price != undefined"><b>Price:</b> {{item?.price }} g </span> 
+					<span *ngIf="item?.sellback != undefined"><b> | Sellback:</b> {{item?.sellback}} g </span> 
+					<span *ngIf="item?.dg_cost != undefined"><b>| DG Price:</b> {{item?.dg_cost}} gems  </span>
+					<span *ngIf="item?.dg_sellback != undefined"><b>| DG Sellback:</b> {{item?.dg_sellback}} g</span>
+				</p>
+			</div>
+		</div>			
+	</div>
+
+	<hr class="full-length">
+
+	<!-- Stats -->
+	<div class="row">
+		<div class="col-lg-12 text-center">
+			<h3>Stats</h3>
+			<hr>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-8 col-lg-offset-2">
+			<div class="col-lg-3 col-sm-3 col-md-3 col-xs-4 text-center"><p class="stats">Health: {{item?.health}}</p> </div>
+			<div class="col-lg-3 col-sm-3 col-md-3 col-xs-4 text-center"><p class="stats">Mana: {{item?.mana}}</p> </div>
+			<div class="col-lg-3 col-sm-3 col-md-3 col-xs-4 text-center"><p class="stats">Attack: {{item?.attack}}</p> </div>
+			<div class="col-lg-3 col-sm-3 col-md-3 col-xs-4 text-center"><p class="stats">Defense: {{item?.defense}}</p> </div>
+			<div class="col-lg-3 col-sm-3 col-md-3 col-xs-4 text-center"><p class="stats">Crit: {{item?.crit}}</p> </div>
+			<div class="col-lg-3 col-sm-3 col-md-3 col-xs-4 text-center"><p class="stats">Hit: {{item?.hit}}</p> </div>
+			<div class="col-lg-3 col-sm-3 col-md-3 col-xs-4 text-center"><p class="stats">Crit Power: {{item?.crit_power}}</p> </div>
+			<div class="col-lg-3 col-sm-3 col-md-3 col-xs-3 text-center"><p class="stats">Dodge: {{item?.dodge}}</p> </div>
+		</div>
+	</div>
+
+	<hr class="full-length">
+
+	<!-- Dropdown Options -->
+	<div class="row">
+		<div class="col-lg-12">
+
+			<!-- Locations -->
+			<div class="col-lg-3" *ngIf="item?.locations.length > 0">
+				<div class="panel panel-info">
+					<div class="panel-heading panel-location">
+						<h3 class="panel-title">Locations</h3>
+					</div>
+					<ul class="list-group">
+						<li *ngFor="let location of item.locations" class="list-group-item"
+							(click)="openRoute(location.ID, 'locations')">{{location.name}}</li>	
+					</ul>
+				</div>
+			</div>
+
+			<!-- Shops -->
+			<div class="col-lg-3" *ngIf="item?.shoppes.length > 0">
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<h3 class="panel-title">Shops</h3>
+					</div>
+					<ul class="list-group">
+						<li *ngFor="let shop of item.shoppes" class="list-group-item"
+							(click)="openRoute(shop.ID, 'shoppes')">{{shop.name}}</li>	
+					</ul>
+				</div>
+			</div>
+			
+			<!-- Craft Shops -->
+			<div class="col-lg-3" *ngIf="item?.craftshoppes.length > 0">
+				<div class="panel panel-info">
+					<div class="panel-heading panel-craftshop">
+						<h3 class="panel-title">Craft Shops</h3>
+					</div>
+					<ul class="list-group">
+						<li *ngFor="let craftshop of item.craftshoppes" class="list-group-item"
+							(click)="openRoute(craftshop.ID, 'craftshoppes')">{{craftshop.name}}</li>	
+					</ul>
+				</div>
+			</div>
+			
+			<!-- Recipes -->
+			<div class="col-lg-3" *ngIf="item?.recipes.length > 0">
+				<div class="panel panel-info">
+					<div class="panel-heading panel-recipe">
+						<h3 class="panel-title">Crafting Recipe</h3>
+					</div>
+					<ul class="list-group">
+						<li *ngFor="let recipe of item.recipes" class="list-group-item"
+							(click)="openRoute(recipe.ID, 'recipes')">{{recipe.name}}</li>	
+					</ul>
+				</div>
+			</div>
+
+			<!-- Monsters -->
+			<div class="col-lg-3" *ngIf="item?.monsters.length > 0">
+				<div class="panel panel-info">
+					<div class="panel-heading panel-monster">
+						<h3 class="panel-title">Monsters That Drop</h3>
+					</div>
+					<ul class="list-group">
+						<li *ngFor="let monster of item.monsters" class="list-group-item"
+							(click)="openRoute(monster.ID, 'monsters')">{{monster.name}}</li>	
+					</ul>
+				</div>
+			</div>
+			
+			<!-- Quests -->
+			<div class="col-lg-3" *ngIf="item?.quests.length > 0">
+				<div class="panel panel-info">
+					<div class="panel-heading panel-quest">
+						<h3 class="panel-title">Quests That Reward</h3>
+					</div>
+					<ul class="list-group">
+						<li *ngFor="let quest of item.quests" class="list-group-item"
+							(click)="openRoute(quest.ID, 'quests')">{{quest.name}}</li>	
+					</ul>
+				</div>
+			</div>
+			
+			<!-- Dungeons -->
+			<div class="col-lg-3" *ngIf="item?.dungeons.length > 0">
+				<div class="panel panel-info">
+					<div class="panel-heading panel-dungeon">
+						<h3 class="panel-title">Dungeons Found In</h3>
+					</div>
+					<ul class="list-group">
+						<li *ngFor="let dungeon of item.dungeons" class="list-group-item"
+							(click)="openRoute(dungeon.ID, 'dungeons')">{{dungeon.name}}</li>	
+					</ul>
+				</div>
+			</div>
+
+		</div> 
+	</div> 
+
+	
+
+	<!-- Last Edit/Notes -->
+	<div class="row">
+		<div class="col-lg-8" style="text-align:left;">
+			<p *ngIf="item?.notes"><small>Notes: {{item?.notes}}</small></p>
+		</div>
+		<div class="col-lg-4" style="text-align:right;">
+			<p><small>Last edited by {{item?.last_edit}}</small></p>
+		</div>
+	</div>
+</div>
+

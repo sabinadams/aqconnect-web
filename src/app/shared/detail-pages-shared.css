@@ -1,0 +1,57 @@
+hr.full-length {
+	max-width:100%;
+}
+
+.list-group {
+	max-height:200px; 
+	overflow-y: scroll;
+}
+
+.panel.panel-info {
+	border:0;
+}
+
+.panel-heading {
+	color:#1e1e1e;
+	border:0;
+}
+
+.panel-location {
+	background-color:#3db76f;
+}
+
+.panel-craftshop {
+	background-color:#c34444;
+}
+
+.panel-recipe {
+	background-color:#b7c12c;
+}
+
+.panel-monster {
+	background-color:#b055e6;
+}
+
+.panel-quest {
+	background-color:#e09e49;
+}
+
+.panel-dungeon {
+	background-color:#f7d9f3;
+}
+
+.panel-content {
+	background-color:#46babb;
+}
+
+.panel-npc {
+	background-color:#c36844;
+}
+.list-group {
+	background-color:rgba(0,0,0,0);
+}
+
+.list-group-item {
+	background-color:#1d1d1d;
+	border-color:#3e3e3e;
+}
