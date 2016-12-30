@@ -24,7 +24,7 @@ import { NewsPage } from './pages/news/news';
   import { NewsDetailPage } from './pages/news/news-detail/news-detail';
 import { ForumsPage } from './pages/forums/forums';
   import { ForumPage } from './pages/forums/forum/forum';
-  import { ForumPostPage } from './pages/forums/forumpost/forumpost';
+    import { ForumPostPage } from './pages/forums/forumpost/forumpost';
 import { LoginPage } from './pages/login/login';
   import { CreateAccountPage } from './pages/createaccount/createaccount';
   import { ForgotPasswordPage } from './pages/forgotpassword/forgotpassword';
@@ -41,7 +41,7 @@ import { ContentService } from './services/content-service';
 import { ForumService } from './services/forum-service';
 import { AuthService } from './services/auth-service';
 import { UserService } from './services/user-service';
-
+import { ServerStatusService } from './services/server-status-service';
 //Pipe Imports....
 import { StaffTypePipe } from './pipes/staff-type-pipe';
 import { ItemRarityPipe} from './pipes/item-rarity-pipe';
@@ -72,7 +72,8 @@ import { routing, appRoutingProviders } from './app.routing';
   ],
   providers: [
     appRoutingProviders, HttpClient, TeamService, NewsService,
-    ContentService, ForumService, AuthService, UserService
+    ContentService, ForumService, AuthService, UserService,
+    ServerStatusService
   ],
   bootstrap: [AppComponent]
 })

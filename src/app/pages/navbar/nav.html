@@ -1,4 +1,12 @@
 <nav id="topNav" class="navbar navbar-default navbar-fixed-top">
+    <marquee class="server-stats" behavior="scroll" direction="left" onbounce="test()">
+        <span *ngFor="let server of servers" style="margin-right:30px;">
+            <span *ngIf="server.State && !(server.IP == '127.0.0.1')">
+                {{server.Name}} [<span style="color:green;">Online</span>]: {{server.UserCount}} Players Online | Last Update: {{server.LastUpdated | timeAgo}}
+            </span>
+        </span>
+    </marquee>
+
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar">
@@ -28,6 +36,9 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <!-- <li>
+                    <marquee class="server-stats" behavior="scroll" direction="left">HTML scrolling text... </marquee>
+                </li> -->
                 <li>
                     <a class="page-scroll" data-toggle="modal" title="A free Bootstrap video landing theme" href="#aboutModal">Contact Us</a>
                 </li>

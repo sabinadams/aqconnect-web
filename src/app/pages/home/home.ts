@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit{
 	    $('#galleryModal').on('show.bs.modal', function (e) {
 	       $('#galleryImage').attr("src",$(e.relatedTarget).data("src"));
 	    });
-
+                          
 	}
 
 	//Switches team member info when you click their image in the team section

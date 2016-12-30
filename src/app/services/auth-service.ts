@@ -61,11 +61,13 @@ export class AuthService {
     return this._http.post('http://aq.trycf.com/api/index.cfm/login', data) // ...using post request
     .map((res:Response) => {
         //If successful store the user and token into local storage
-        if(res.status == 200 && res.statusText == "OK"){
-          let data = res.json();
-          localStorage.setItem('user', JSON.stringify(data));
-          localStorage.setItem('token', data.token);
-          return data;
+        let data =  res.json();
+        if(data.success){
+            localStorage.setItem('user', JSON.stringify(data));
+            localStorage.setItem('token', data.token);
+            return data;
+        }else {
+          return {'success': false};
         }
      }) // ...and calling .json() on the response to return data
     .catch((error:any) => Observable.throw(error.json().error || 'Server error'));

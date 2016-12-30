@@ -1,4 +1,7 @@
-
+.server-stats {
+    width:90%;
+    position: absolute;
+}
 /*Navbar itself*/
 .navbar-default {
     border-color: transparent;
