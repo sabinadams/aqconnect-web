@@ -13,9 +13,14 @@
 			Restart
 		</button>
 	</div>
-	<div class="col-lg-6" style="text-align:right;">
-		<button type="button" (click)="calculate()" style="border-color:#9494f3; border-radius:7px" class="btn btn-primary btn-md">
+	<div class="col-lg-6" *ngIf="!showResults" style="text-align:right;">
+		<button type="button" (click)="calculate()"  style="border-color:#9494f3; border-radius:7px" class="btn btn-primary btn-md">
 			Calculate
+		</button>
+	</div>
+	<div class="col-lg-6" *ngIf="showResults" style="text-align:right;">
+		<button type="button" (click)="hideResults()" style="border-color:#cec464; border-radius:7px" class="btn btn-primary btn-md">
+			Modify Set
 		</button>
 	</div>
 </div>

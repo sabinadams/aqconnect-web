@@ -10,7 +10,9 @@
 .label {
 	max-width:100%;
 	width:100%;
+    font-size:70%;
 }
+
 .carousel-inner>.item>img, .img-responsive, .thumbnail a>img, .thumbnail>img {
     display: block;
     max-width: 100%;

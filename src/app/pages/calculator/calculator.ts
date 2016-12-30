@@ -16,10 +16,12 @@ export class CalculatorPage implements OnInit{
 	showResults = false;
 	filtertype = "alpha";
 	level = 0;
+	base_stats:any;
 	constructor( private _router: Router, private _contentService: ContentService ){}
 	ngOnInit(){
 		this._contentService.getCalculatorContent().subscribe(res => {
 			this.items = res;
+			this.base_stats = res.base_stats;
 			this.selectedtype = res[this.itemtype];
 		});
 		this.results['attack'] = 0;
@@ -65,7 +67,20 @@ export class CalculatorPage implements OnInit{
 		this.selectedtype.push(item);
 		this.items[this.itemtype].push(item);
 	}
+
+	hideResults(){
+		let index = this.level - 1;	
+		if(index >= 0){
+			this.results['attack'] -= this.base_stats[index].attack;
+			this.results['defense'] -= this.base_stats[index].defense;
+			this.results['mana'] -= this.base_stats[index].mana;
+			this.results['health'] -= this.base_stats[index].health;
+		}
+		this.showResults = false;
+	}
+
 	restart(){
+		this.level = 0;
 		this.items = [];
 		this.results = [];
 		this.selectedtype = [];
@@ -117,7 +132,13 @@ export class CalculatorPage implements OnInit{
 		}
 	}
 	calculate(){
+		let index = this.level - 1;	
+		if(index >= 0){
+			this.results['attack'] += this.base_stats[index].attack;
+			this.results['defense'] += this.base_stats[index].defense;
+			this.results['mana'] += this.base_stats[index].mana;
+			this.results['health'] += this.base_stats[index].health;
+		}
 		this.showResults = true;	
-		console.log(this.results);
 	}
 }
