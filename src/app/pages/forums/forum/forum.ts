@@ -41,16 +41,31 @@ export class ForumPage implements OnInit{
             'posterID': this.posts[index].user_ID
         }
 		if(this.posts[index].LIKEID != this.userID){
-			this.posts[index].LIKEID = this.userID;
-			this.posts[index].likes += 1;
-			this._forumService.likePost(data).subscribe();		
+			this._forumService.likePost(data).subscribe( res => {
+				if(res.status == 200){
+					this.posts[index].LIKEID = this.userID;
+					this.posts[index].likes += 1;
+				}
+			});		
 		}else{
-			this.posts[index].LIKEID = "";
-			this.posts[index].likes -= 1;
-			this._forumService.likePost(data).subscribe();
+			this._forumService.likePost(data).subscribe(res => {
+				if(res.status == 200){
+					this.posts[index].LIKEID = "";
+					this.posts[index].likes -= 1;
+				}
+			});
 		}
-    }
 
+    }
+    deletePost(post, i){
+		if( confirm("Are you sure you want to delete this post?") ){
+            this._forumService.deleteForumPost(post).subscribe(res => {
+            	if(res.status == 200){
+            		this.posts.splice(i, 1);
+            	}
+            });
+        }
+	}
     post(title, body){
     	console.log(body);
     	 var data = {

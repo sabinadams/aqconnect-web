@@ -1,8 +1,8 @@
 <div id="login" class="text-center">
 	<div class="form-group">
 		<label for="exampleInputEmail1">Log In</label>
-		<input type="email" class="form-control" [(ngModel)]="email" id="exampleInputEmail1" placeholder="Email">
-		<input type="password" class="form-control" [(ngModel)]="password" id="exampleInputPassword1" placeholder="Password">
+		<input type="email" class="form-control" (keyup.enter)="login(email, password)" [(ngModel)]="email" id="exampleInputEmail1" placeholder="Email">
+		<input type="password" class="form-control" (keyup.enter)="login(email, password)" [(ngModel)]="password" id="exampleInputPassword1" placeholder="Password">
 		Don't have an account? <a routerLink="createaccount">Sign Up</a>
 	</div>
 	<button type="submit" (click)="login(email, password)" class="btn btn-block">Log In</button><br>

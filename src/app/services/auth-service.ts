@@ -11,17 +11,14 @@ export class AuthService {
 
   //Creates randomized UUID Token for authentication
    _createUUID() {
-      var d = new Date()
-          .getTime();
+      var d = new Date().getTime();
       return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace( /[xy]/g, function( c ) {
           let r = ( d + Math.random() * 16 ) % 16 | 0;
           d = Math.floor( d / 16 );
-          return( c == 'x' ? r : ( r & 0x7 | 0x8 ) )
-              .toString( 16 );
-      } );
+          return( c == 'x' ? r : ( r & 0x7 | 0x8 ) ).toString( 16 );
+      });
     }
 
-  //Not Done
   changePassword(reset_token, password, email){
     let data = {'reset_token':reset_token, 'password': password, 'email': email};
     return this._http.post('http://aq.trycf.com/api/index.cfm/resetpassword', data) // ...using post request
@@ -142,6 +139,33 @@ export class AuthService {
       return res.json();
     }).catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
+
+  changeFacebook(newfacebook){
+    let user = JSON.parse(localStorage.getItem('user'));
+    let data = {'newfacebook': newfacebook, 'email': user.email, 'token': user.device_token};
+    return this._customHTTP.post('http://aq.trycf.com/api/index.cfm/changefacebook/', data).map( (res) => {
+      if(res.json().user){
+        let temp = JSON.parse(localStorage.getItem('user'));
+        temp.facebook = res.json().user.facebook;
+        localStorage.setItem('user', JSON.stringify(temp));
+      }
+      return res.json();
+    }).catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  changeTwitter(newtwitter){
+    let user = JSON.parse(localStorage.getItem('user'));
+    let data = {'newtwitter': newtwitter, 'email': user.email, 'token': user.device_token};
+    return this._customHTTP.post('http://aq.trycf.com/api/index.cfm/changetwitter/', data).map( (res) => {
+      if(res.json().user){
+        let temp = JSON.parse(localStorage.getItem('user'));
+        temp.twitter = res.json().user.twitter;
+        localStorage.setItem('user', JSON.stringify(temp));
+      }
+      return res.json();
+    }).catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
 
   changeProfilePic(image){
     let user = JSON.parse(localStorage.getItem('user'));

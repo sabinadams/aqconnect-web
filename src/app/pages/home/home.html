@@ -14,7 +14,7 @@
 <div class="container-fluid bg-dark" id="latest">
     <div class="row" style="padding-top:10px;">
         <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 text-center">
-            <h2 class="margin-top-0 text-primary">Latest News!</h2>
+            <h2 class="margin-top-0 text-primary" style="margin-bottom:15px;">Latest News!</h2>
         </div>
     </div>
     <div class="row">
@@ -26,7 +26,7 @@
                    <div class="new_html_code">
                         <div class="container">
                             <div class="row">
-                                <div class="col-lg-12">
+                                <div class="col-lg-12" style="margin:10px;">
                                     <h2 style="text-align:center;">{{news[0]?.name}} <span><small><p>by {{news[0]?.AUTHOR}} on {{news[0]?.date | date:"MM/dd/yy"}}</p></small></span></h2><hr>
                                 </div>
                             </div>
@@ -41,7 +41,7 @@
                 </div>
                 <div class="item" *ngFor="let post of news.slice(1)">
                    <div class="new_html_code">
-                        <div class="container">
+                        <div class="container" style="margin:10px;"> 
                             <div class="row">
                                 <div class="col-lg-12">
                                     <h2 style="text-align:center;">{{post?.name}} <span><small><p>by {{post?.AUTHOR}} on {{post?.date | date:"MM/dd/yy"}}</p></small></span></h2><hr>

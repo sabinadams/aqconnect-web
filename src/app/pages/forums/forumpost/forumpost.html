@@ -8,11 +8,12 @@
 	</div>
 	<div class="row">
 		<span style="font-size:14px; float:left;">{{post?.timestamp | date:'MM/dd/yyyy'}}</span>
-		<span style="font-size:25px; float:right;" (click)="likePost()" [ngStyle]="{'color':+post?.LIKEID | liked:userID}" class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+		<a style="font-size:25px; float:right; color:red;" *ngIf="post?.user_ID == userID" href="#forumModal"  data-toggle="modal" (click)="deletePost(post)" class="glyphicon glyphicon-trash" aria-hidden="true"></a>
+		<span style="font-size:25px; float:right;" *ngIf="!(post?.user_ID == userID)" (click)="likePost()" [ngStyle]="{'color':+post?.LIKEID | liked:userID}" class="glyphicon glyphicon-heart" aria-hidden="true"></span>
 	</div>
 	<div class="row">
 		<div class="col-lg-3" style="text-align:center;">
-			<div class="row">
+			<div class="row" (click)="openProfile(post?.user_ID)">
 				<img src="{{post?.IMAGE_URL}}" style="height:100px; width:auto; border-radius:7px;" alt="">
 				<p> {{post?.NAME}}</p>
 			</div>
@@ -49,7 +50,7 @@
 	<div class="row">
 		<div class="well" *ngFor="let reply of post?.replies; let i = index">
 			<div class="row">
-				<div class="col-lg-2" style="text-align:center;">
+				<div class="col-lg-2" style="text-align:center;" (click)="openProfile(reply?.user_ID)">
 					<img src="{{reply.IMAGE_URL || reply.image_url}}" style="height:60px; width:auto; border-radius:7px;" alt="">
 					<p style="font-size:12px; margin:0;"> <b>{{reply.NAME}}</b> </p>
 					<p style="font-size:12px;">Post Count: {{reply.POSTCOUNT || reply.forum_activity}}</p>
@@ -60,7 +61,8 @@
 				<div class="col-lg-3" style="text-align:right;">
 					<p style="font-size:12px; margin:0;">{{reply.timestamp | timeAgo }}</p>
 					<p style="font-size:12px; margin:0;">Likes: {{reply.likes}}</p>
-					<span style="font-size:17px;" (click)="likeReply(i)"[ngStyle]="{'color':+reply.LIKEID | liked:userID}" class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+					<span style="font-size:17px;"  *ngIf="!(reply.user_ID == userID)" (click)="likeReply(i)"[ngStyle]="{'color':+reply.LIKEID | liked:userID}" class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+					<span style="color:red; font-size:15px;" *ngIf="reply.user_ID == userID"  (click)="deleteReply(reply, i)" class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 				</div>
 			</div>
 		</div>

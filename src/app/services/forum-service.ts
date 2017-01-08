@@ -41,6 +41,16 @@ export class ForumService {
     }).catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 
+
+  //Gets Forum Posts By User
+  deleteForumReply(reply){
+    let user = JSON.parse(localStorage.getItem('user'));
+    let data = {'reply': reply, 'user': user};
+    return this._http.post(`http://aq.trycf.com/api/index.cfm/deleteforumreply/`, {'data': data}).map( (res) => {
+      return res.json();
+    }).catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
   //Grabs all Forums
   //Starting point is to help with loading only chunks of posts/replies
   getPostsByID(postID, userID, start){

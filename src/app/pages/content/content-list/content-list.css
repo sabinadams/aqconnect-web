@@ -1,6 +1,6 @@
-.content-home {
-	padding-top:70px;
-}
+/*.content-home {
+	padding-top:60px;
+}*/
 
 .ui.fluid.dropdown {
     display: inline; 
@@ -9,10 +9,6 @@
     color:rgb(149, 107, 185);
 }
 
-.btn-xl {
-  width:190px;
-  border-color:#956bb9;
-}
 /*Spinner styles*/
 .loader,
 .loader:after {

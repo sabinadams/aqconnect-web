@@ -12,12 +12,12 @@
 .alert-danger {
     background-color: #f7d6d6;
 }
-.input-group-addon:last-child {
+.input-group-addon {
     border-left:1px;
     border-right:0;
     border-top:0;
     border-bottom:0;
-	background-color:#28252d;
+	  background-color:#28252d;
 }
 .input-group-addon:hover {
 	color:#4c4a4a;

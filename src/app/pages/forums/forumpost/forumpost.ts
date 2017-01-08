@@ -31,13 +31,19 @@ export class ForumPostPage implements OnInit{
             'posterID': this.post.replies[index].user_ID
         }
 		if(this.post.replies[index].LIKEID != this.userID){
-			this.post.replies[index].LIKEID = this.userID;
-			this.post.replies[index].likes += 1;
-			this._forumService.likeReply(data).subscribe();		
+			this._forumService.likeReply(data).subscribe( res => {
+				if(res.status == 200){
+					this.post.replies[index].LIKEID = this.userID;
+					this.post.replies[index].likes += 1;
+				}
+			});		
 		}else{
-			this.post.replies[index].LIKEID = "";
-			this.post.replies[index].likes -= 1;
-			this._forumService.likeReply(data).subscribe();
+			this._forumService.likeReply(data).subscribe(res => {
+				if(res.status == 200){
+					this.post.replies[index].LIKEID = "";
+					this.post.replies[index].likes -= 1;
+				}
+			});
 		}
     }
     //Likes and unlikes replies
@@ -49,13 +55,19 @@ export class ForumPostPage implements OnInit{
             'posterID': this.post.user_ID
         }
 		if(this.post.LIKEID != this.userID){
-			this._forumService.likePost(data).subscribe();		
-			this.post.LIKEID = this.userID;
-			this.post.likes += 1;
+			this._forumService.likePost(data).subscribe(res => {
+				if(res.status == 200){
+					this.post.LIKEID = this.userID;
+					this.post.likes += 1;
+				}
+			});		
 		}else{
-			this._forumService.likePost(data).subscribe();
-			this.post.LIKEID = "";
-			this.post.likes -= 1;
+			this._forumService.likePost(data).subscribe(res => {
+				if(res.status == 200){
+					this.post.LIKEID = "";
+					this.post.likes -= 1;
+				}
+			});
 		}
     }
 
@@ -83,4 +95,28 @@ export class ForumPostPage implements OnInit{
 	       }); // (+) converts string 'id' to a number
 	    });  
 	}
+	openProfile(userID){
+    	this._router.navigate(['/forums', {outlets: {'forumpostpage': ['userprofile', userID]}}]);
+    }
+
+    deleteReply(reply, i){
+		if( confirm("Are you sure you want to delete this reply?") ){
+            this._forumService.deleteForumReply(reply).subscribe(res => {
+            	if(res.status == 200){
+            		this.post.replies.splice(i, 1);
+            	}
+            });
+        }
+	}
+
+	deletePost(post){
+		if( confirm("Are you sure you want to delete this post? You will be redirected to the Forums home page.") ){
+            this._forumService.deleteForumPost(post).subscribe(res => {
+            	if(res.status == 200){
+            		this._router.navigate(['forums']);
+            	}
+            });
+        }
+	}
+
 }

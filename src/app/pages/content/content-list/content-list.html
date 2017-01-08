@@ -1,0 +1,109 @@
+
+<div class="content-home">
+	    <div id="wrapper">
+        <div class="overlay"></div>
+    
+        <!-- Sidebar -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+            <ul class="nav sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">
+                       
+                    </a>
+                </li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Items <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li class="dropdown-header">Item Types</li>
+                    <li *ngFor="let type of content_types">
+                    	<a (click)="menuToggle(type.ID, type.name)">{{type.name}}</a>
+                    </li>
+                  </ul>
+                </li>
+                <li *ngFor="let category of categories">
+                    <a (click)="menuToggle(category.source, 'non-item', category.name)">{{category?.name}}</a>
+                </li>
+            </ul>
+        </nav>
+        <!-- /#sidebar-wrapper -->
+        
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <button type="button" class="hamburger is-closed" (click)="menuToggle()" data-toggle="offcanvas">
+                <span class="hamb-top"></span>
+    			<span class="hamb-middle"></span>
+				<span class="hamb-bottom"></span>
+            </button>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 text-center">
+                        <h2>{{title}}</h2>    
+                        <br>              
+                    </div>
+                </div>
+                <!-- Sort and Search -->
+                <div class="row">
+                    <div class="col-lg-4 col-sm-4 col-xs-6 text-center" >
+                        <div class="input-group">
+                          <input type="text" class="form-control" placeholder="Search {{title}}" [(ngModel)]="filter" style="border-radius:5px;">
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-4 col-xs-6 text-center" >
+                        <div class="input-group" style="display:block;">
+                            <button type="button" data-toggle="modal" href="#calculatorModal" style="border-color:rgb(149, 107, 185); border-radius:7px" class="btn btn-primary btn-md">
+                                Build a Set!
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-4 hidden-xs text-center" >
+                        <select [(ngModel)]="filtertype" name="search" placeholder="Select A Filter" class="ui fluid search selection dropdown">
+                            <option value="alpha">Alphabetical</option>
+                            <option value="name">Reverse Alphabetical</option>
+                            <option value="ID">Most Recent</option>
+                            <option value="level" *ngIf="itemType == 1">Level</option>
+                            <option value="rarity" *ngIf="itemType == 1">Rarity</option>
+                            <option value="health" *ngIf="itemType == 1">Health</option>
+                            <option value="mana" *ngIf="itemType == 1">Mana</option>
+                            <option value="attack" *ngIf="itemType == 1">Attack</option>
+                            <option value="defense" *ngIf="itemType == 1">Defense</option>
+                            <option value="crit" *ngIf="itemType == 1">Crit</option>
+                            <option value="hit" *ngIf="itemType == 1">Hit</option>
+                            <option value="crit_power" *ngIf="itemType == 1">Crit Power</option>
+                            <option value="dodge" *ngIf="itemType == 1">Dodge</option>
+                        </select>
+                    </div>
+                </div><br>
+             
+                <div class="row">
+					<div class="loader" *ngIf="!items || !items.length">Loading...</div>
+                	<div class="col-lg-4 text-center" *ngFor="let item of (items | search:filter | sort:filtertype) ">
+                        <!-- The detail page HTML router outlet and the modal code is in app.component.html -->
+                		<div class="alert" data-toggle="modal" href="#contentModal" [ngStyle]="{'background-color':item?.rarity | itemRarity:'rare_color'}" role="alert" (click)="openDetail(item.ID)">
+                            <h3 *ngIf="item.rarity" class="panel-title" [ngStyle]="{'color':item?.rarity | itemRarity:'font_color'}">{{item?.name}} <small style="font-size:12px">(lvl.{{item?.level}})</small></h3>
+							<h3 *ngIf="!item.rarity" class="panel-title" [ngStyle]="{'color':99 | itemRarity:'font_color'}">{{item?.name}}</h3>
+                		</div>
+                	</div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Popup for Build Stat Calculator -->
+    <div id="calculatorModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="max-width:100%; width:90%;">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <calculator></calculator>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+

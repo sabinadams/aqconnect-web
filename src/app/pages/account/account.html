@@ -40,6 +40,26 @@
 			</div>
 		</div>
 
+		<label>Link to your Facebook Page (insert the ending part of the URL): </label>
+		<div class="loader" *ngIf="!facebookloaded">Loading...</div>
+        <div class="form-group" *ngIf="facebookloaded">
+			<div class="input-group">
+				<span class="input-group-addon" id="basic-addon3">https://www.facebook.com/</span>
+			    <input type="text" class="form-control" [(ngModel)]="newfacebook" placeholder="{{user?.facebook}}">
+			  	<span class="input-group-addon" id="basic-addon2" (click)="changeFacebook(newfacebook); newfacebook = '';">Save</span>
+			</div>
+		</div>
+
+		<label>Link to your Twitter Page (insert the ending part of the URL): </label>
+		<div class="loader" *ngIf="!twitterloaded">Loading...</div>
+        <div class="form-group" *ngIf="twitterloaded">
+			<div class="input-group">
+				<span class="input-group-addon" id="basic-addon3">https://twitter.com/</span>
+			    <input type="text" class="form-control" [(ngModel)]="newtwitter" placeholder="{{user?.twitter}}">
+			  	<span class="input-group-addon" id="basic-addon2" (click)="changeTwitter(newtwitter); newtwitter = '';">Save</span>
+			</div>
+		</div>
+
         <button 
 			routerLink="changepassword"
 			type="button" 

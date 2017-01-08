@@ -24,7 +24,8 @@
 							</span>
 							<span *ngIf="!post.lastReplier"> None </span><br>
 							Likes: {{post.likes}}
-							<span style="font-size:25px; float:right;" (click)="likePost(i)" [ngStyle]="{'color':+post?.LIKEID | liked:userID}" class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+							<span style="font-size:25px; float:right;" (click)="likePost(i)" *ngIf="!(post.user_ID == userID)" [ngStyle]="{'color':+post?.LIKEID | liked:userID}" class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+							<span style="font-size:25px; float:right; color:red;" *ngIf="post.user_ID == userID" (click)="deletePost(post, i)" class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 						</div>
 					</div>
 			  	</div>

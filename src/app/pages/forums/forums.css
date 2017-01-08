@@ -8,6 +8,7 @@
 
 #forums .panel {
     border:0;
+
 }
 
 #forums .panel-heading {
@@ -22,6 +23,9 @@
 
 #forums .panel-body {
     background-color:#1d1d1d;
+    max-height:70px;
+    height:70px;
+    overflow-y: scroll;
 }
 
 

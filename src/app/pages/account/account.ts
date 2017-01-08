@@ -14,6 +14,8 @@ export class AccountPage implements OnInit{
 	emailloaded = true;
 	descloaded = true;
 	nameloaded = true;
+	twitterloaded = true;
+	facebookloaded = true;
 	showmessage = false;
 	showerror = false;
 	error:string;
@@ -115,6 +117,38 @@ export class AccountPage implements OnInit{
 	    			this.user = JSON.parse(localStorage.getItem('user'));
 	    			this.descloaded = true;
 	    			this.showMessage("Successfully updated your account's description.", 'success')
+	    		}else {
+	    			this.showMessage(res.status_message, 'error');
+	    			this.descloaded = true;
+	    		}
+	    	});
+		}
+	}
+
+	changeTwitter(newtwitter){
+		if(newtwitter){
+			this.descloaded = false
+			this._authService.changeTwitter(newtwitter).subscribe(res => {
+	    		if(res.status == "success"){
+	    			this.user = JSON.parse(localStorage.getItem('user'));
+	    			this.descloaded = true;
+	    			this.showMessage("Successfully updated your Twitter link.", 'success')
+	    		}else {
+	    			this.showMessage(res.status_message, 'error');
+	    			this.descloaded = true;
+	    		}
+	    	});
+		}
+	}
+
+	changeFacebook(newfacebook){
+		if(newfacebook){
+			this.descloaded = false
+			this._authService.changeFacebook(newfacebook).subscribe(res => {
+	    		if(res.status == "success"){
+	    			this.user = JSON.parse(localStorage.getItem('user'));
+	    			this.descloaded = true;
+	    			this.showMessage("Successfully updated your account's FaceBook link.", 'success')
 	    		}else {
 	    			this.showMessage(res.status_message, 'error');
 	    			this.descloaded = true;
