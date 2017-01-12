@@ -9,7 +9,6 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home';
 import { NavComponent } from './pages/navbar/nav';
 import { ContentPage } from './pages/content/content';
-  import { ContentListPage } from './pages/content/content-list/content-list';
   import { ItemPage } from './pages/content/content-details/item/item'; 
   import { LocationPage } from './pages/content/content-details/location/location'; 
   import { MonsterPage } from './pages/content/content-details/monster/monster'; 
@@ -66,8 +65,7 @@ import { routing, appRoutingProviders } from './app.routing';
     NewsTypePipe, NewsDetailPage, ForumsPage, 
     LoginPage, ForumPage, ForumPostPage, LikePipe, 
     UserListPage, UserPage, AccountPage, CalculatorPage, 
-    CreateAccountPage, ForgotPasswordPage, TimeAgoPipe, UserForumPostsPage,
-    ContentListPage
+    CreateAccountPage, ForgotPasswordPage, TimeAgoPipe, UserForumPostsPage
   ],
   imports: [
     BrowserModule, FormsModule, HttpModule, routing

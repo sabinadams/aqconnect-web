@@ -8,7 +8,6 @@ import { HomeComponent } from './pages/home/home';
 import { ContentPage } from './pages/content/content';
 import { LoginPage } from './pages/login/login';
 
-import { ContentListPage } from './pages/content/content-list/content-list';
 import { ItemPage } from './pages/content/content-details/item/item';
 import { LocationPage } from './pages/content/content-details/location/location';
 import { MonsterPage } from './pages/content/content-details/monster/monster';
@@ -38,9 +37,8 @@ const appRoutes: Routes = [
 	{ path: 'createaccount', component: CreateAccountPage },
 	{ path: 'forgotpassword', component: ForgotPasswordPage },
 	{ path: 'userforumposts', component: UserForumPostsPage},
-	{ path: 'content', component: ContentPage},
-    { path: 'contentlist', children: [
-        { path : ':type' , component: ContentListPage},
+    { path: 'content', children: [
+        { path : '' , component: ContentPage},
 	    { path: 'itemspage/:id', component: ItemPage, outlet: 'contentpage' },
 	    { path: 'locationspage/:id', component: LocationPage, outlet: 'contentpage' },
 	    { path: 'monsterspage/:id', component: MonsterPage, outlet: 'contentpage' },

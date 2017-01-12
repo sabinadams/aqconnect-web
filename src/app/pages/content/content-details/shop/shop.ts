@@ -18,7 +18,7 @@ export class ShopPage implements OnInit{
 	}
 
 	openRoute(id, source){
-    	this._router.navigate(['/contentlist', {outlets: {'contentpage': [`${source}page`, id]}}]);
+    	this._router.navigate(['/content', {outlets: {'contentpage': [`${source}page`, id]}}]);
     }
 	
 }

@@ -1,4 +1,12 @@
-.content-home {
+.rarity-key {
+  margin-bottom:0;
+  padding-left:5%;
+  margin-left:2%;
+  margin-right:;
+  background-color:red;
+  border-radius:7px;
+}
+.content-home-init {
 	padding-top:70px;
 }
 
@@ -9,10 +17,6 @@
     color:rgb(149, 107, 185);
 }
 
-.btn-xl {
-  width:190px;
-  border-color:#956bb9;
-}
 /*Spinner styles*/
 .loader,
 .loader:after {

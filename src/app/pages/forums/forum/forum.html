@@ -17,11 +17,11 @@
 							<img src="{{post.IMAGE_URL || post.image_url}}" style="height:50px; width:auto; border-radius:7px;" alt="">
 						</div>
 						<div class="col-lg-9" style="text-align:left;">
-							<b>Posted By:</b> {{post.AUTHOR}} {{post.timestamp | timeAgo}} <br>
 							<b>Last Reply: </b>
 							<span *ngIf="post.lastReplier">
 								{{post.lastReplier}} {{post.reply_timestamp | timeAgo }}
-							</span>
+							</span><br>
+							<b>Posted By:</b> {{post.AUTHOR}} {{post.timestamp | timeAgo}}
 							<span *ngIf="!post.lastReplier"> None </span><br>
 							Likes: {{post.likes}}
 							<span style="font-size:25px; float:right;" (click)="likePost(i)" *ngIf="!(post.user_ID == userID)" [ngStyle]="{'color':+post?.LIKEID | liked:userID}" class="glyphicon glyphicon-heart" aria-hidden="true"></span>

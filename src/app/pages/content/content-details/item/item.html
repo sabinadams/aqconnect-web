@@ -4,7 +4,12 @@
 		<div class="col-lg-4" style="text-align:left;">
 			<a href="#contentModal"  data-toggle="modal">
 				<span style="color:red; font-size:15px;"class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+
 			</a>
+		</div>
+		<div class="col-lg-8" style="text-align:right;">
+			<span>{{item?.special_icon[0]?.name}}</span>
+			<img *ngIf="item?.special_icon[0]?.image_url" src="{{item?.special_icon[0]?.image_url}}" alt="" style="height:30px;width:auto;">
 		</div>
 	</div>
 	<div class="row">
