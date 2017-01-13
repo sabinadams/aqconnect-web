@@ -1,10 +1,234 @@
-<div id="login" class="text-center">
-	<div class="form-group">
-		<label for="exampleInputEmail1">Log In</label>
-		<input type="email" class="form-control" (keyup.enter)="login(email, password)" [(ngModel)]="email" id="exampleInputEmail1" placeholder="Email">
-		<input type="password" class="form-control" (keyup.enter)="login(email, password)" [(ngModel)]="password" id="exampleInputPassword1" placeholder="Password">
-		Don't have an account? <a routerLink="createaccount">Sign Up</a>
+<nav id="topNav" class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand page-scroll"  routerLink=""> AQConnect </a>
+        </div>
+
+        <div class="navbar-collapse collapse" id="bs-navbar">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a class="page-scroll" style="color:rgba(255,255,255,0.7);" data-toggle="modal" title="A free Bootstrap video landing theme" routerLink="createaccount">Sign Up</a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</nav>
+
+<header id="first">
+    <div class="header-content">
+        <div class="inner">
+            <img style="height:300px; width:auto; border-radius:7px;" src="http://i.imgur.com/uIsOLj2.png" alt="Post's Image">
+            <!-- <h1 class="cursive">AQConnect</h1>
+            <h4>Explore, Interact, Connect!</h4> -->
+            <div id="login" class="text-center">
+            	<div class="form-group login">
+            		<label for="exampleInputEmail1">Log In</label>
+            		<input type="email" class="form-control login-top" (keyup.enter)="login(email, password)" [(ngModel)]="email" id="exampleInputEmail1" placeholder="Email">
+            		<input type="password" class="form-control login-bottom" (keyup.enter)="login(email, password)" [(ngModel)]="password" id="exampleInputPassword1" placeholder="Password">
+            		<!-- Don't have an account? <a >Sign Up</a> -->
+            	</div> <br>
+            	<button type="submit" (click)="login(email, password)" class="btn btn-block login">Log In</button><br>
+            	<a routerLink="forgotpassword">Forgot Your Password?</a>
+            </div>
+            <hr>
+            <a href="#content" class="btn btn-primary btn-xl page-scroll">Features</a>
+            <a href="#team" class="btn btn-primary btn-xl page-scroll">The Team</a>
+            <a href="#about" class="btn btn-primary btn-xl page-scroll">About AQC</a>
+        </div>
+    </div>
+</header>
+
+<section id="feature-head" style="background-color:#050706;">
+	<div class="container-fluid">
+		<div class="row features">
+			<div class="row" style="text-align:right;">
+        		<div class="media wow fadeIn">
+                    <div class="media-body media-middle text-center">
+		            	<p>We can promote something here</p>
+		            </div>
+		        </div>
+            </div>
+            <div class="row"  style="text-align:center;">
+            	<img src="http://placehold.it/200x200" alt="" style="border-radius:50%; margin-left:5px; margin-right:5px;">
+            	<img src="http://placehold.it/200x200" alt="" style="border-radius:50%; margin-left:5px; margin-right:5px;">
+            	<img src="http://placehold.it/200x200" alt="" style="border-radius:50%; margin-left:5px; margin-right:5px;">
+            	<img src="http://placehold.it/200x200" alt="" style="border-radius:50%; margin-left:5px; margin-right:5px;">
+            	<img src="http://placehold.it/200x200" alt="" style="border-radius:50%; margin-left:5px; margin-right:5px;">
+            	<img src="http://placehold.it/200x200" alt="" style="border-radius:50%; margin-left:5px; margin-right:5px;">
+            </div>
+        </div>
 	</div>
-	<button type="submit" (click)="login(email, password)" class="btn btn-block">Log In</button><br>
-	<a routerLink="forgotpassword">Forgot Your Password?</a>
+</section>
+
+<!-- All images must be scaled properly -->
+<section id="content" class="parallax-section">
+    <div class="container-fluid" style="padding:50px;">
+        <div class="row features">
+           <!--  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            	<img src="http://placehold.it/500x200" alt="">
+            </div> -->
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+            	<div class="media wow fadeIn">
+                    <div class="media-body media-right text-center para-text">
+		            	<h2>Get all the AQ3D info you'll need!</h2>
+		            	<p>Our database of items, locations, quests, and everything else is kept up to date and accurate so when you need to prepare for an adventure, you'll know where to start your research. Along with this, the Build Stat Calculator will help you piece together your dream set so you can be sure to take full advantage of the stats available to you!</p>
+		            </div>
+		        </div>
+            </div>
+        </div> 
+    </div>
+</section>
+<section id="social" style="background-color:#050706;">
+	<div class="container-fluid">
+		<div class="row features text-center" style="margin:auto;">
+       		<div class="hidden-lg col-md-12 col-sm-12 col-xs-12"  style="text-align:center;">
+            	<img src="http://placehold.it/200x200" alt="" style="border-radius:50%;">
+            </div>
+        	<div class="col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3 col-lg-5 col-md-5 col-sm-5 col-xs-5" style="text-align:center;">
+        		<div class="media wow fadeIn">
+                    <div class="media-body media-middle text-center">
+		            	<h2>Stay Connected</h2>
+		            	<p>Keep in touch with other players with the social features AQConnect has to offer! Currently we have forums, however in the near future we will be creating a social-media type of feature in-site where users will have timelines and friends list, etc... Similar to a Facebook or Twitter type of media.</p>
+		            </div>
+		        </div>
+            </div>
+            <div class="col-lg-2 hidden-md hidden-sm hidden-xs"  style="text-align:center;">
+            	<img src="http://placehold.it/200x200" alt="" style="border-radius:50%;">
+            </div>
+        </div>
+	</div>
+</section>
+<section id="aenews" class="parallax-section">
+	<div class="container-fluid">
+		<div class="row features">
+        	<!-- <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" >
+            	<img src="http://placehold.it/400x200" alt="">
+            </div> -->
+        	<div class="col-lg-12 col-sm-12 col-xs-12">
+        		<div class="media wow fadeIn">
+                    <div class="media-body media-middle text-center para-text">
+		            	<h2>Be in the know</h2>
+		            	<p>Some BS about how awesome the news section is. Something that will trick the users into reading a boring article x.x </p>
+		            </div>
+		        </div>
+            </div>
+        </div>
+	</div>
+</section>
+<!-- All images must be scaled properly -->
+<section id="team" class="bg-dark">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="margin-top-0">Our Team!</h2>        
+                <br>            
+            </div>
+        </div>
+        <div class="row no-gutter">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6" *ngFor="let member of team" (click)="focusMember(member)">
+                <a href="#galleryModal" class="gallery-box" data-toggle="modal">
+                    <img src="{{member.image_url}}" class="img-responsive" alt="{{member.name}}'s Image">
+                    <div class="gallery-box-caption">
+                        <div class="gallery-box-content">
+                            <div style="background-color:rgba(0, 0, 0, 0.43)">
+                                <h2 [ngStyle]="{'color':member?.access_level | staffType:'name_color'}">{{member.name}}</h2>
+                                <p>{{member.access_level | staffType:'job_title'}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="services" class="parallax-section">
+	<div class="container">
+		<div class="row text-center">
+			<div class="col-sm-8 col-sm-offset-2">
+				<h2 class="title-one">About AQConnect</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="our-service">
+					<div class="services row">
+						<div class="col-sm-4">
+							<div class="single-service">
+								<i class="fa fa-gift"></i>
+								<h2>Built For You</h2>
+								<p>This project is dedicated to helping unite and build the AQ3D Community! Meant to be used as a meeting place, info broker, social interaction tool, and more!</p>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="single-service">
+								<i class="fa fa-users"></i>
+								<h2>A Growing Community</h2>
+								<p> We started with a simple app, but as our community has grown and a greater need for maximum useablility of AQConnect arose, we decided it was time to get serious and build a website.</p>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="single-service">
+								<i class="fa fa-desktop"></i>
+								<h2>User-Driven</h2>
+								<p> We hope you enjoy our growing community! If you have any suggestions, concerns, problems please feel free to contact us and we will be happy to talk with you.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section><!--/#service-->
+<footer id="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                
+            </div>
+        </div>
+    </div>
+    <div id="social">
+        <a class="twitterBtn-home smGlobalBtn" href="https://twitter.com/OfficialAQC" ></a>
+    </div>
+    <br>
+    <span class="pull-right text-muted small">AQConnect</span>
+</footer>
+
+<!-- Popup for opening an image in the gallery -->
+<div id="galleryModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <img src="{{current_member?.image_url}}" id="galleryImage" class="img-responsive staff-modal" />
+                        <h2 class="staff-name"  [ngStyle]="{'color':current_member?.access_level | staffType:'name_color'}">{{current_member?.name}} <span><small>{{current_member?.access_level | staffType:'job_title'}}</small></span></h2>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="row">
+                            <h2 class="text-primary">About {{current_member?.name}}</h2>
+                            <p>{{current_member?.description}}</p> 
+                        </div>
+                        <div class="row">
+                            <h2 class="text-primary">Contact Info/Social Media</h2>
+                            <!-- Only display each if the staff member has one -->
+                            <div id="social" style="text-align:left;">
+                                <a *ngIf="current_member?.facebook" class="facebookBtn smGlobalBtn" href="{{current_member?.facebook}}" ></a>
+                                <a *ngIf="current_member?.twitter" class="twitterBtn smGlobalBtn" href="{{current_member?.twitter}}" ></a>
+                                <a *ngIf="current_member?.tumblr" class="tumblrBtn smGlobalBtn" href="{{current_member?.tumblr}}" ></a>
+                            </div>
+                            <p *ngIf="!current_member?.facebook && !current_member?.twitter && !current_member?.tumblr">None Provided</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <button class="btn btn-primary btn-lg center-block" data-dismiss="modal" aria-hidden="true">Close <i class="ion-android-close"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+

@@ -1,13 +1,5 @@
 <navbar *ngIf="userCheck()"></navbar>
 
-<nav *ngIf="!userCheck()" id="topNav" class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand page-scroll"  routerLink=""> AQConnect </a>
-        </div>
-    </div>
-</nav>
-
 <!-- Main site outlet -->
 <router-outlet class="test"></router-outlet>
 

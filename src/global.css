@@ -3,8 +3,6 @@
 @import url(https://fonts.googleapis.com/css?family=Questrial);
 @import url(http://fonts.googleapis.com/css?family=Dancing+Script:700);
 
-
-
 html,
 body {
     width: 100%;
@@ -18,7 +16,22 @@ body {
     webkit-tap-highlight-color: #222;
 }
 
+/* Change the white to any color ;) */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+    text-align:center;
+    font-family:arial;
+    font-size:17px;
+}
 
+input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px #f6e1ff inset;
+    text-align:center;
+    font-family:arial;
+    font-size:17px;
+}
 
 ::-webkit-scrollbar { 
     display: none !important; 

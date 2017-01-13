@@ -1,15 +1,351 @@
-#login{
-    position: absolute;
-    top: 35%;
-    left: 50%;
-    width:30%;
-    transform: translateX(-50%) translateY(-50%);
-}
-
 #login .btn {
-	background-color: #36333d;
+	background-color: #080808;
 }
 
 #login .btn:hover {
+	background-color:#000000;
 	color: #d3d3d3;
+}
+
+.parallax-section{
+    min-height: 300px;
+    width: 100%;
+    background-position: 50% 0;
+    background-repeat: no-repeat !important;
+    background-attachment: fixed;
+    background-size: cover !important;
+}
+.para-text {
+    padding: 10px;
+    font-weight:600;
+}
+#aenews {
+	background-color:#75598e;
+	background-image: url("http://aq.trycf.com/assets/images/10.jpg");
+}
+#content {
+	background-color:#75598e;
+	background-image: url("http://aqconnect.io/content.PNG");
+}
+
+section {
+	min-height:0;
+}
+.gallery-box .gallery-box-caption {
+	background:rgba(0,0,0,0);
+}
+.features {
+	margin-bottom:30px;
+}
+.login {
+	max-width:30%; 
+	margin:auto;
+}
+.form-control {
+    background-color:rgb(125, 108, 140);
+    border-radius: 0;
+    border: 0;
+    border-bottom:1px; 
+}
+
+.login-top {
+	border-top-right-radius: 5px;
+	border-top-left-radius: 5px;
+}
+
+.login-bottom {
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+.navbar-default.affix {
+    border-color: rgba(34,34,34,.05);
+    background-color: rgba(149, 107, 185, 0.11);
+}
+
+.header-content {
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  background-color: rgba(0,0,0,.6);
+}
+#team {
+  width:100%;
+  margin:auto;
+}
+
+.text-primary {
+  color:rgb(149, 107, 185);
+  font-size: 40px;
+  font-weight: 600;
+}
+div.new_html_code {
+    overflow:hidden;
+    /*display:block;*/
+    border:1px solid #282828;
+    margin:auto;
+    /*max-height:450px;*/
+}
+.staff-name {
+  text-align:center;
+}
+.modal-content {
+    background-color: rgba(29, 29, 29, 0.84);
+}
+img#galleryImage.img-responsive.staff-modal{
+  margin:auto;
+  border-radius:7px;
+}
+.gallery-box {
+    height:170px;
+    width:auto;
+    margin-bottom:15px;
+}
+.gallery-box img {
+   height:170px;
+   width:auto;
+   margin:auto;
+   border-radius:7px;
+}
+
+@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css');
+
+#social {
+  text-align: center;
+}
+
+.smGlobalBtn {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border: 2px solid #2d2d2d;
+    box-shadow: 0 1px 15px #956bb9;
+    padding: 0px;
+    text-decoration: none;
+    text-align: center;
+    color: #fff;
+    font-size: 25px;
+    font-weight: normal;
+    line-height: 2em;
+    border-radius: 27px;
+    -moz-border-radius: 27px;
+    -webkit-border-radius: 27px;
+}
+
+
+
+/* facebook button class*/
+.facebookBtn{
+    background: #4060A5;
+}
+
+.facebookBtn:before{ /* use :before to add the relevant icons */
+    font-family: "FontAwesome";
+    content: "\f09a"; /* add facebook icon */
+}
+
+.facebookBtn:hover{
+    color: #4060A5;
+    background: rgba(0, 0, 0, 0);
+    border-color: #4060A5; /* change the border color on mouse hover */
+}
+
+/* twitter button class*/
+.twitterBtn{
+    background: #00ABE3;
+}
+
+.twitterBtn:before{
+      font-family: "FontAwesome";
+      content: "\f099"; /* add twitter icon */
+      
+}
+
+.twitterBtn:hover{
+      color: #00ABE3;
+      background: rgba(0, 0, 0, 0);
+      border-color: #00ABE3;
+}
+/* facebook button class*/
+.facebookBtn-home{
+    background: #2d2d2d;
+    color:#956bb9;
+}
+
+.facebookBtn-home:before{ /* use :before to add the relevant icons */
+    font-family: "FontAwesome";
+    content: "\f09a"; /* add facebook icon */
+}
+
+.facebookBtn-home:hover{
+    color: #2d2d2d;
+    background: #956bb9;
+    border-color: #956bb9; /* change the border color on mouse hover */
+}
+
+/* twitter button class*/
+.twitterBtn-home{
+    background: #2d2d2d;
+    color:#956bb9;
+}
+
+.twitterBtn-home:before{
+      font-family: "FontAwesome";
+      content: "\f099"; /* add twitter icon */
+      
+}
+
+.twitterBtn-home:hover{
+      color: #2d2d2d;
+      background: #956bb9;
+      border-color: #956bb9;
+}
+
+/* google plus button class*/
+.googleplusBtn{
+    background: #e64522;
+}
+
+.googleplusBtn:before{
+      font-family: "FontAwesome";
+      content: "\f0d5"; /* add googleplus icon */
+}
+
+.googleplusBtn:hover{
+      color: #e64522;
+      background: rgba(0, 0, 0, 0);
+      border-color: #e64522;
+}
+
+/* linkedin button class*/
+.linkedinBtn{
+    background: #0094BC;
+}
+
+.linkedinBtn:before{
+      font-family: "FontAwesome";
+      content: "\f0e1"; /* add linkedin icon */
+}
+
+.linkedinBtn:hover{
+      color: #0094BC;
+      background: rgba(0, 0, 0, 0);
+      border-color: #0094BC;
+}
+
+/* pinterest button class*/
+.pinterestBtn{
+    background: #cb2027;
+}
+
+.pinterestBtn:before{
+      font-family: "FontAwesome";
+      content: "\f0d2"; /* add pinterest icon */
+}
+
+.pinterestBtn:hover{
+      color: #cb2027;
+      background: rgba(0, 0, 0, 0);
+      border-color: #cb2027;
+}
+
+/* tumblr button class*/
+.tumblrBtn{
+    background: #3a5876;
+}
+
+.tumblrBtn:before{
+      font-family: "FontAwesome";
+      content: "\f173"; /* add tumblr icon */
+}
+
+.tumblrBtn:hover{
+      color: #3a5876;
+      background: rgba(0, 0, 0, 0);
+      border-color: #3a5876;
+}
+
+/* rss button class*/
+.rssBtn{
+    background: #e88845;
+}
+
+.rssBtn:before{
+      font-family: "FontAwesome";
+      content: "\f09e"; /* add rss icon */
+}
+
+.rssBtn:hover{
+      color: #e88845;
+      background: rgba(0, 0, 0, 0);
+      border-color: #e88845;
+}
+
+#services {
+  background-image: url("../images/services/service-bg.jpg");
+  color:#fff;
+  text-align:center;
+  background-color:	#1b1b1b;
+}
+
+.services {
+	display:block;
+	overflow:hidden;
+	margin-top:50px
+}
+
+#services h2{
+  color: #fff;
+  border-color: #fff;
+  margin-bottom:35px
+}
+
+.single-service {
+	background-color: #050706;
+	padding:25px;
+	transition: all 0.9s ease 0s;
+	-moz-transition: all 0.9s ease 0s;
+	-webkit-transition: all 0.9s ease 0s;
+	-o-transition: all 0.9s ease 0s;
+}
+
+.single-service p {
+	text-align:justify;
+}
+
+.single-service i {
+	text-align:center;
+	font-size:80px;
+	background-color: rgba(0, 0, 0, 0);
+	border-radius: 50%;
+	display: inline-block;
+	height: 150px;
+	line-height: 150px;
+	width: 150px;
+	color:#43484E;
+	transition: all 0.9s ease 0s;
+	-moz-transition: all 0.9s ease 0s;
+	-webkit-transition: all 0.9s ease 0s;
+	-o-transition: all 0.9s ease 0s;
+}
+
+.single-service:hover {
+	background-color: #9475af;
+	color:#050706;
+}
+
+.single-service:hover i {
+	color:#9475af;
+	background-color:#111111;
+	-moz-transform: scale(1.1) rotate(360deg);
+	-webkit-transform: scale(1.1) rotate(360deg);
+	-o-transform: scale(1.1) rotate(360deg);
+	-ms-transform: scale(1.1) rotate(360deg);
+	transform: scale(1.1) rotate(360deg);
+}
+
+.bg-dark {
+	background-color:#050706;
+	margin:0;
 }
