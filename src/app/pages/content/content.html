@@ -23,7 +23,7 @@
        <div class="col-lg-4 text-center">
             <h2>Other Content</h2><hr>
             <div class="col-lg-6 media wow fadeInRight" *ngFor="let category of categories">
-               <div class="media" (click)="openList(category.source)">
+               <div class="media" (click)="openList(category.source, 'non-item')">
                  <div class="media-left media-middle">
                    <div class="">
                      <img class="media-object" src="http://placehold.it/64x64" alt="...">
@@ -66,7 +66,7 @@
                   </ul>
                 </li>
                 <li *ngFor="let category of categories">
-                    <a (click)="menuToggle(category.source, 'non-item', category.name)">{{category?.name}}</a>
+                    <a (click)="menuToggle(category.source,'non-item', category.name)">{{category?.name}}</a>
                 </li>
                 <hr>
                 <span class="text-center">
@@ -134,7 +134,7 @@
                         <!-- The detail page HTML router outlet and the modal code is in app.component.html -->
                 		<div class="alert" data-toggle="modal" href="#contentModal" [ngStyle]="{'background-color':item?.rarity | itemRarity:'rare_color'}" role="alert" (click)="openDetail(item.ID)">
                             <h3 *ngIf="item.rarity" class="panel-title" [ngStyle]="{'color':item?.rarity | itemRarity:'font_color'}">{{item?.name}} <small style="font-size:12px">(lvl.{{item?.level}})</small></h3>
-							<h3 *ngIf="!item.rarity" class="panel-title" [ngStyle]="{'color':99 | itemRarity:'font_color'}">{{item?.name}}</h3>
+							              <h3 *ngIf="!item.rarity" class="panel-title" [ngStyle]="{'color':99 | itemRarity:'font_color'}">{{item?.name}}</h3>
                 		</div>
                 	</div>
                 </div>

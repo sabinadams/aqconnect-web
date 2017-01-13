@@ -8,8 +8,10 @@
 			</a>
 		</div>
 		<div class="col-lg-8" style="text-align:right;">
-			<span>{{item?.special_icon[0]?.name}}</span>
-			<img *ngIf="item?.special_icon[0]?.image_url" src="{{item?.special_icon[0]?.image_url}}" alt="" style="height:30px;width:auto;">
+			<span *ngFor="let icon of item?.special_icons">
+				<span>{{icon.name}}</span>
+				<img *ngIf="icon.image_url" src="{{icon.image_url}}" alt="" style="height:30px;width:auto;">
+			</span>
 		</div>
 	</div>
 	<div class="row">

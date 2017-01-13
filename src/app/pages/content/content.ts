@@ -24,8 +24,8 @@ export class ContentPage implements OnInit{
 		this._contentService.getContentCategories().subscribe(res => { this.categories = res.slice(1); });
 	}
 
-	openList(type){
-		if(!isNaN(type)){
+	openList(type, option?){
+		if(!(option == 'non-item')){
 				this._contentService.getItemsByType(type).subscribe(res => { this.items = res; });
 				switch(type){
 					case 1:this.title = "Armors"; break;
@@ -41,9 +41,12 @@ export class ContentPage implements OnInit{
 					case 11: this.title = "Capes"; break;
 					case 12: this.title = "Useable Items"; break;
 				}
+				this.itemType = 1;
 			} else {
 				this._contentService.getContentBySource(type).subscribe(res => {this.items = res; });
 				this.title = type.substring(0,1).toUpperCase() + type.substring(1);
+				this.detail_link = type + 'page';
+				this.itemType = 0;
 			}
 		this.showlist = true;
 	}
@@ -62,12 +65,11 @@ export class ContentPage implements OnInit{
 		} 
 		wrapper.toggleClass('toggled');
 		this.isClosed = !this.isClosed;
-		
 		if(category){
 			this.items = [];
 			if(type && type == 'non-item'){
 				this.title = category_name;
-				this._contentService.getContentBySource(category).subscribe(res => {this.items = res;});
+				this._contentService.getContentBySource(category).subscribe(res => { this.items = res;});
 				this.detail_link = category + 'page';
 				this.itemType = 0;
 			} else {

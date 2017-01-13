@@ -18,11 +18,10 @@
 						</div>
 						<div class="col-lg-9" style="text-align:left;">
 							<b>Last Reply: </b>
-							<span *ngIf="post.lastReplier">
-								{{post.lastReplier}} {{post.reply_timestamp | timeAgo }}
-							</span><br>
+							<span *ngIf="post.lastReplier"> {{post.lastReplier}} {{post.reply_timestamp | timeAgo }} </span>
+							<span *ngIf="!post.lastReplier"> None </span>
+							<br>
 							<b>Posted By:</b> {{post.AUTHOR}} {{post.timestamp | timeAgo}}
-							<span *ngIf="!post.lastReplier"> None </span><br>
 							Likes: {{post.likes}}
 							<span style="font-size:25px; float:right;" (click)="likePost(i)" *ngIf="!(post.user_ID == userID)" [ngStyle]="{'color':+post?.LIKEID | liked:userID}" class="glyphicon glyphicon-heart" aria-hidden="true"></span>
 							<span style="font-size:25px; float:right; color:red;" *ngIf="post.user_ID == userID" (click)="deletePost(post, i)" class="glyphicon glyphicon-trash" aria-hidden="true"></span>

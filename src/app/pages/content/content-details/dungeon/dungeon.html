@@ -16,7 +16,7 @@
 	<!-- Images -->
 	<div class="row">
 		<div class="col-lg-12 text-center">
-			<img *ngIf="dungeon?.images[0].image_url" style="height:300px; width:auto; border-radius:7px;" src="{{dungeon?.images[0]?.image_url}}" alt="{{dungeon?.name}}'s Image">
+			<img *ngIf="dungeon?.images[0]?.image_url" style="height:300px; width:auto; border-radius:7px;" src="{{dungeon?.images[0]?.image_url}}" alt="{{dungeon?.name}}'s Image">
 			<div class="text-center">
 				<p class="stats">Lvl.{{dungeon?.level}} |  <b>Key Cost:</b> {{dungeon?.key_cost}} </p>
 			</div>

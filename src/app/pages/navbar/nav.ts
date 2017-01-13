@@ -16,7 +16,6 @@ export class NavComponent implements OnInit{
 		this.user = JSON.parse(localStorage.getItem('user'));
 		this._serverStatus.getStats().subscribe((res) => {
 			this.servers = JSON.parse(res);
-			console.log(this.servers);
 		});
     }
 	logout(){
@@ -26,9 +25,4 @@ export class NavComponent implements OnInit{
 			}
 		});
 	}
-
-	test(){
-		alert("Noice");
-	}
-
 }

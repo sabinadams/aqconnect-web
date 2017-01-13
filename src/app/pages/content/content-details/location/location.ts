@@ -13,7 +13,7 @@ export class LocationPage implements OnInit{
 	location: any;
 	ngOnInit(){
 		this._activeRoute.params.subscribe(params => {
-	       this._contentService.getContentByIDSource(+params['id'], 'locations').subscribe(res => {this.location = res;}); // (+) converts string 'id' to a number
+	       this._contentService.getContentByIDSource(+params['id'], 'locations').subscribe(res => {console.log(res); this.location = res;}); // (+) converts string 'id' to a number
 	    });
 	}
 	openRoute(id, source){
