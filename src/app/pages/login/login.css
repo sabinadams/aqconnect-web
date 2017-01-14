@@ -1,9 +1,9 @@
 #login .btn {
-	background-color: #080808;
+	background-color: #956bb9;
 }
 
 #login .btn:hover {
-	background-color:#000000;
+	background-color:#6c508e;
 	color: #d3d3d3;
 }
 
@@ -15,13 +15,17 @@
     background-attachment: fixed;
     background-size: cover !important;
 }
+.col-lg-7 {
+  float:none;
+  margin:auto;
+}
 .para-text {
     padding: 10px;
     font-weight:600;
 }
 #aenews {
 	background-color:#75598e;
-	background-image: url("http://aq.trycf.com/assets/images/10.jpg");
+	background-image: url("http://aqconnect.io/news.png");
 }
 #content {
 	background-color:#75598e;
@@ -72,7 +76,9 @@ section {
   width:100%;
   margin:auto;
 }
-
+header .header-content .inner {
+  margin-top:0;
+}
 .text-primary {
   color:rgb(149, 107, 185);
   font-size: 40px;
@@ -283,7 +289,6 @@ img#galleryImage.img-responsive.staff-modal{
 }
 
 #services {
-  background-image: url("../images/services/service-bg.jpg");
   color:#fff;
   text-align:center;
   background-color:	#1b1b1b;
