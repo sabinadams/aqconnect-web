@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ForumService } from '../../../services/forum-service';
-
 @Component({
   templateUrl: './forum.html',
   styleUrls: ['./forum.css']
@@ -13,6 +12,7 @@ export class ForumPage implements OnInit{
 	forumID;
 	userID = JSON.parse(localStorage.getItem('user')).Id;
 	loading = true;
+	preview = false;
 	ngOnInit(){
 		this._activeRoute.params.subscribe(params => {
 			this.forumID = +params['forumID'];
@@ -28,7 +28,6 @@ export class ForumPage implements OnInit{
 	       }); // (+) converts string 'id' to a number
 	    });  
 	}
-
 	openPost(postID){
 		this._router.navigate(['/forums', {outlets: {'forumpostpage': ['forumpost', postID]}}]);
 	}
@@ -67,11 +66,10 @@ export class ForumPage implements OnInit{
         }
 	}
     post(title, body){
-    	console.log(body);
     	 var data = {
             "title": title,
             "body": body,
-            "user_ID": this.userID,
+            "user": JSON.parse(localStorage.getItem('user')),
             "forumID": this.forumID
         };
         if(data.body.trim() && data.title.trim()){

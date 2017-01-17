@@ -29,3 +29,15 @@ li.list-group-item {
 	color:#4c4a4a;
 	background-color:rgb(35, 32, 39);
 }
+:host >>> .post-body img {
+  max-width:100% !important;
+  width:auto !important;
+  height:auto !important;
+  text-align:center;
+  margin:auto;
+  display:block;
+}
+:host >>> .post-body hr {
+  max-width:90% !important;
+  width:90% !important;
+}

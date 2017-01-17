@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth-service';
 import 'rxjs/add/operator/map';
-
+declare var $: any;
 @Component({
   templateUrl: './account.html',
   styleUrls: ['./account.css']
@@ -18,6 +18,8 @@ export class AccountPage implements OnInit{
 	facebookloaded = true;
 	showmessage = false;
 	showerror = false;
+	disablesuccess = false;
+	disableerror = false;
 	error:string;
 	message:string;
 	constructor( private _activeRoute: ActivatedRoute, private _router: Router, private _authService: AuthService ){}
@@ -75,6 +77,32 @@ export class AccountPage implements OnInit{
 		});
 	  }
 	  myReader.readAsDataURL(file);
+	}
+
+	disableAccount( pass ){
+		if(pass.trim().length){
+			this._authService.disableAccount( pass ).subscribe(res => {
+				if(res.status == 'success'){
+					this.message = res.status_message;
+					this.disablesuccess = true;
+					setTimeout( () => {
+						this.message = "";
+						this.disablesuccess = false;
+						localStorage.removeItem('user');
+						localStorage.removeItem('token');
+					    document.getElementById('toggler').click();
+						this._router.navigate(['']);
+					}, 3000);
+				} else {
+					this.error = res.status_message;
+					this.disableerror = true;
+					setTimeout( () => {
+						this.error = "";
+						this.disableerror = false;
+					}, 3000);
+				}
+			});
+		}
 	}
 
 	changeUsername(newname){

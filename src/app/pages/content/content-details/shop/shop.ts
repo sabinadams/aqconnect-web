@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ContentService } from '../../../../services/content-service';
-
-
+declare var $: any;
 @Component({
   selector: 'shop',
   templateUrl: './shop.html',
@@ -14,6 +13,9 @@ export class ShopPage implements OnInit{
 	ngOnInit(){
 		this._activeRoute.params.subscribe(params => {
 	       this._contentService.getContentByIDSource(+params['id'], 'shoppes').subscribe(res => {this.shop = res;}); // (+) converts string 'id' to a number
+	       if($('body').attr("class") != "modal-open"){
+   		    	document.getElementById('toggler').click();
+   		    }
 	    });
 	}
 

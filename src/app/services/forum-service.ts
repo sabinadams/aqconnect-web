@@ -78,7 +78,7 @@ export class ForumService {
   }
 
   reply(data){
-    return this._http.post('http://aq.trycf.com/api/index.cfm/saveForumReply/', {'data':data}) // ...using post request
+    return this._http.post('http://aq.trycf.com/api/index.cfm/saveForumReplySafe/', {'data':data}) // ...using post request
     .map((res) => {
         if(res.status == 200 && res.statusText == "OK"){
             return res;
@@ -90,7 +90,7 @@ export class ForumService {
   }
 
   post(data){
-    return this._http.post('http://aq.trycf.com/api/index.cfm/saveForumPost/', {'data':data}) // ...using post request
+    return this._http.post('http://aq.trycf.com/api/index.cfm/saveForumPostSafe/', {'data':data}) // ...using post request
     .map((res) => {
         if(res.status == 200 && res.statusText == "OK"){
             return res;

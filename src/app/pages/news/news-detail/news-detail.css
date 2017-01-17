@@ -1,5 +1,6 @@
 :host >>> .post-body img {
   max-width:100%;
+  width:auto;
   height:auto !important;
   text-align:center;
   margin:auto;

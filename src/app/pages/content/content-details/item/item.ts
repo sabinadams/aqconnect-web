@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute, RouterState } from '@angular/router';
 import { ContentService } from '../../../../services/content-service';
-
+declare var $: any;
 @Component({
   selector: 'item',
   templateUrl: './item.html',
@@ -20,6 +20,9 @@ export class ItemPage implements OnInit{
 	       		this.item = res;
 	       		this.srcMale = "https://sketchfab.com/models/" + res.male_model_uuid + "/embed?autostart=1";
 	       		this.srcFemale = "https://sketchfab.com/models/" + res.female_model_uuid + "/embed?autostart=1";
+	       		if($('body').attr("class") != "modal-open"){
+			    	document.getElementById('toggler').click();
+			    }
 	       }); // (+) converts string 'id' to a number
 	    	
 	    });

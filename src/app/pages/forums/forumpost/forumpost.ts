@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ForumService } from '../../../services/forum-service';
-
+declare var $: any;
 @Component({
   templateUrl: './forumpost.html',
   styleUrls: ['./forumpost.css']
@@ -18,6 +18,9 @@ export class ForumPostPage implements OnInit{
 	       this._forumService.getPostsByID(+params['postID'], this.userID, this.start ).subscribe(res => {
 	       		this.post = res;
 	       		this.popularity = (res.POSTCOUNT/2) + (res.USERLIKES/2);
+	       		if($('body').attr("class") != "modal-open"){
+	   		    	document.getElementById('toggler').click();
+	   		    }
 	       }); // (+) converts string 'id' to a number
 	    });   
 	}
@@ -75,7 +78,7 @@ export class ForumPostPage implements OnInit{
 		var data = {
 	        "body": body,
 	        "post_ID": this.post.ID,
-	        "user_ID": this.userID,
+	        "user": JSON.parse(localStorage.getItem('user')),
 	        "replierName": this.username
 	    };
 	    if(data.body.trim()){

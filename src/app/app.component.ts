@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { AuthService } from './services/auth-service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,12 +7,9 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent{
-	userCheck(){
-		if(localStorage.getItem('user')){
-			return true;
-		}else{
-			return false;
-		}
-	}	
 
+	constructor(private _authService: AuthService){}
+	userCheck(){
+		return this._authService.isLoggedIn();
+	}
 }

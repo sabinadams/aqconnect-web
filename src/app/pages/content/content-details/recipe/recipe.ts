@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ContentService } from '../../../../services/content-service';
-
+declare var $: any;
 @Component({
   selector: 'recipe',
   templateUrl: './recipe.html',
@@ -13,6 +13,9 @@ export class RecipePage implements OnInit{
 	ngOnInit(){
 		this._activeRoute.params.subscribe(params => {
 	       this._contentService.getContentByIDSource(+params['id'], 'recipes').subscribe(res => {this.recipe = res;}); // (+) converts string 'id' to a number
+	       if($('body').attr("class") != "modal-open"){
+   		    	document.getElementById('toggler').click();
+   		    }
 	    });
 	}
 	openRoute(id, source){

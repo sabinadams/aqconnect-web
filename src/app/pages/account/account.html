@@ -67,7 +67,36 @@
 			style="color:rgb(149, 107, 185); border-color:rgb(149, 107, 185); width:150px;">
 			Change Password
 		</button>
+		<div class="alert" id="toggler" data-toggle="modal" href="#disableAccountModal"><span style="color:#e85252;">Disable Account</span></div>
+
 
 	</div>
 	
+
+	 <!-- Popup for Build Stat Calculator -->
+    <div id="disableAccountModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="max-width:60%; width:60%;">
+            <div class="modal-content">
+                <div class="modal-body">
+                	<div class="row text-center">	
+                		<div *ngIf="disablesuccess" class="alert alert-success" role="alert">{{message}}</div>
+                		<div *ngIf="disableerror" class="alert alert-danger" role="alert">{{error}}</div>
+                    	<h2>Are you sure you want to disable your account?</h2>
+                    	<p>Input your password below to disable</p>
+                    	<p>NOTE: This is irreversable unless you contact us and provide valid login information.</p>
+                	</div>
+					<hr style="max-width:90%; width:90%;">
+					<div class="row">
+						<div class="form-group" style="width: 60%; margin: auto;">
+							<div class="input-group">
+								<span class="input-group-addon" id="basic-addon3">Password</span>
+							    <input type="password" class="form-control" [(ngModel)]="disablePass">
+							  	<span class="input-group-addon" id="basic-addon2" style="color:#e85252;" (click)="disableAccount(disablePass); disablePass = '';">Disable</span>
+							</div>
+						</div>
+					</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

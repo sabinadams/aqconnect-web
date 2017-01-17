@@ -39,6 +39,17 @@ export class AuthService {
     .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 
+  disableAccount( pass ){
+    let user = JSON.parse(localStorage.getItem('user'));
+    let data = {'userID': user.Id, 'password':pass, 'token': user.device_token};
+    return this._customHTTP.post('http://aq.trycf.com/api/index.cfm/disableaccount', data) // ...using post request
+    .map((res:Response) => {
+       return res.json();
+     }) // ...and calling .json() on the response to return data
+    .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  } 
+
+
   //Creates Account
   sendForgotPasswordEmail(email){
     let data = {'email':email};
@@ -180,4 +191,5 @@ export class AuthService {
        return {'user': temp, 'status': res.json()};
     });
   }
-}
+
+ }

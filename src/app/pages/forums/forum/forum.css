@@ -50,3 +50,10 @@
     background-color: #1D1D1D;
     border: 1px solid rgb(149, 107, 185);
 } 
+.modal-dialog {
+  width:70%;
+}
+:host >>> .post-body hr {
+  max-width:90% !important;
+  width:90% !important;
+}

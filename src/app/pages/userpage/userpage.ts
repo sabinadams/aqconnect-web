@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user-service';
-
+declare var $: any;
 @Component({
   templateUrl: './userpage.html',
   styleUrls: ['./userpage.css']
@@ -19,6 +19,9 @@ export class UserPage implements OnInit{
 			this.chosenbadge = "";
 			this._userService.getUserByID(+params['userID']).subscribe(res => {
 				this.user = res;
+				if($('body').attr("class") != "modal-open"){
+	   		    	document.getElementById('toggler').click();
+	   		    }
 			});
 		});
 	}

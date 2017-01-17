@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { CKEditorModule } from 'ng2-ckeditor';
 
 //Page Imports....
 import { AppComponent } from './app.component';
@@ -42,6 +43,7 @@ import { ForumService } from './services/forum-service';
 import { AuthService } from './services/auth-service';
 import { UserService } from './services/user-service';
 import { ServerStatusService } from './services/server-status-service';
+import { AuthGuard } from './services/auth-guard';
 //Pipe Imports....
 import { StaffTypePipe } from './pipes/staff-type-pipe';
 import { ItemRarityPipe} from './pipes/item-rarity-pipe';
@@ -68,12 +70,12 @@ import { routing, appRoutingProviders } from './app.routing';
     CreateAccountPage, ForgotPasswordPage, TimeAgoPipe, UserForumPostsPage
   ],
   imports: [
-    BrowserModule, FormsModule, HttpModule, routing
+    BrowserModule, FormsModule, HttpModule, routing, CKEditorModule
   ],
   providers: [
     appRoutingProviders, HttpClient, TeamService, NewsService,
     ContentService, ForumService, AuthService, UserService,
-    ServerStatusService
+    ServerStatusService, AuthGuard
   ],
   bootstrap: [AppComponent]
 })

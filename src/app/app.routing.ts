@@ -8,6 +8,8 @@ import { HomeComponent } from './pages/home/home';
 import { ContentPage } from './pages/content/content';
 import { LoginPage } from './pages/login/login';
 
+import { AuthGuard } from './services/auth-guard';
+
 import { ItemPage } from './pages/content/content-details/item/item';
 import { LocationPage } from './pages/content/content-details/location/location';
 import { MonsterPage } from './pages/content/content-details/monster/monster';
@@ -33,40 +35,40 @@ import { UserForumPostsPage } from './pages/userforumposts/userforumposts';
 //App Routes....
 const appRoutes: Routes = [
 	{ path: '', component: LoginPage },
-	{ path: 'home', component: HomeComponent },
+	{ path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
 	{ path: 'createaccount', component: CreateAccountPage },
 	{ path: 'forgotpassword', component: ForgotPasswordPage },
-	{ path: 'userforumposts', component: UserForumPostsPage},
+	{ path: 'userforumposts', component: UserForumPostsPage, canActivate: [AuthGuard]},
     { path: 'content', children: [
-        { path : '' , component: ContentPage},
-	    { path: 'itemspage/:id', component: ItemPage, outlet: 'contentpage' },
-	    { path: 'locationspage/:id', component: LocationPage, outlet: 'contentpage' },
-	    { path: 'monsterspage/:id', component: MonsterPage, outlet: 'contentpage' },
-	    { path: 'npcspage/:id', component: NPCPage, outlet: 'contentpage' },
-	    { path: 'questspage/:id', component: QuestPage, outlet: 'contentpage' },
-	    { path: 'shoppespage/:id', component: ShopPage, outlet: 'contentpage' },
-	    { path: 'badgespage/:id', component: BadgePage, outlet: 'contentpage' },
-	    { path: 'dungeonspage/:id', component: DungeonPage, outlet: 'contentpage' },
-	    { path: 'craftshoppespage/:id', component: CraftshopPage, outlet: 'contentpage' },
-	    { path: 'recipespage/:id', component: RecipePage, outlet: 'contentpage' }
+        { path : '' , component: ContentPage, canActivate: [AuthGuard]},
+	    { path: 'itemspage/:id', component: ItemPage, outlet: 'contentpage', canActivate: [AuthGuard] },
+	    { path: 'locationspage/:id', component: LocationPage, outlet: 'contentpage', canActivate: [AuthGuard] },
+	    { path: 'monsterspage/:id', component: MonsterPage, outlet: 'contentpage', canActivate: [AuthGuard] },
+	    { path: 'npcspage/:id', component: NPCPage, outlet: 'contentpage', canActivate: [AuthGuard] },
+	    { path: 'questspage/:id', component: QuestPage, outlet: 'contentpage', canActivate: [AuthGuard] },
+	    { path: 'shoppespage/:id', component: ShopPage, outlet: 'contentpage', canActivate: [AuthGuard] },
+	    { path: 'badgespage/:id', component: BadgePage, outlet: 'contentpage', canActivate: [AuthGuard] },
+	    { path: 'dungeonspage/:id', component: DungeonPage, outlet: 'contentpage', canActivate: [AuthGuard] },
+	    { path: 'craftshoppespage/:id', component: CraftshopPage, outlet: 'contentpage', canActivate: [AuthGuard] },
+	    { path: 'recipespage/:id', component: RecipePage, outlet: 'contentpage', canActivate: [AuthGuard] }
   	]},
   	{path: 'news', children: [
-        { path : '' , component: NewsPage},
-	    { path: 'newsdetail/:id', component: NewsDetailPage, outlet: 'newspage' },
+        { path : '' , component: NewsPage, canActivate: [AuthGuard]},
+	    { path: 'newsdetail/:id', component: NewsDetailPage, outlet: 'newspage', canActivate: [AuthGuard] },
   	]},
   	{path: 'account', children: [
-        { path : '' , component: AccountPage},
-	    { path: 'changepassword', component: ForgotPasswordPage },
+        { path : '' , component: AccountPage, canActivate: [AuthGuard]},
+	    { path: 'changepassword', component: ForgotPasswordPage, canActivate: [AuthGuard] },
   	]},
   	{path: 'users', children: [
-        { path : '' , component: UserListPage},
-	    { path: 'userprofile/:userID', component: UserPage, outlet: 'userpage' },
+        { path : '' , component: UserListPage, canActivate: [AuthGuard]},
+	    { path: 'userprofile/:userID', component: UserPage, outlet: 'userpage', canActivate: [AuthGuard] },
   	]},
   	{path: 'forums', children: [
-        { path : '' , component: ForumsPage},
-	    { path: 'forumpage/:forumID', component: ForumPage },
-	    { path: 'forumpost/:postID', component: ForumPostPage, outlet:'forumpostpage' },
-	    { path: 'userprofile/:userID', component: UserPage, outlet: 'forumpostpage' },
+        { path : '' , component: ForumsPage, canActivate: [AuthGuard]},
+	    { path: 'forumpage/:forumID', component: ForumPage, canActivate: [AuthGuard] },
+	    { path: 'forumpost/:postID', component: ForumPostPage, outlet:'forumpostpage', canActivate: [AuthGuard] },
+	    { path: 'userprofile/:userID', component: UserPage, outlet: 'forumpostpage', canActivate: [AuthGuard] },
   	]}
 ]; 
 

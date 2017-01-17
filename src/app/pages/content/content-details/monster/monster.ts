@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ContentService } from '../../../../services/content-service';
-
+declare var $: any;
 @Component({
   selector: 'monster',
   templateUrl: './monster.html',
@@ -17,6 +17,9 @@ export class MonsterPage implements OnInit{
 	       this._contentService.getContentByIDSource(+params['id'], 'monsters').subscribe(res => {
 	       		this.monster = res;
 	       		this.url = "https://sketchfab.com/models/" + res.model_uuid + "/embed?autostart=1";
+	       		if($('body').attr("class") != "modal-open"){
+	   		    	document.getElementById('toggler').click();
+	   		    }
 	       }); // (+) converts string 'id' to a number
 	    });
 	}

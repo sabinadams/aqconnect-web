@@ -1,7 +1,7 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-lg-4" style="text-align:left;">
-			<a href="#forumModal"  data-toggle="modal">
+			<a id="toggler" href="#forumModal"  data-toggle="modal">
 				<span style="color:red; font-size:15px;"class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
 			</a>
 		</div>
@@ -34,8 +34,11 @@
 			<h2>{{post?.title}}</h2>
 			<hr>
 		</div>
+		<!-- <div class="row">
+			<p >{{post?.body}}</p>
+		</div> -->
 		<div class="row">
-			<p style="padding:15px;">{{post?.body}}</p>
+			<div style="padding:15px; border-width: 2px; border-color:red;" class="post-body" [innerHTML]="post?.body | safe:'html'"></div>
 		</div>
 	</div>
 	<hr>
@@ -56,7 +59,9 @@
 					<p style="font-size:12px;">Post Count: {{reply.POSTCOUNT || reply.forum_activity}}</p>
 				</div>
 				<div class="col-lg-7">
-					<p style="font-size:14px;">{{reply.body}}</p>
+					<div class="row">
+						<div style="padding:14px;" class="post-body" [innerHTML]="reply?.body | safe:'html'"></div>
+					</div>
 				</div>
 				<div class="col-lg-3" style="text-align:right;">
 					<p style="font-size:12px; margin:0;">{{reply.timestamp | timeAgo }}</p>
