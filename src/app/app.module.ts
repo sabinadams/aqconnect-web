@@ -26,6 +26,7 @@ import { NewsPage } from './pages/news/news';
 import { ForumsPage } from './pages/forums/forums';
   import { ForumPage } from './pages/forums/forum/forum';
     import { ForumPostPage } from './pages/forums/forumpost/forumpost';
+  import { EditForumPostPage } from './pages/forums/editforumpost/editforumpost';
 import { LoginPage } from './pages/login/login';
   import { CreateAccountPage } from './pages/createaccount/createaccount';
   import { ForgotPasswordPage } from './pages/forgotpassword/forgotpassword';
@@ -67,7 +68,8 @@ import { routing, appRoutingProviders } from './app.routing';
     NewsTypePipe, NewsDetailPage, ForumsPage, 
     LoginPage, ForumPage, ForumPostPage, LikePipe, 
     UserListPage, UserPage, AccountPage, CalculatorPage, 
-    CreateAccountPage, ForgotPasswordPage, TimeAgoPipe, UserForumPostsPage
+    CreateAccountPage, ForgotPasswordPage, TimeAgoPipe, UserForumPostsPage,
+    EditForumPostPage
   ],
   imports: [
     BrowserModule, FormsModule, HttpModule, routing, CKEditorModule

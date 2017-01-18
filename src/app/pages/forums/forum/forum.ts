@@ -9,7 +9,7 @@ export class ForumPage implements OnInit{
 	constructor( private _activeRoute: ActivatedRoute, private _router: Router, private _forumService: ForumService){}
 	posts:any;
 	start = 0;
-	forumID;
+	forumID:any;
 	userID = JSON.parse(localStorage.getItem('user')).Id;
 	loading = true;
 	preview = false;
@@ -30,6 +30,9 @@ export class ForumPage implements OnInit{
 	}
 	openPost(postID){
 		this._router.navigate(['/forums', {outlets: {'forumpostpage': ['forumpost', postID]}}]);
+	}
+	editPost(postID){
+		this._router.navigate(['/forums', {outlets: {'forumpostpage': ['editforumpost', postID]}}]);
 	}
 	 //Likes and unlikes replies
 	likePost(index){

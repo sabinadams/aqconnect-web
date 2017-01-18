@@ -31,7 +31,12 @@ export class ForumService {
     }).catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 
-
+  getPostByUser(postID){
+    let user = JSON.parse(localStorage.getItem('user'));
+    return this._http.get(`http://aq.trycf.com/api/index.cfm/userforumpost/${postID}/${user.Id}/${user.token}`).map( (res) => {
+      return res.json();
+    }).catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
   //Gets Forum Posts By User
   deleteForumPost(post){
     let user = JSON.parse(localStorage.getItem('user'));
@@ -101,4 +106,17 @@ export class ForumService {
     .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 
+  updatePost(post){
+    let user = JSON.parse(localStorage.getItem('user'));
+    let data = {'post': post, 'user': user}; 
+    return this._http.post('http://aq.trycf.com/api/index.cfm/updateforumpost/', {'data':data}) // ...using post request
+    .map((res) => {
+        if(res.status == 200 && res.statusText == "OK"){
+            return res;
+         } else {
+           return "Error";
+         }
+     }) // ...and calling .json() on the response to return data
+    .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
 }

@@ -8,6 +8,7 @@ import { ForumService } from '../../services/forum-service';
 export class UserForumPostsPage implements OnInit {
 	constructor(private _router: Router, private _forumService: ForumService){}
 	posts:any;
+	userID = JSON.parse(localStorage.getItem('user')).Id;
 	ngOnInit(){
 		this._forumService.getPostsByUser().subscribe(res => {
 			this.posts = res;
@@ -22,8 +23,10 @@ export class UserForumPostsPage implements OnInit {
 	}
 
 	openPost(postID){
-		this._router.navigate(['/forums', {outlets: {'forumpostpage': ['forumpost', postID]}}]);
+		this._router.navigate(['/userforumposts', {outlets: {'forumpostpage': ['forumpost', postID]}}]);
 	}
 
-
+	editPost(postID){
+		this._router.navigate(['/userforumposts', {outlets: {'forumpostpage': ['editforumpost', postID]}}]);
+	}
 }

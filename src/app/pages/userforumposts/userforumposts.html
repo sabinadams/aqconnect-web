@@ -19,6 +19,7 @@
 							</span>
 							<span *ngIf="!post.lastReplier"> None </span><br>
 							Likes: {{post.likes}}
+							<span data-toggle="modal" href="#forumModal" (click)="editPost(post.ID)" style="font-size:25px; float:right; color:blue;" *ngIf="post.user_ID == userID" class="glyphicon glyphicon-cog" aria-hidden="true"></span>
 							<span style="font-size:25px; float:right; color:red;" (click)="deletePost(post, i)" class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 						</div>
 					</div>

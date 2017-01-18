@@ -31,14 +31,13 @@ import { AccountPage } from './pages/account/account';
 import { CreateAccountPage } from './pages/createaccount/createaccount';
 import { ForgotPasswordPage } from './pages/forgotpassword/forgotpassword';
 import { UserForumPostsPage } from './pages/userforumposts/userforumposts';
-
+import { EditForumPostPage } from './pages/forums/editforumpost/editforumpost';
 //App Routes....
 const appRoutes: Routes = [
 	{ path: '', component: LoginPage },
 	{ path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
 	{ path: 'createaccount', component: CreateAccountPage },
 	{ path: 'forgotpassword', component: ForgotPasswordPage },
-	{ path: 'userforumposts', component: UserForumPostsPage, canActivate: [AuthGuard]},
     { path: 'content', children: [
         { path : '' , component: ContentPage, canActivate: [AuthGuard]},
 	    { path: 'itemspage/:id', component: ItemPage, outlet: 'contentpage', canActivate: [AuthGuard] },
@@ -68,8 +67,15 @@ const appRoutes: Routes = [
         { path : '' , component: ForumsPage, canActivate: [AuthGuard]},
 	    { path: 'forumpage/:forumID', component: ForumPage, canActivate: [AuthGuard] },
 	    { path: 'forumpost/:postID', component: ForumPostPage, outlet:'forumpostpage', canActivate: [AuthGuard] },
-	    { path: 'userprofile/:userID', component: UserPage, outlet: 'forumpostpage', canActivate: [AuthGuard] },
+	    { path: 'editforumpost/:postID', component: EditForumPostPage, outlet: 'forumpostpage', canActivate: [AuthGuard]},
+	    { path: 'userprofile/:userID', component: UserPage, outlet: 'forumpostpage', canActivate: [AuthGuard] }
+  	]},
+  	{path: 'userforumposts', children: [
+        { path: '', component: UserForumPostsPage, canActivate: [AuthGuard]},
+	    { path: 'editforumpost/:postID', component: EditForumPostPage, outlet: 'forumpostpage', canActivate: [AuthGuard]},
+	    { path: 'forumpost/:postID', component: ForumPostPage, outlet:'forumpostpage', canActivate: [AuthGuard] }
   	]}
+
 ]; 
 
 export const appRoutingProviders: any[] = [];
