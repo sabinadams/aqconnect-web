@@ -16,9 +16,6 @@ export class NavComponent implements OnInit{
 	notifications:any;
 	start = 0;
 	ngOnInit(){
-		this.notification_check = false;
-		this.start = 0;
-		this.notifications = [];
 		this.user = JSON.parse(localStorage.getItem('user'));
 		this._serverStatus.getStats().subscribe((res) => {
 			this.servers = JSON.parse(res);
@@ -37,7 +34,6 @@ export class NavComponent implements OnInit{
 	}
 
 	handleNotifications(){
-		console.log(localStorage.getItem('user'));
 		if(localStorage.getItem('user')){
 			this._notificationService.checkNotifications().subscribe(res => {
 				if(res.status != 401 ){
@@ -49,11 +45,9 @@ export class NavComponent implements OnInit{
 					for(let notification of this.notifications){
 						if(notification.read == 0) this.notification_check = true;
 					}
-
 				}
 			});
 		}
-		
 	}
 
 	clearAllNotifications(){
