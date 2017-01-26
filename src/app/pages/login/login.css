@@ -1,3 +1,39 @@
+.slick-center .slide-h3{
+  color: #FFF;
+}
+.slider{
+  width: 600px;  
+  height:150px;
+  margin: 20px auto;    
+  text-align: center;
+}
+.slide-h3{
+  margin: 10% 0 10% 0;
+  padding: 40% 20%;
+  background: #008ed6;
+}
+.slider div{
+  margin-right: 5px;
+}
+.slick-slide{
+  opacity: .3;
+  padding:10px;
+}
+.slick-slide:focus {
+   outline: none; 
+}
+.slick-slide img {
+  border-radius:7px;
+  height:200px;
+  width:auto;
+}
+.slick-center{
+  display: block;
+  max-width: 10% !important;
+  max-height:20% !important;
+  opacity: 1;
+}
+
 #login .btn {
 	background-color: #956bb9;
 }
@@ -32,7 +68,7 @@
 	background-image: url("http://aqconnect.io/content.PNG");
 }
 
-section {
+section { 
 	min-height:0;
 }
 .gallery-box .gallery-box-caption {
@@ -77,7 +113,7 @@ section {
   margin:auto;
 }
 header .header-content .inner {
-  margin-top:0;
+  margin-top:5%;
 }
 .text-primary {
   color:rgb(149, 107, 185);

@@ -14,6 +14,6 @@ export class ForumsPage implements OnInit{
 	}
 
 	openForum(forumID){
-		this._router.navigate(['forums/forumpage', forumID]);
+		this._router.navigate(['/forumpage', forumID]);
 	}
 }

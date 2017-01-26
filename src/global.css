@@ -26,6 +26,19 @@ input:-webkit-autofill:active {
     font-size:17px;
 }
 
+
+@-webkit-keyframes greenPulse {
+  from {color:#956bb9; }
+  50% { color: #1e1e1e; }
+  to { color: #956bb9; }
+}
+
+.notification-indicator-active {
+  -webkit-animation-name: greenPulse;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+}
+
 input:-webkit-autofill:focus {
     -webkit-box-shadow: 0 0 0px 1000px #f6e1ff inset;
     text-align:center;

@@ -13,9 +13,11 @@ export class LocationPage implements OnInit{
 	ngOnInit(){
 		this._activeRoute.params.subscribe(params => {
 	       this._contentService.getContentByIDSource(+params['id'], 'locations').subscribe(res => {console.log(res); this.location = res;}); // (+) converts string 'id' to a number
-      		if($('body').attr("class") != "modal-open"){
-   		    	document.getElementById('toggler').click();
-   		    }
+      		setTimeout(() => {
+	       		if($('body').attr("class") != "modal-open"){
+	   		    	document.getElementById('toggler').click();
+	   		    }
+	       }, 200);
 	    });
 	}
 	openRoute(id, source){

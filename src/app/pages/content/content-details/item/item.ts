@@ -20,9 +20,11 @@ export class ItemPage implements OnInit{
 	       		this.item = res;
 	       		this.srcMale = "https://sketchfab.com/models/" + res.male_model_uuid + "/embed?autostart=1";
 	       		this.srcFemale = "https://sketchfab.com/models/" + res.female_model_uuid + "/embed?autostart=1";
+	       		setTimeout(() => {
 	       		if($('body').attr("class") != "modal-open"){
-			    	document.getElementById('toggler').click();
-			    }
+	   		    	document.getElementById('toggler').click();
+	   		    }
+	       }, 200);
 	       }); // (+) converts string 'id' to a number
 	    	
 	    });

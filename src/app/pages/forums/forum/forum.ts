@@ -29,10 +29,10 @@ export class ForumPage implements OnInit{
 	    });  
 	}
 	openPost(postID){
-		this._router.navigate(['/forums', {outlets: {'forumpostpage': ['forumpost', postID]}}]);
+		this._router.navigate(['/forumpage', this.forumID, {outlets: {'forumpostpage': ['forumpost', postID]}}]);
 	}
 	editPost(postID){
-		this._router.navigate(['/forums', {outlets: {'forumpostpage': ['editforumpost', postID]}}]);
+		this._router.navigate(['/forumpage', this.forumID, {outlets: {'forumpostpage': ['editforumpost', postID]}}]);
 	}
 	 //Likes and unlikes replies
 	likePost(index){

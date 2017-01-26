@@ -63,9 +63,9 @@ const appRoutes: Routes = [
         { path : '' , component: UserListPage, canActivate: [AuthGuard]},
 	    { path: 'userprofile/:userID', component: UserPage, outlet: 'userpage', canActivate: [AuthGuard] },
   	]},
-  	{path: 'forums', children: [
-        { path : '' , component: ForumsPage, canActivate: [AuthGuard]},
-	    { path: 'forumpage/:forumID', component: ForumPage, canActivate: [AuthGuard] },
+  	{path: 'forums', component: ForumsPage, canActivate: [AuthGuard]},
+  	{path: 'forumpage/:forumID', children: [
+        { path : '' , component: ForumPage, canActivate: [AuthGuard]},
 	    { path: 'forumpost/:postID', component: ForumPostPage, outlet:'forumpostpage', canActivate: [AuthGuard] },
 	    { path: 'editforumpost/:postID', component: EditForumPostPage, outlet: 'forumpostpage', canActivate: [AuthGuard]},
 	    { path: 'userprofile/:userID', component: UserPage, outlet: 'forumpostpage', canActivate: [AuthGuard] }

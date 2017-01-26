@@ -1,9 +1,13 @@
 <div id="newsdetail">
 	<div class="row">
-		<div class="col-lg-4" style="text-align:left;">
+		<div class="col-lg-6" style="text-align:left;">
 			<a id="toggler" href="#newsModal"  data-toggle="modal">
 				<span style="color:red; font-size:15px;"class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
 			</a>
+		</div>
+		<div class="col-lg-6" style="text-align:right;">
+			<span style="font-size:25px;" class="glyphicon glyphicon-heart" aria-hidden="true" [ngStyle]="{'color':+post?.LIKEID | liked:userID}" (click)="likePost()"></span>
+			<!-- [ngStyle]="{'color':+post?.LIKEID | liked:userID}" -->
 		</div>
 	</div>
 	<div class="row">
@@ -19,6 +23,8 @@
 		<div class="col-lg-12">
 			<div class="text-center">
 				<img *ngIf="post?.images[0]?.image_url" style="height:auto; max-height:300px; max-width:100%; border-radius:7px; margin-bottom:15px;" src="{{post?.images[0]?.image_url}}" alt="Post's Image">
+				<br>
+				Like this Post? Discuss it in the <a (click)="gotoForums()">forums</a>!
 			</div>
 
 			<div class="post-body" [innerHTML]="post?.text | safe:'html'">

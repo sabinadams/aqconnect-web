@@ -44,6 +44,7 @@ import { ForumService } from './services/forum-service';
 import { AuthService } from './services/auth-service';
 import { UserService } from './services/user-service';
 import { ServerStatusService } from './services/server-status-service';
+import { NotificationService } from './services/notification-service'; 
 import { AuthGuard } from './services/auth-guard';
 //Pipe Imports....
 import { StaffTypePipe } from './pipes/staff-type-pipe';
@@ -77,7 +78,7 @@ import { routing, appRoutingProviders } from './app.routing';
   providers: [
     appRoutingProviders, HttpClient, TeamService, NewsService,
     ContentService, ForumService, AuthService, UserService,
-    ServerStatusService, AuthGuard
+    ServerStatusService, AuthGuard, NotificationService
   ],
   bootstrap: [AppComponent]
 })

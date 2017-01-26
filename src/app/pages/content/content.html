@@ -129,7 +129,7 @@
                 </div><br>
              
                 <div class="row">
-					<div class="loader" *ngIf="!items || !items.length">Loading...</div>
+					        <div class="loader" *ngIf="!items || !items.length">Loading...</div>
                 	<div class="col-lg-4 text-center" *ngFor="let item of (items | search:filter | sort:filtertype) ">
                         <!-- The detail page HTML router outlet and the modal code is in app.component.html -->
                 		<div class="alert" data-toggle="modal" href="#contentModal" [ngStyle]="{'background-color':item?.rarity | itemRarity:'rare_color'}" role="alert" (click)="openDetail(item.ID)">

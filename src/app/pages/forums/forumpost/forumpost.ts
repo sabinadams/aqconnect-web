@@ -13,14 +13,18 @@ export class ForumPostPage implements OnInit{
 	username = JSON.parse(localStorage.getItem('user')).username;
 	start = 0;
 	popularity: any;
+	postID: any;
 	ngOnInit(){
 		this._activeRoute.params.subscribe(params => {
+			this.postID = +params['postID'];
 	       this._forumService.getPostsByID(+params['postID'], this.userID, this.start ).subscribe(res => {
 	       		this.post = res;
 	       		this.popularity = (res.POSTCOUNT/2) + (res.USERLIKES/2);
-	       		if($('body').attr("class") != "modal-open"){
-	   		    	document.getElementById('toggler').click();
-	   		    }
+	       		setTimeout(() => {
+		       		if($('body').attr("class") != "modal-open"){
+		   		    	document.getElementById('toggler').click();
+		   		    }
+		       }, 200);
 	       }); // (+) converts string 'id' to a number
 	    });   
 	}
@@ -95,11 +99,14 @@ export class ForumPostPage implements OnInit{
 		this._activeRoute.params.subscribe(params => {
 	       this._forumService.getPostsByID(+params['postID'], this.userID, this.start ).subscribe(res => {
 	       		this.post.replies.push(...res);
-	       }); // (+) converts string 'id' to a number
+	       }); 
 	    });  
 	}
 	openProfile(userID){
-    	this._router.navigate(['/forums', {outlets: {'forumpostpage': ['userprofile', userID]}}]);
+		document.getElementById('toggler').click();
+		setTimeout(() => {
+    		this._router.navigate(['/users', {outlets: {'userpage': ['userprofile', userID]}}]);
+		}, 200); //Used to account for the animation time which causes the modal-open class to remain on the body tag for a few extra milliseconds. Maybe change later to more efficient way
     }
 
     deleteReply(reply, i){

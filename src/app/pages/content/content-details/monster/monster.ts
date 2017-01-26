@@ -17,9 +17,11 @@ export class MonsterPage implements OnInit{
 	       this._contentService.getContentByIDSource(+params['id'], 'monsters').subscribe(res => {
 	       		this.monster = res;
 	       		this.url = "https://sketchfab.com/models/" + res.model_uuid + "/embed?autostart=1";
+	       		setTimeout(() => {
 	       		if($('body').attr("class") != "modal-open"){
 	   		    	document.getElementById('toggler').click();
 	   		    }
+	       }, 200);
 	       }); // (+) converts string 'id' to a number
 	    });
 	}

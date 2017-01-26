@@ -39,6 +39,40 @@ export class LoginPage implements OnInit{
 	    $('#galleryModal').on('show.bs.modal', function (e) {
 	       $('#galleryImage').attr("src",$(e.relatedTarget).data("src"));
 	    });
+
+	      
+	     $('.autoplay').slick({
+	       focusOnSelect: true,
+	       centerMode: true,
+	       centerPadding: '60px',
+	       slidesToShow: 5,
+	       infinite: true,
+  		   speed: 300,
+	       slidesToScroll: 1,
+	       autoplay: true,
+	       autoplaySpeed: 2000,
+	       variableWidth: true,
+	       responsive: [
+	         {
+	           breakpoint: 768,
+	           settings: {
+	             arrows: false,
+	             centerMode: true,
+	             centerPadding: '40px',
+	             slidesToShow: 3
+	           }
+	         },
+	         {
+	           breakpoint: 480,
+	           settings: {
+	             arrows: false,
+	             centerMode: true,
+	             centerPadding: '40px',
+	             slidesToShow: 1
+	           }
+	         }
+	       ]
+	     });
 	}
 
 	login(email, password){
