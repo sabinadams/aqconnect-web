@@ -76,12 +76,7 @@ export class ContentService {
       }).catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 
-// **********************************************************************************************************
-// *                                                                                
-// * Calls for Non-Items by ID
-// *        
-// **********************************************************************************************************
-
+  // Calls for Non-Items by ID and Source
   getContentByIDSource(id: number, source: string) {
     return this._http.get(`http://aq.trycf.com/api/index.cfm/subCategory/${source}/${id}/`).map( (res: Response) => {
       return res.json();

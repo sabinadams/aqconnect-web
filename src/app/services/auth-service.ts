@@ -86,16 +86,16 @@ export class AuthService {
      let user = JSON.parse(localStorage.getItem('user'));
      let data = { 'user_ID': user.Id, 'token': user.token};
      return this._http.post('http://aq.trycf.com/api/index.cfm/logoutpub', data) // ...using post request
-    .map((res:Response) => {
-        //If successful store the user and token into local storage
-        if(res.status == 200){
-          let data = res.json();
-          localStorage.removeItem('user');
-          localStorage.removeItem('token');
-          return data;
-        }
-     }) // ...and calling .json() on the response to return data
-    .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+      .map((res:Response) => {
+          //If successful store the user and token into local storage
+          if(res.status == 200){
+            let data = res.json();
+            localStorage.removeItem('user');
+            localStorage.removeItem('token');
+            return data;
+          }
+       }) // ...and calling .json() on the response to return data
+      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
     
   }
 

@@ -45,10 +45,17 @@
                             Clear All
                         </a>
                     </li>
-                    <li *ngFor="let notification of notifications" (click)="readNotification(notification.ID)" [ngStyle]="{'background-color': !notification?.read ? 'rgba(135, 98, 166, 0.54)' : '' } ">
+                    <li *ngIf="!notifications?.length">
+                        <a>No Notifications</a>
+                    </li>
+                    <li *ngFor="let notification of notifications; let i = index;"  [ngStyle]="{'background-color': !notification?.read ? 'rgba(135, 98, 166, 0.54)' : '' } ">
                         <a>
-                            <span class="glyphicon glyphicon-heart" aria-hidden="true" style="margin-right:3px;"></span>
-                            <b>{{notification.notifier_name}}</b> {{notification.text}}
+                            <span *ngIf="notification.type == 'forum-reply-like' || notification.type == 'forum-like'" class="glyphicon glyphicon-heart" aria-hidden="true" style="text-align:left; margin-right:3px; color:#de4d4d;"></span>
+                            <span *ngIf="notification.type == 'forum-reply'" class="glyphicon glyphicon-th-list" aria-hidden="true" style="text-align:left; margin-right:3px; color:#669adc;"></span>
+                            <a (click)="openProfile(notification)" class="alert-link">{{notification.notifier_name}}</a> <span (click)="gotoNotification(notification)">{{notification.text}} </span>
+                            <span style="color:#956bb9;">{{notification.timestamp | timeAgo}}</span>
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true" style="margin-left:5px; text-align:right; color:#de4d4d;" 
+                            (click)="removeNotification(notification.ID, i)"></span>
                         </a>
                     </li>
                   </ul>
@@ -71,3 +78,6 @@
         </div>
     </div>
 </nav>
+<div class="alert alert-success alert-notification" [@visibilityChanged]="notification_popup" (click)="gotoNotification(mostRecent)" style="bottom:10px; right:10px; position:fixed;" role="alert">
+    <a (click)="openProfile(mostRecent.notifier, mostRecent.ID)" class="alert-link">{{mostRecent?.notifier_name}}</a> {{mostRecent?.text}} <!-- <a href="#" class="alert-link">Web Version</a> -->
+</div>

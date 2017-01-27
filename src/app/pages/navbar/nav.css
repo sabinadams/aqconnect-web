@@ -1,3 +1,12 @@
+.alert-notification {
+    color: #282828;
+    background-color: #966fb7;
+    border-color: #2c1f38;
+}
+.alert-success .alert-link {
+    color: #000000;
+    font-weight:bold;
+}
 .server-stats {
     width:90%;
     position: absolute;

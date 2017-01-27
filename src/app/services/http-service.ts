@@ -18,9 +18,12 @@ export class HttpClient {
     headers.append('Authorization', `Bearer ${localStorage.getItem('token')}`);
   }
 
+  //We don't necessarily want to log a user out and send them to login screen if something doesn't load correctly. 
   killSession(){
     localStorage.removeItem('user');
     localStorage.removeItem('token');
+    //Using auth guard and this, we can make it so you don't have to be sent to the login screen. It can just be a popup.
+    //Or you could be sent to the login screen, then you would be sent right back to the page you were trying to access.
     this._router.navigate(['']);
   }
 
