@@ -191,5 +191,18 @@ export class AuthService {
        return {'user': temp, 'status': res.json()};
     });
   }
+ 
+
+  updateUser(){
+
+  }
+
+  getFollows(){
+    let user = JSON.parse(localStorage.getItem('user'));
+    var data = {'user': user};
+    return this._customHTTP.post('http://aq.trycf.com/api/index.cfm/getfollowinfo/', {'data': data}).map( (res) => {
+      return res.json();
+    }).catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
 
  }

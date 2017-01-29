@@ -16,8 +16,16 @@ export class UserService {
   }
 
   //Grabs a user by ID
-  getUserByID(userID){
-    return this._http.get(`http://aq.trycf.com/api/index.cfm/user/${userID}`).map( (res) => {
+  getUserByID(userID, senderID){
+    return this._http.get(`http://aq.trycf.com/api/index.cfm/user/${userID}/${senderID}`).map( (res) => {
+      return res.json();
+    }).catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  handleFollow( followID ){
+    let user = JSON.parse(localStorage.getItem('user'));
+    let data = { 'follower': user.Id, 'token': user.token, 'followed': followID};
+    return this._http.post(`http://aq.trycf.com/api/index.cfm/handlefollows/`, {'data': data}).map( (res) => {
       return res.json();
     }).catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }

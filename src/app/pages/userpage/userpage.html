@@ -1,9 +1,19 @@
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-lg-4" style="text-align:left;">
+		<div class="col-lg-6" style="text-align:left;">
 			<a id="toggler" href="#userModal"  data-toggle="modal">
 				<span style="color:red; font-size:15px;"class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
 			</a>
+		</div>
+		<div class="col-lg-6" style="text-align:right;" *ngIf="user?.ID != userID">
+			<button type="button" class="btn btn-default btn-not-following" *ngIf="!user?.FOLLOWING" (click)="handleFollow(user?.ID)">
+				<span>Follow {{user?.name}}</span>
+			</button><br>
+			<button type="button" *ngIf="user?.FOLLOWING" (mouseenter) ="unfollowHover = true"  (mouseleave) ="unfollowHover = false" class="btn btn-default btn-following" (click)="handleFollow(user?.ID)">
+				<span *ngIf="!unfollowHover">Following</span>
+				<span *ngIf="unfollowHover" style="color:#de4d4d;">Unfollow</span>
+			</button><br>
+
 		</div>
 	</div>
 	<div class="row">

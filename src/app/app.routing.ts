@@ -32,6 +32,9 @@ import { CreateAccountPage } from './pages/createaccount/createaccount';
 import { ForgotPasswordPage } from './pages/forgotpassword/forgotpassword';
 import { UserForumPostsPage } from './pages/userforumposts/userforumposts';
 import { EditForumPostPage } from './pages/forums/editforumpost/editforumpost';
+import { FollowersPage } from './pages/account/followers/followers';
+import { FollowingPage } from './pages/account/following/following';
+
 //App Routes....
 const appRoutes: Routes = [
 	{ path: '', component: LoginPage },
@@ -58,6 +61,8 @@ const appRoutes: Routes = [
   	{path: 'account', children: [
         { path : '' , component: AccountPage, canActivate: [AuthGuard]},
 	    { path: 'changepassword', component: ForgotPasswordPage, canActivate: [AuthGuard] },
+	    { path: 'followers', component: FollowersPage, canActivate: [AuthGuard] },
+	    { path: 'following', component: FollowingPage, canActivate: [AuthGuard] }
   	]},
   	{path: 'users', children: [
         { path : '' , component: UserListPage, canActivate: [AuthGuard]},

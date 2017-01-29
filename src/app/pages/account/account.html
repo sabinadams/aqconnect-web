@@ -1,75 +1,103 @@
 <div id="account">
 	<div class="container" style="background-color:#1e1e1e; padding:15px; border-radius:7px;">
-		<div class="col-lg-12" style="text-align:left;"> 
-			<h2>Account Settings</h2>
-			<div *ngIf="showmessage" class="alert alert-success" role="alert">{{message}}</div>
-			<div *ngIf="showerror" class="alert alert-danger" role="alert">{{error}}</div>
-		</div>
-		<div class="col-lg-12" style="text-align:center;">
-				<span class="btn btn-default btn-file">
-					Change Profile Picture<input type="file" accept="image/*" (change)="changeListener($event)">
-				</span><br>
-				<div class="loader" *ngIf="!picloaded">Loading...</div>
-				<img *ngIf="picloaded" src="{{user?.image_url}}"  style="height:400px; width:auto; border-radius:7px; text-align:center;" alt="">
-		</div>
-		<hr style="max-width:100%; width:100%:">
-		<label>Username: </label>
-		<div class="loader" *ngIf="!nameloaded">Loading...</div>
-        <div class="form-group" *ngIf="nameloaded">
-			<div class="input-group">
-			    <input type="text" class="form-control" [(ngModel)]="newname" placeholder="{{user?.username}}">
-			  	<span class="input-group-addon" id="basic-addon2" (click)="changeUsername(newname); newname = '';">Change Name</span>
-			</div>
-		</div>
+		<div class="col-lg-8">
+					<div class="col-lg-12" style="text-align:left;"> 
+						<h2>Account Settings</h2>
+						<div *ngIf="showmessage" class="alert alert-success" role="alert">{{message}}</div>
+						<div *ngIf="showerror" class="alert alert-danger" role="alert">{{error}}</div>
+					</div>
+					<div class="col-lg-12" style="text-align:center;">
+							<span class="btn btn-default btn-file">
+								Change Profile Picture<input type="file" accept="image/*" (change)="changeListener($event)">
+							</span><br>
+							<div class="loader" *ngIf="!picloaded">Loading...</div>
+							<img *ngIf="picloaded" src="{{user?.image_url}}"  style="height:400px; width:auto; border-radius:7px; text-align:center;" alt="">
+					</div>
+					<hr style="max-width:100%; width:100%:">
+					<label>Username: </label>
+					<div class="loader" *ngIf="!nameloaded">Loading...</div>
+			        <div class="form-group" *ngIf="nameloaded">
+						<div class="input-group">
+						    <input type="text" class="form-control" [(ngModel)]="newname" placeholder="{{user?.username}}">
+						  	<span class="input-group-addon" id="basic-addon2" (click)="changeUsername(newname); newname = '';">Change Name</span>
+						</div>
+					</div>
 
-		<label>Email: </label>
-		<div class="loader" *ngIf="!emailloaded">Loading...</div>
-        <div class="form-group" *ngIf="emailloaded">
-			<div class="input-group">
-			    <input type="email" class="form-control" [(ngModel)]="newemail" placeholder="{{user?.email}}">
-			  	<span class="input-group-addon" id="basic-addon2" (click)="changeEmail(newemail); newemail = '';">Change Email</span>
-			</div>
+					<label>Email: </label>
+					<div class="loader" *ngIf="!emailloaded">Loading...</div>
+			        <div class="form-group" *ngIf="emailloaded">
+						<div class="input-group">
+						    <input type="email" class="form-control" [(ngModel)]="newemail" placeholder="{{user?.email}}">
+						  	<span class="input-group-addon" id="basic-addon2" (click)="changeEmail(newemail); newemail = '';">Change Email</span>
+						</div>
+					</div>
+					
+					<label>Description: </label>
+					<div class="loader" *ngIf="!descloaded">Loading...</div>
+			        <div class="form-group" *ngIf="descloaded">
+						<div class="input-group">
+			                <textarea class="form-control" rows="7" [(ngModel)]="newdescription" placeholder="{{user?.description}}"></textarea>
+						  	<span class="input-group-addon" id="basic-addon2" (click)="changeDescription(newdescription); newdescription = '';">Change Description</span>
+						</div>
+					</div>
+
+					<label>Link to your Facebook Page (insert the ending part of the URL): </label>
+					<div class="loader" *ngIf="!facebookloaded">Loading...</div>
+			        <div class="form-group" *ngIf="facebookloaded">
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon3">https://www.facebook.com/</span>
+						    <input type="text" class="form-control" [(ngModel)]="newfacebook" placeholder="{{user?.facebook}}">
+						  	<span class="input-group-addon" id="basic-addon2" (click)="changeFacebook(newfacebook); newfacebook = '';">Save</span>
+						</div>
+					</div>
+
+					<label>Link to your Twitter Page (insert the ending part of the URL): </label>
+					<div class="loader" *ngIf="!twitterloaded">Loading...</div>
+			        <div class="form-group" *ngIf="twitterloaded">
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon3">https://twitter.com/</span>
+						    <input type="text" class="form-control" [(ngModel)]="newtwitter" placeholder="{{user?.twitter}}">
+						  	<span class="input-group-addon" id="basic-addon2" (click)="changeTwitter(newtwitter); newtwitter = '';">Save</span>
+						</div>
+					</div>
+
+			        <button 
+						routerLink="changepassword"
+						type="button" 
+						class="btn btn-primary btn-block btn-md" 
+						style="color:rgb(149, 107, 185); border-color:rgb(149, 107, 185); width:150px;">
+						Change Password
+					</button>
+					<div class="alert" id="toggler" data-toggle="modal" href="#disableAccountModal"><span style="color:#e85252;">Disable Account</span></div>
 		</div>
-		
-		<label>Description: </label>
-		<div class="loader" *ngIf="!descloaded">Loading...</div>
-        <div class="form-group" *ngIf="descloaded">
-			<div class="input-group">
-                <textarea class="form-control" rows="7" [(ngModel)]="newdescription" placeholder="{{user?.description}}"></textarea>
-			  	<span class="input-group-addon" id="basic-addon2" (click)="changeDescription(newdescription); newdescription = '';">Change Description</span>
-			</div>
+		<div class="col-lg-4">
+
+			<div class="panel panel-default" style="background-color:rgb(16, 16, 16);">
+	          <div class="panel-heading" style="background-color:rgb(16, 16, 16);">
+	            <h3 style="color:#fff;" routerLink="followers">Followers <small>{{followInfo?.follower_count}}</small> <small style="text-align:right;"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></small></h3> 
+	          </div>
+	          <div class="panel-body" style="background-color:rgb(16, 16, 16); max-height:350px; overflow-y: scroll;">
+	            <div class="follower col-lg-3 text-center" *ngFor="let follower of followInfo?.followers" style="display:inline-block; margin-bottom:5px;" (click)="openProfile(follower.ID)">
+	            	<img src="{{follower.image_url}}" alt="..." style="height:50px; width:auto; display:inline-block;" class="img-rounded img-responsive">
+	            	<!-- <p>{{follower.name}}</p> -->
+	            </div>
+	          </div>
+	        </div>
+
+	        <div class="panel panel-default" style="background-color:rgb(16, 16, 16);">
+	          <div class="panel-heading" style="background-color:rgb(16, 16, 16);">
+	            <h3 style="color:#fff;" routerLink="following">Following <small>{{followInfo?.following_count}}</small><small style="text-align:right;"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></small></h3>
+	          </div>
+	          <div class="panel-body" style="background-color:rgb(16, 16, 16); max-height:350px; overflow-y: scroll;">
+	            <div class="following col-lg-3 text-center" *ngFor="let following of followInfo?.following" (click)="openProfile(following.ID)" style="display:inline-block; margin-bottom:5px;">
+	            	<img src="{{following.image_url}}" alt="..." style="height:50px; width:auto; display:inline-block;" class="img-rounded img-responsive">
+	            	<!-- <p>{{following.name}}</p> -->
+	            </div>
+	          </div>
+	        </div>
+
 		</div>
-
-		<label>Link to your Facebook Page (insert the ending part of the URL): </label>
-		<div class="loader" *ngIf="!facebookloaded">Loading...</div>
-        <div class="form-group" *ngIf="facebookloaded">
-			<div class="input-group">
-				<span class="input-group-addon" id="basic-addon3">https://www.facebook.com/</span>
-			    <input type="text" class="form-control" [(ngModel)]="newfacebook" placeholder="{{user?.facebook}}">
-			  	<span class="input-group-addon" id="basic-addon2" (click)="changeFacebook(newfacebook); newfacebook = '';">Save</span>
-			</div>
-		</div>
-
-		<label>Link to your Twitter Page (insert the ending part of the URL): </label>
-		<div class="loader" *ngIf="!twitterloaded">Loading...</div>
-        <div class="form-group" *ngIf="twitterloaded">
-			<div class="input-group">
-				<span class="input-group-addon" id="basic-addon3">https://twitter.com/</span>
-			    <input type="text" class="form-control" [(ngModel)]="newtwitter" placeholder="{{user?.twitter}}">
-			  	<span class="input-group-addon" id="basic-addon2" (click)="changeTwitter(newtwitter); newtwitter = '';">Save</span>
-			</div>
-		</div>
-
-        <button 
-			routerLink="changepassword"
-			type="button" 
-			class="btn btn-primary btn-block btn-md" 
-			style="color:rgb(149, 107, 185); border-color:rgb(149, 107, 185); width:150px;">
-			Change Password
-		</button>
-		<div class="alert" id="toggler" data-toggle="modal" href="#disableAccountModal"><span style="color:#e85252;">Disable Account</span></div>
-
-
+	<!-- end -->
 	</div>
 	
 

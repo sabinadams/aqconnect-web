@@ -5,22 +5,22 @@
           <div class="panel-heading" style="background-color:rgb(16, 16, 16);">
             <img class="img-rounded img-responsive" src="{{user?.image_url}}" alt="">
           </div>
-          <div class="panel-body" style="background-color:rgb(16, 16, 16);">
+          <div class="panel-body" style="background-color:rgb(16, 16, 16); padding:5px 10px 5px 10px;">
             <p>{{user?.username}}</p>
           </div>
           <hr style="max-width:100%; width:100%; margin:0;">
           <div class="panel-body" style="background-color:rgb(16, 16, 16);">
             <div class="col-lg-4 col-md-4 col-sm-4" style="padding:0; text-align:left;">
               Posts <br>
-              <a>{{user?.forum_activity}}</a>
+              <a (click)="gotoUserPosts()">{{user?.forum_activity}}</a>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4" style="padding:0; text-align:left;">
               Followers<br>
-              <a>99</a>
+              <a (click)="gotoFollowers()">{{followInfo?.follower_count}}</a>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4" style="padding:0; text-align:left;">
               Following<br>
-              <a>12</a>
+              <a (click)="gotoFollowing()">{{followInfo?.following_count}}</a>
             </div>
           </div>
 

@@ -57,6 +57,9 @@ export class NotificationService {
         case "forum-reply":
           this._router.navigate(['/forums', {outlets: {'forumpostpage': ['forumpost', itemID]}}]);
           break;
+        //Change this soon to a better profile page
+        case "follow":
+          this._router.navigate(['/users', {outlets: {'userpage': ['userprofile', itemID]}}]);
       }
   }
 

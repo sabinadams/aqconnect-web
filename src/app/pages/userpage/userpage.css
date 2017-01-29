@@ -11,6 +11,27 @@
 	overflow-y: scroll;
 }
 
+.btn-not-following {
+    border-color: #fff;
+    color: #000000;
+    background-color: #9461c1;
+    -webkit-transition: all .35s;
+    -moz-transition: all .35s;
+    transition: all .35s;
+    border-radius: 7px;
+    margin-bottom:10px;
+}
+
+.btn-following {
+    border-color: green;
+    color: #9461c1;
+    background-color: rgb(16, 16, 16);;
+    -webkit-transition: all .35s;
+    -moz-transition: all .35s;
+    transition: all .35s;
+    border-radius: 7px;
+    margin-bottom:10px;
+}
 
 @import url('//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css');
 

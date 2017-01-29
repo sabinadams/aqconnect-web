@@ -22,6 +22,7 @@ export class AccountPage implements OnInit{
 	disableerror = false;
 	error:string;
 	message:string;
+	followInfo:any;
 	constructor( private _activeRoute: ActivatedRoute, private _router: Router, private _authService: AuthService ){}
 
 	// Grabs data on page initialization
@@ -29,6 +30,11 @@ export class AccountPage implements OnInit{
 		if(!localStorage.getItem('user') || !localStorage.getItem('token')){
 			this._router.navigate(['']);
 		}
+		this._authService.getFollows().subscribe(res => {
+			if(res.status == 200){
+				this.followInfo = res.data;
+			}
+		});
 	}
 
 
@@ -36,6 +42,10 @@ export class AccountPage implements OnInit{
 	changeListener($event) : void {
 	  this.changeProfilePic($event.target);
 	}
+
+	openProfile(userID){
+    	this._router.navigate(['/users', {outlets: {'userpage': ['userprofile', userID]}}]);
+    }	
 
 	showMessage(message, type){
 		if(type == 'success'){

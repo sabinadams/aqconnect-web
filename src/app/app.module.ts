@@ -34,7 +34,8 @@ import { UserListPage } from './pages/userlist/userlist';
   import { UserPage } from './pages/userpage/userpage';
 import { AccountPage } from './pages/account/account';
 import { UserForumPostsPage } from './pages/userforumposts/userforumposts';
-
+import { FollowersPage } from './pages/account/followers/followers';
+import { FollowingPage } from './pages/account/following/following';
 //Service Imports....
 import { HttpClient } from './services/http-service';
 import { TeamService } from './services/team-service';
@@ -70,7 +71,7 @@ import { routing, appRoutingProviders } from './app.routing';
     LoginPage, ForumPage, ForumPostPage, LikePipe, 
     UserListPage, UserPage, AccountPage, CalculatorPage, 
     CreateAccountPage, ForgotPasswordPage, TimeAgoPipe, UserForumPostsPage,
-    EditForumPostPage
+    EditForumPostPage, FollowersPage, FollowingPage
   ],
   imports: [
     BrowserModule, FormsModule, HttpModule, routing, CKEditorModule
