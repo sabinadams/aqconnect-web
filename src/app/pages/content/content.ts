@@ -81,6 +81,22 @@ export class ContentPage implements OnInit{
 		
 		}
     }
+
+    switchTypeImage(type, index){
+    	let temp_url = type.image_url;
+    	let temp_hover = type.image_hover;
+
+    	this.content_types[index].image_url = temp_hover;
+    	this.content_types[index].image_hover = temp_url;
+    }
+
+    switchCategoryImage(category, index){
+    	let temp_url = category.image_url;
+    	let temp_hover = category.image_hover;
+
+    	this.categories[index].image_url = temp_hover;
+    	this.categories[index].image_hover = temp_url;
+    }
     openDetail(id){
     	this._router.navigate(['/content', {outlets: {'contentpage': [this.detail_link, id]}}]);
     }

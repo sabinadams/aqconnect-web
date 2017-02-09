@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="512px" height="512px" viewBox="-124.5 -31.5 512 512" enable-background="new -124.5 -31.5 512 512" xml:space="preserve">
+<g>
+	<path fill="#B18CC4" d="M387.5,430.5c0,27.614-22.386,50-50,50h-412c-27.614,0-50-22.386-50-50v-412c0-27.614,22.386-50,50-50h412
+		c27.614,0,50,22.386,50,50V430.5z"/>
+	<path fill="#F2D4FF" d="M381.5,424.5c0,27.614-22.386,50-50,50h-400c-27.614,0-50-22.386-50-50v-400c0-27.614,22.386-50,50-50h400
+		c27.614,0,50,22.386,50,50V424.5z"/>
+	<path fill="#B18CC4" d="M375.5,418.5c0,27.614-22.386,50-50,50h-388c-27.614,0-50-22.386-50-50v-388c0-27.614,22.386-50,50-50h388
+		c27.614,0,50,22.386,50,50V418.5z"/>
+	<g>
+		<rect x="-86.5" y="101.5" fill="#F2D4FF" width="62" height="232"/>
+		<rect x="-86.5" y="151.5" fill="#F2D4FF" width="435" height="182"/>
+		<rect x="37.5" y="101.5" fill="#F2D4FF" width="62" height="232"/>
+		<rect x="162.5" y="101.5" fill="#F2D4FF" width="62" height="232"/>
+		<rect x="286.5" y="101.5" fill="#F2D4FF" width="62" height="232"/>
+		<g>
+			<rect x="99.5" y="268.5" fill="#B18CC4" width="62" height="78"/>
+			<ellipse fill="#B18CC4" cx="130.5" cy="271.833" rx="31" ry="22.333"/>
+		</g>
+		<g>
+			<rect x="224.5" y="196.5" fill="#B18CC4" width="62" height="33"/>
+			<ellipse fill="#B18CC4" cx="255.5" cy="199.833" rx="31" ry="22.333"/>
+		</g>
+		<g>
+			<rect x="-24.5" y="189.5" fill="#B18CC4" width="62" height="33"/>
+			<ellipse fill="#B18CC4" cx="6.5" cy="192.833" rx="31" ry="22.333"/>
+		</g>
+	</g>
+</g>
+</svg>

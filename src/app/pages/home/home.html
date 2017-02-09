@@ -1,145 +1,44 @@
-<div id="home" style="margin-left:20px; margin-right:20px;">
+<profile-side-panel></profile-side-panel>
+
+<div id="home">
     <div class="container">
-      <div class="col-lg-3 col-md-4 col-sm-4 hidden-xs" style="min-width:25% !important;">
-        <div class="panel panel-default" style="background-color:rgb(16, 16, 16);">
-          <div class="panel-heading" style="background-color:rgb(16, 16, 16);">
-            <img class="img-rounded img-responsive" src="{{user?.image_url}}" alt="">
-          </div>
-          <div class="panel-body" style="background-color:rgb(16, 16, 16); padding:5px 10px 5px 10px;">
-            <p>{{user?.username}}</p>
-          </div>
-          <hr style="max-width:100%; width:100%; margin:0;">
-          <div class="panel-body" style="background-color:rgb(16, 16, 16);">
-            <div class="col-lg-4 col-md-4 col-sm-4" style="padding:0; text-align:left;">
-              Posts <br>
-              <a (click)="gotoUserPosts()">{{user?.forum_activity}}</a>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4" style="padding:0; text-align:left;">
-              Followers<br>
-              <a (click)="gotoFollowers()">{{followInfo?.follower_count}}</a>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4" style="padding:0; text-align:left;">
-              Following<br>
-              <a (click)="gotoFollowing()">{{followInfo?.following_count}}</a>
-            </div>
-          </div>
 
-        </div>
-        
-        <ul class="list-group hidden-lg" style="background-color:rgb(16, 16, 16);">
-          <li class="list-group-item" style="background-color:rgb(16, 16, 16);">Cras justo odio</li>
-          <li class="list-group-item" style="background-color:rgb(16, 16, 16);">Dapibus ac facilisis in</li>
-          <li class="list-group-item" style="background-color:rgb(16, 16, 16);">Morbi leo risus</li>
-          <li class="list-group-item" style="background-color:rgb(16, 16, 16);">Porta ac consectetur ac</li>
-          <li class="list-group-item" style="background-color:rgb(16, 16, 16);">Vestibulum at eros</li>
-        </ul>
-        
-      </div>
-      <div class="col-lg-6 col-md-8 col-sm-8 col-xs-12">
-        <div class="panel panel-default" style="background-color:rgb(16, 16, 16);">
-           <div class="panel-heading text-center" style="background-color:rgb(16, 16, 16);">
-             Timeline options like a post form
+      <div class="col-lg-offset-2 col-md-offset-4 col-sm-offset-4 col-lg-7 col-md-8 col-sm-8 col-xs-12">
+
+
+           <!-- Text post -->
+           <div class="icons " style="text-align:right;">
+             <i class="glyphicon glyphicon-camera input-icon" style="color:#0070ff;"></i>
+             <!-- <i class="glyphicon glyphicon-pencil input-icon" style="color:#f14b4b;"></i> -->
+             <!-- <i class="glyphicon glyphicon-stats input-icon" style="color:#56b556;"></i> -->
+             <button *ngIf="rows == 4" (click)="savePost();" class="btn btn-default post-submit" type="submit">Post</button>
            </div>
-         </div>
 
-         <div class="panel panel-default" style="background-color:rgb(16, 16, 16);">
+           <div class="form-group has-feedback" style="margin-bottom:15px;">
+              <textarea (blur)="checkBlur()" (focus)="rows = 4;" [(ngModel)]="postText" class="form-control post-input" rows="{{rows}}"  aria-describedby="basic-addon2" id="text-post" placeholder="What do you have to say?"></textarea>
+           </div>
+
+          <div class="panel panel-default" style="background-color:rgb(16, 16, 16);" *ngFor="let post of posts">
            <div class="panel-heading" style="background-color:rgb(16, 16, 16);">
              <div class="media">
                <div class="media-left">
                  <a href="#">
-                   <img class="media-object img-rounded" src="http://aqconnect.io/saicopath.jpg" style="height:50px; width:auto;" alt="...">
+                   <img class="media-object img-rounded" src="{{post.image_url}}" style="height:50px; width:auto;" alt="...">
                  </a>
                </div>
                <div class="media-body">
-                 <h4 class="media-heading" style="text-align:left; color:#fff">Saicopath</h4>
+                 <p class="media-heading" style="text-align:left; color: rgb(124, 98, 160); font-weight: 800;">{{post.name}}</p>
+                 <div [innerHtml]="post.body" class="post-body"></div>
                </div>
              </div>
            </div>
-           <div class="panel-body" style="background-color:rgb(16, 16, 16);">
-                <div class="jumbotron">
-                  <h1 style="color:#1e1e1e;">Check out my art!</h1>
-                  <p><a class="btn btn-lg" href="#" role="button">Patreon User: Saicotic Designs</a></p>
-                </div>
-           </div>
+           <!-- <div class="panel-body" style="background-color:rgb(16, 16, 16);">
+              
+           </div> -->
          </div>
-
-          <div class="panel panel-default" style="background-color:rgb(16, 16, 16);">
-           <div class="panel-heading" style="background-color:rgb(16, 16, 16);">
-             <div class="media">
-               <div class="media-left">
-                 <a href="#">
-                   <img class="media-object img-rounded" src="https://pbs.twimg.com/profile_images/794731634645794820/ZD4ZSjgb.jpg" style="height:50px; width:auto;" alt="...">
-                 </a>
-               </div>
-               <div class="media-body">
-                 <h4 class="media-heading" style="text-align:left; color:#fff">Fan</h4>
-               </div>
-             </div>
-           </div>
-           <div class="panel-body" style="background-color:rgb(16, 16, 16);">
-                <div class="well">
-                    <p style="color:#1e1e1e;"><i>"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam obcaecati, maxime harum aliquam voluptatibus tempora esse in saepe vel placeat dolorum doloribus, nisi, deserunt, rem ad similique assumenda molestias blanditiis!" <br>-A Wise Old Monk</i></p>
-                </div>
-           </div>
-         </div>
-
-          <div class="panel panel-default" style="background-color:rgb(16, 16, 16);">
-           <div class="panel-heading" style="background-color:rgb(16, 16, 16);">
-             <div class="media">
-               <div class="media-left">
-                 <a href="#">
-                   <img class="media-object img-rounded" src="https://pbs.twimg.com/profile_images/805973517078528000/F2Kh84Bo.jpg" style="height:50px; width:auto;" alt="...">
-                 </a>
-               </div>
-               <div class="media-body">
-                 <h4 class="media-heading" style="text-align:left; color:#fff">Itachi</h4>
-               </div>
-             </div>
-           </div>
-           <div class="panel-body" style="background-color:rgb(16, 16, 16);">
-                <p>
-                  Hey there peeps! Anyone wanna run a dungeon tonight at around 5:30 PM UTC?
-                </p>
-           </div>
-         </div>
-
-         <div class="panel panel-default" style="background-color:rgb(16, 16, 16);">
-           <div class="panel-heading" style="background-color:rgb(16, 16, 16);">
-             <div class="media">
-               <div class="media-left">
-                 <a href="#">
-                   <img class="media-object img-rounded" src="https://pbs.twimg.com/profile_images/546796207511580672/_MxrCLIW.png" style="height:50px; width:auto;" alt="...">
-                 </a>
-               </div>
-               <div class="media-body">
-                 <h4 class="media-heading" style="text-align:left; color:#fff">Sir Fainal Oremor</h4>
-               </div>
-             </div>
-           </div>
-           <div class="panel-body" style="background-color:rgb(16, 16, 16);">
-                <img src="https://pbs.twimg.com/media/C2PJSHjWQAAs2kI.jpg:large" class="img-responsive img-rounded" style="max-height:250px; margin:auto;" alt="">
-                <hr style="margin:5px; max-width:100%; width:100%;">
-                <p>More players join the peaceful bonefire. 🤣</p>
-           </div>
-         </div>
-
 
       </div>
-      <div class="col-lg-3 hidden-xs hidden-sm hidden-md col-md-3 text-center">
-         <div class="panel panel-default" style="background-color:rgb(16, 16, 16);">
-          <div class="panel-heading" style="background-color:rgb(16, 16, 16);">
-            Trending
-          </div>
-          <div class="panel-body" style="background-color:rgb(16, 16, 16);">
-            Basic panel example
-          </div>
-          <div class="panel-body" style="background-color:rgb(16, 16, 16);">
-            Basic panel example
-          </div>
-          <div class="panel-body" style="background-color:rgb(16, 16, 16);">
-            Basic panel example
-          </div>
-        </div>
-      </div>
+
     </div>
+    <button type="button" class="btn btn-circle btn-xl"><i class="glyphicon glyphicon-pencil"></i></button>
 </div>

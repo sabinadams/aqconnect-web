@@ -1,0 +1,39 @@
+<div id="sidebar-wrapper" style="margin-top:60px; padding:10px; background-color:rgba(0, 0, 0, 0.52);">
+
+      <img class="img-rounded img-responsive" src="{{user?.image_url}}" style="margin:auto; height:150px;" alt="">
+      <div class="panel-body" style="background-color:rgba(0,0,0,0) !important">
+        <p>{{user?.username}}</p>
+      
+      <hr style="max-width:100%; width:100%; margin:0;">
+        <div class="col-lg-4 col-md-4 col-sm-4" style="padding:0; text-align:left;">
+          Posts <br>
+          <a (click)="gotoUserPosts()">{{user?.forum_activity}}</a>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4" style="padding:0; text-align:left;">
+          Followers<br>
+          <a (click)="gotoFollowers()">{{followInfo?.follower_count}}</a>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4" style="padding:0; text-align:left;">
+          Following<br>
+          <a (click)="gotoFollowing()">{{followInfo?.following_count}}</a>
+        </div>
+        </div>
+      <hr style="max-width:100%; width:100%; margin:0;">
+      
+      <div class="panel panel-default" style="background-color:rgba(0,0,0,0) !important;">
+        <div class="panel-title text-center" style="background-color:rgba(0,0,0,0);">
+          <p>Friends Online</p>
+        </div>
+        <!-- <hr style="max-width:100%; width:100%; margin:0;"> -->
+        <div class="panel-body" style="background-color:rgba(0,0,0,0); max-height:200px; overflow-y: scroll; padding: 5px 0px 5px 0px;">
+          <div class="follower col-lg-4 text-center" *ngFor="let follower of onlineFollows" style="display:inline-block; margin-bottom:5px;" (click)="openProfile(follower.ID)">
+            <img src="{{follower.image_url}}" alt="..." style="height:50px; display:inline-block;" class="img-rounded img-responsive">
+            <!-- <p>{{follower.name}}</p> -->
+             <span *ngIf="follower?.online == 1" style="color:#3c9a3c; position: absolute; left: 10px; top: 0;" class="glyphicon glyphicon-record" aria-hidden="true"></span>
+             <span *ngIf="follower?.online == 2" style="color:#f3f069; position: absolute; left: 10px; top: 0;" class="glyphicon glyphicon-adjust" aria-hidden="true"></span>
+             <span>{{follower.name.length > 8 ? follower.name.substring(0,5) + '...' : follower.name}}</span>
+          </div>
+          <div class="col-lg-12 text-center" *ngIf="!onlineFollows.length">No Friends Online</div>
+        </div>
+      </div>
+</div>

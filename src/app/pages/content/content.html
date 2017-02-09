@@ -7,11 +7,11 @@
        </div>
        <div class="col-lg-5 text-center">
            <h2>Items</h2><hr> 
-           <div class="col-lg-6 media wow fadeInLeft" *ngFor="let type of content_types">
+           <div class="col-lg-6 media wow fadeInLeft" *ngFor="let type of content_types; let i = index;">
                <div class="media" (click)="openList(type.ID)">
                  <div class="media-left media-middle">
                    <div class="">
-                     <img class="media-object floating" src="http://placehold.it/64x64" alt="...">
+                     <img class="media-object floating" [src]="type.image_url" (mouseover)="switchTypeImage(type, i)" (mouseout)="switchTypeImage(type, i)" style="width:64px; height:64px;" alt="...">
                    </div>
                  </div>
                  <div class="media-body">
@@ -22,11 +22,11 @@
        </div>
        <div class="col-lg-4 text-center">
             <h2>Other Content</h2><hr>
-            <div class="col-lg-6 media wow fadeInRight" *ngFor="let category of categories">
+            <div class="col-lg-6 media wow fadeInRight" *ngFor="let category of categories; let i = index;">
                <div class="media" (click)="openList(category.source, 'non-item')">
                  <div class="media-left media-middle">
                    <div class="">
-                     <img class="media-object" src="http://placehold.it/64x64" alt="...">
+                     <img class="media-object floating" [src]="category.image_url" (mouseover)="switchCategoryImage(category, i)" (mouseout)="switchCategoryImage(category, i)" style="width:64px; height:64px;" alt="...">
                    </div>
                  </div>
                  <div class="media-body">

@@ -9,6 +9,7 @@ import { CKEditorModule } from 'ng2-ckeditor';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home';
 import { NavComponent } from './pages/navbar/nav';
+import { ProfileSidePanelComponent } from './pages/profile-side-panel/profile-side-panel';
 import { ContentPage } from './pages/content/content';
   import { ItemPage } from './pages/content/content-details/item/item'; 
   import { LocationPage } from './pages/content/content-details/location/location'; 
@@ -45,7 +46,9 @@ import { ForumService } from './services/forum-service';
 import { AuthService } from './services/auth-service';
 import { UserService } from './services/user-service';
 import { ServerStatusService } from './services/server-status-service';
-import { NotificationService } from './services/notification-service'; 
+import { NotificationService } from './services/notification-service';
+import { SocialService } from './services/social-service';
+//Auth Guards 
 import { AuthGuard } from './services/auth-guard';
 //Pipe Imports....
 import { StaffTypePipe } from './pipes/staff-type-pipe';
@@ -56,6 +59,8 @@ import { SafePipe } from './pipes/safe-pipe';
 import { NewsTypePipe } from './pipes/news-type-pipe';
 import { LikePipe } from './pipes/like-pipe';
 import { TimeAgoPipe } from './pipes/time-ago-pipe';
+
+
 
 //Routing Imports....
 import { routing, appRoutingProviders } from './app.routing';
@@ -71,7 +76,7 @@ import { routing, appRoutingProviders } from './app.routing';
     LoginPage, ForumPage, ForumPostPage, LikePipe, 
     UserListPage, UserPage, AccountPage, CalculatorPage, 
     CreateAccountPage, ForgotPasswordPage, TimeAgoPipe, UserForumPostsPage,
-    EditForumPostPage, FollowersPage, FollowingPage
+    EditForumPostPage, FollowersPage, FollowingPage, ProfileSidePanelComponent
   ],
   imports: [
     BrowserModule, FormsModule, HttpModule, routing, CKEditorModule
@@ -79,7 +84,7 @@ import { routing, appRoutingProviders } from './app.routing';
   providers: [
     appRoutingProviders, HttpClient, TeamService, NewsService,
     ContentService, ForumService, AuthService, UserService,
-    ServerStatusService, AuthGuard, NotificationService
+    ServerStatusService, AuthGuard, NotificationService, SocialService
   ],
   bootstrap: [AppComponent]
 })
