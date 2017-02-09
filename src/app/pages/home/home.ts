@@ -17,6 +17,9 @@ export class HomeComponent implements OnInit{
 	postText = '';
 	posts: any;
 	index = 0;
+	newimage:any;
+	images = [];
+	user = JSON.parse(localStorage.getItem('user'));
 	ngOnInit(){
 		this._socialService.getPosts(this.index).subscribe(res => {
 			this.posts = res;
@@ -24,6 +27,7 @@ export class HomeComponent implements OnInit{
 			this.index += 10;
 			for(let post of this.posts){
 				post.body = this.md.convert(post.body);
+				post.IMAGES = post.IMAGES.split(',');
 			}
 		});
 	}
@@ -34,9 +38,34 @@ export class HomeComponent implements OnInit{
 		}
 	}
 
+	//Converts file to base64
+	saveImage(inputValue: any): void {
+	  var file:File = inputValue.files[0];
+	  console.log(inputValue);
+	  var myReader:FileReader = new FileReader();
+	  myReader.onloadend = (e) => {
+	    this.newimage = myReader.result;
+		this._socialService.uploadPic(this.newimage).subscribe(res => {
+			console.log(res);
+			this.images.push(res.data.link);
+		});
+	  }
+	  myReader.readAsDataURL(file);
+	}
+
+	//Sends the image through a function whenever the file input is used
+	changeListener($event) : void {
+		console.log($event);
+	  this.saveImage($event.target);
+	}
+
 	savePost(){
+		let post = {
+			'text': this.postText,
+			'images': this.images
+		}
 		if(this.postText.length > 0){
-			this._socialService.savePost(this.postText).subscribe(res => {
+			this._socialService.savePost(post).subscribe(res => {
 				console.log(res);
 			});
 		}
