@@ -5,33 +5,30 @@
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    /*background-image: url(https://wallpaperscraft.com/image/tiles_mosaic_color_44969_3840x2400.jpg);*/
-    /*background-image: url(https://wallpapers.wincomm.ru/uploads/posts/2015-02/1424456896_geympad-xbox-one.jpg);*/
     color: #d3d3d3;
     webkit-tap-highlight-color: #222;
     background-attachment: fixed;
-    /*height:100%;*/
     min-height:100%;
-    background-color:#100d13;
+    background-color:#16141f;
 }
 
-.well-form {
+#home .well-form {
 	border:none;
 	padding:5px;
 }
 
-.input-icon {
+#home .input-icon {
     font-size:30px;
     margin-right:8px;
     opacity:0.5;
     transition: opacity 250ms ease-in;
 }
 
-.input-icon:hover {
+#home .input-icon:hover {
     opacity:1;
 }
 
-.post-submit {
+#home .post-submit {
     background-color: rgb(149, 107, 185);
     float:left;
     border-radius:7px;
@@ -40,27 +37,28 @@
     opacity:0.50;
 }
 
-.post-submit:hover, .post-submit:click {
+#home .post-submit:hover, #home .post-submit:click {
     background-color: rgb(149, 107, 185) !important;
     color:rgb(0,0,0);
     opacity:1;
 }
 
-.panel, .panel-heading, .panel-body {
-    background-color:rgba(88, 71, 109, 0.18) !important;
+#home .panel, #home .panel-heading, #home .panel-body {
+    background-color:#2d2638 !important;
     border:0px;
     border-radius:0px;
 }
 
-.panel {
+#home .panel {
     margin-bottom:8px;
+    box-shadow: 0px 0px 2px #000;
 }
 
-.post-body>p {
+#home .post-body>p {
     color:#a7a7a7;
 }
 
-.btn-circle.btn-xl {
+#home .btn-circle.btn-xl {
   text-align:center;
   width: 45px;
   height: 45px;
@@ -77,20 +75,20 @@
   color:#1e1e1e;
 }
 
-.btn-circle.btn-xl: hover{
+#home .btn-circle.btn-xl: hover{
     box-shadow:0px 0px 10px red;
 }
 
-.btn-file {
+#home .btn-file {
     position: relative;
     overflow: hidden;
     background-color:rgba(0,0,0,0);
     padding:5px;
 }
-.btn-file:hover{
+#home .btn-file:hover{
   background-color:rgba(0,0,0,0);
 }
-.btn-file input[type=file] {
+#home .btn-file input[type=file] {
     position: absolute;
     top: 0;
     right: 0;
@@ -105,25 +103,72 @@
     display: block;
 }
 
-.post-image-single {
+#home .post-image-single {
   margin:auto;
-  width:100%;
+  width:auto;
+  max-height:500px;
   border:1px solid #100d13;
 }
 
-.post-image-double {
+#home .post-image-double {
   margin:auto;
   border:1px solid #100d13;
 }
-.post-image-multi {
+#home .post-image-multi {
+
   margin:auto;
   max-height:400px;
   width:auto;
 }
-.post-image-container {
+#home .post-image-container {
   padding-left:60px;
   padding-right:60px;
 }
-.carousel-inner {
+#home .post-image-container-carousel {
+  padding-left:0;
+  padding-right:0;
+}
+#home .carousel-inner {
   height:400px;
+}
+#home .carousel-control.left, #home .carousel-control.right{
+    background:transparent;
+    background-image:none;
+}
+
+#home .carousel-control.left {
+  right:0;
+}
+
+#home .well.images {
+    min-height: 20px;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #1f1a25;
+    /* border: 1px solid #e3e3e3; */
+    border:0;
+    border-radius: 4px;
+    -webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 1) !important;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 1) !important;
+}
+
+
+
+#home .load-2 .line:nth-last-child(1) {animation: loadingB 1.5s 1s infinite;}
+#home .load-2 .line:nth-last-child(2) {animation: loadingB 1.5s .5s infinite;}
+#home .load-2 .line:nth-last-child(3) {animation: loadingB 1.5s 0s infinite;}
+
+
+#home .line {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    /*background-color: #4b9cdb;*/
+}
+
+@keyframes loadingB {
+    0 {width: 15px;}
+    50% {width: 35px;}
+    100% {width: 15px;}
 }

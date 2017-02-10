@@ -1,34 +1,44 @@
 <profile-side-panel></profile-side-panel>
-
 <div id="home">
     <div class="container">
-
-      <div class="col-lg-offset-2 col-md-offset-4 col-sm-offset-4 col-lg-7 col-md-8 col-sm-8 col-xs-12">
-
-
+  
+      <div class="col-lg-offset-3 col-md-offset-4 col-sm-offset-4 col-lg-7 col-md-8 col-sm-8 col-xs-12">
+      <!-- <div class="col-lg-12"> -->
+          
            <!-- Text post -->
            <div class="icons " style="text-align:right;">
              
                  <span class="btn btn-default btn-file">
-                   <i class="glyphicon glyphicon-camera input-icon" style="color:#0070ff;"></i><input type="file" accept="image/*" (change)="changeListener($event)">
+                   <i class="glyphicon glyphicon-camera input-icon" style="color:#0070ff;"><input type="file" accept="image/*" (change)="changeListener($event)"></i>
+
                  </span>
              <!-- <i class="glyphicon glyphicon-pencil input-icon" style="color:#f14b4b;"></i> -->
              <!-- <i class="glyphicon glyphicon-stats input-icon" style="color:#56b556;"></i> -->
-             <button *ngIf="rows == 4" (click)="savePost();" class="btn btn-default post-submit" type="submit">Post</button>
+             <button *ngIf="!uploading && (rows == 4 || images.length > 0 && images.length < 6)" (click)="savePost();" class="btn btn-default post-submit" type="submit">Post</button>
            </div>
 
            <div class="form-group has-feedback" style="margin-bottom:15px;">
               <textarea (blur)="checkBlur()" (focus)="rows = 4;" [(ngModel)]="postText" class="form-control post-input" rows="{{rows}}"  aria-describedby="basic-addon2" id="text-post" placeholder="What do you have to say?"></textarea>
-
-
-
               
+              <div class="image-uploads">
+                <div class="uploading" *ngIf="uploading">
+                    Uploading Image
+                    <div class="load-2">
+                       <div class="line" style="background-color:#8961ab;"></div>
+                       <div class="line" style="background-color:#a74040;"></div>
+                       <div class="line" style="background-color:#0b428f;"></div>
+                    </div>
+                </div>
+                 <img *ngFor="let image of images" src="{{image}}" style="height:50px; width:auto; margin:10px; border-radius:20px;" alt="">
+              </div>
               
-              <img *ngFor="let image of images" src="{{image}}" style="height:100px; width:auto" alt="">
 
 
            </div>
 
+
+
+          <!-- Posts -->
           <div class="panel panel-default" style="background-color:rgb(16, 16, 16);" *ngFor="let post of posts">
            <div class="panel-heading" style="background-color:rgb(16, 16, 16);">
              <div class="media">
@@ -42,35 +52,41 @@
                  <div [innerHtml]="post.body" class="post-body"></div>
                </div>
              </div>
-             <div class="post-image-container" *ngIf="post.IMAGES.length > 0 && post.IMAGES[0] != '' && post.IMAGES.length < 2"> 
-              <img *ngFor="let image of post.IMAGES" class="img-rounded img-responsive post-image-single text-center" src="{{image}}" alt="">
-             </div>
-             <div class="post-image-container" *ngIf="post.IMAGES.length == 2 && post.IMAGES[0] != ''"> 
-              <img *ngFor="let image of post.IMAGES" class="img-rounded img-responsive post-image-double text-center" style="width:50%; display:inline;" src="{{image}}" alt="">
-             </div>
-             <div class="post-image-container" *ngIf="post.IMAGES.length >2 && post.IMAGES[0] != ''"> 
-             
-              <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner">
-                  <div class="item active">
-                   <img class="img-responsive post-image-multi" src="{{post.IMAGES[0]}}" alt="...">
+               <div class="post-image-container" *ngIf="post.IMAGES.length > 0 && post.IMAGES[0] != '' && post.IMAGES.length < 2"> 
+                <img *ngFor="let image of post.IMAGES" class="img-rounded img-responsive post-image-single text-center" src="{{image}}" alt="">
+               </div>
+               <div class="post-image-container" *ngIf="post.IMAGES.length == 2 && post.IMAGES[0] != ''"> 
+                <img *ngFor="let image of post.IMAGES" class="img-rounded img-responsive post-image-double text-center" style="width:50%; display:inline;" src="{{image}}" alt="">
+               </div>
+               <div class="post-image-container-carousel" *ngIf="post.IMAGES.length >2 && post.IMAGES[0] != ''"> 
+               <div class="well images">
+                  <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                      <div class="item active">
+                       <img class="img-responsive post-image-multi" src="{{post.IMAGES[0]}}" alt="...">
+                      </div>
+                      <div class="item" *ngFor="let image of post.IMAGES | slice:1">
+                        <img class="img-responsive post-image-multi" src="{{image}}" alt="...">
+                      </div>
+                    </div>
+                    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                      <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                      <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
                   </div>
-                  <div class="item" *ngFor="let image of post.IMAGES | slice:1">
-                    <img class="img-responsive post-image-multi" src="{{image}}" alt="...">
-                  </div>
-                </div>
-                <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                  <span class="glyphicon glyphicon-chevron-left"></span>
-                </a>
-                <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                  <span class="glyphicon glyphicon-chevron-right"></span>
-                </a>
-              </div>
+               </div>
+             </div>
 
-             </div>
            </div>
          </div>
-
+         <!-- End Posts -->
+           <div class="load-2" style="text-align:center; margin-bottom:60px; margin-top:10px;" *ngIf="!end">
+             <div class="line" style="background-color:#8961ab;"></div>
+             <div class="line" style="background-color:#a74040;"></div>
+             <div class="line" style="background-color:#0b428f;"></div>
+           </div>
       </div>
 
     </div>

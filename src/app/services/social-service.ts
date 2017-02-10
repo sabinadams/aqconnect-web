@@ -28,7 +28,6 @@ export class SocialService {
     let user = JSON.parse(localStorage.getItem('user'));
     let headers = new Headers({ 'Authorization': `Client-ID 6108a749981cd34` });
     let options = new RequestOptions({ headers: headers });
-    console.log('starting');
     return this._http.post('https://api.imgur.com/3/upload', {image: image.split(',')[1]}, options).map(res => {
      return res.json();
     });
