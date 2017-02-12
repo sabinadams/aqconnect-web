@@ -45,8 +45,10 @@ export class HomeComponent implements OnInit{
 	newimage:any;
 	images = [];
 	user = JSON.parse(localStorage.getItem('user'));
+	userID = this.user.Id;
 	end = false;
 	uploading = false;
+	commentText="";
 	ngOnInit(){
 		this._socialService.getPosts(this.index).subscribe(res => {
 			this.posts = res;
@@ -106,4 +108,36 @@ export class HomeComponent implements OnInit{
 			});
 		}
 	}
+
+	removeUpload(index) {
+		this.images.splice(index, 1);
+	}
+
+	//Likes and unlikes replies
+	likePost(post, i){
+		 console.log(post);
+		 var data = {
+            'postID': post.ID,
+            'userID': this.userID,
+            'token':this.user.token,
+            'posterID': post.user_ID
+        }
+		if(post.LIKEID != this.user.Id){
+			this._socialService.likePost(data).subscribe(res => {
+				this.posts[i].LIKEID = this.userID;
+				this.posts[i].likes += 1;
+				// console.log(this.posts[i]);
+				// console.log(this.userID);
+			});		
+		}else{
+			this._socialService.likePost(data).subscribe(res => {
+				if(res.status == 200){
+					this.posts[i].LIKEID = "";
+					this.posts[i].likes -= 1;
+					// console.log(this.posts[i]);
+					// console.log(this.userID);
+				}
+			});
+		}
+ }   
 }

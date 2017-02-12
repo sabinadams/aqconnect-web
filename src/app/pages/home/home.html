@@ -19,6 +19,7 @@
 
            <div class="form-group has-feedback" style="margin-bottom:15px;">
               <textarea (blur)="checkBlur()" (focus)="rows = 4;" [(ngModel)]="postText" class="form-control post-input" rows="{{rows}}"  aria-describedby="basic-addon2" id="text-post" placeholder="What do you have to say?"></textarea>
+              <span *ngIf="postText.length > 0">{{400-postText.length}}</span>
               
               <div class="image-uploads">
                 <div class="uploading" *ngIf="uploading">
@@ -29,7 +30,10 @@
                        <div class="line" style="background-color:#0b428f;"></div>
                     </div>
                 </div>
-                 <img *ngFor="let image of images" src="{{image}}" style="height:50px; width:auto; margin:10px; border-radius:20px;" alt="">
+                 <div class="uploaded-image text-center" *ngFor="let image of images; let i = index;" style="display:inline-block;"> 
+                  <img  src="{{image}}" style="height:50px; width:auto; margin:10px 10px 0px 10px; border-radius:20px;" alt=""><br>
+                  <span class="remove-upload" aria-hidden="true" (click)="removeUpload(i)">Remove</span>
+                 </div>
               </div>
               
 
@@ -39,7 +43,7 @@
 
 
           <!-- Posts -->
-          <div class="panel panel-default" style="background-color:rgb(16, 16, 16);" *ngFor="let post of posts">
+          <div class="panel panel-default" style="background-color:rgb(16, 16, 16);" *ngFor="let post of posts; let i = index">
            <div class="panel-heading" style="background-color:rgb(16, 16, 16);">
              <div class="media">
                <div class="media-left">
@@ -80,7 +84,51 @@
              </div>
 
            </div>
+          <!-- Stuff after the post content like comments and post date -->
+           <div class="panel-body">
+              <div class="row">
+                <div class="col-lg-6" style="text-align:left;">
+                  <span  (click)="likePost(post, i)" [ngStyle]="{'color':+post?.LIKEID | liked:userID}" style="margin-right:2px; font-size:17px;" class="glyphicon glyphicon-heart" aria-hidden="true"></span> 
+                  <span style="margin-right:5px;">{{post.likes}}</span>
+                  <span  style="color:#fff; margin-right:2px; font-size:17px;" class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+                  <span style="margin-right:5px;">2</span>
+                </div>
+                <div class="col-lg-6" style="text-align:right;">
+                    {{post.timestamp | timeAgo}}
+                </div>
+              </div>
+              <div class="row" style="padding-left:20px; padding-right:20px; margin-top:10px; ">
+
+              
+              
+
+              <div class="media">
+                <div class="media-left media-middle">
+                  <a href="#">
+                  <img src="{{user.image_url}}" class="media-object" style="height:40px;" alt="">
+                  </a>
+                </div>
+                <div class="media-body" style="padding-top:5px;">
+                  <input class="form-control post-input" [(ngModel)]="commentText"  aria-describedby="basic-addon2" placeholder="What do you have to say?">
+                  <span *ngIf="commentText.length > 0">{{400-commentText.length}}</span>
+                </div>
+              </div>
+
+
+              </div>
+           </div>
+           <!-- <div class="panel-body">
+              Test Text
+           </div>
+           <div class="panel-body">
+              Test Text
+           </div>
+           <div class="panel-body">
+              Test Text
+           </div> -->
          </div>
+
+
          <!-- End Posts -->
            <div class="load-2" style="text-align:center; margin-bottom:60px; margin-top:10px;" *ngIf="!end">
              <div class="line" style="background-color:#8961ab;"></div>
