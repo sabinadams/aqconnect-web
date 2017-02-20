@@ -60,6 +60,7 @@ export class NotificationService {
         //Change this soon to a better profile page
         case "follow":
           this._router.navigate(['/users', {outlets: {'userpage': ['userprofile', itemID]}}]);
+        //Add posts page. A page with just a single post
       }
   }
 

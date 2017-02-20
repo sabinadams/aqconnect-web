@@ -33,13 +33,40 @@ export class SocialService {
     });
   }
 
-  //Likes and unlikes forum posts
+  //Likes and unlikes posts
   likePost(data){
     return this._httpClient.post('http://aq.trycf.com/api/index.cfm/likepost/', {'data':data}) // ...using post request
     .map((res:Response) => {
         if(res.status == 200 && res.statusText == "OK"){let data = res.json(); return data;}
      }) // ...and calling .json() on the response to return data
     .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  //Shares posts
+  sharePost(post){
+    let user = JSON.parse(localStorage.getItem('user'));
+    let data = {'post': post, 'user': user};
+    return this._httpClient.post('http://aq.trycf.com/api/index.cfm/sharepost/', {'data':data}) // ...using post request
+    .map((res:Response) => {
+        return res.json();
+     }) // ...and calling .json() on the response to return data
+    .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  //Deletes a Post
+  deletePost(post){
+    let user = JSON.parse(localStorage.getItem('user'));
+    let data = {'post': post, 'user': user};
+    return this._httpClient.post(`http://aq.trycf.com/api/index.cfm/deletepost/`, {'data': data}).map( (res) => {
+      return res.json();
+    }).catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  getNewPosts(start){
+    let userID = JSON.parse(localStorage.getItem('user')).Id;
+    return this._httpClient.get(`http://aq.trycf.com/api/index.cfm/newposts/${userID}/${start}`).map( (res) => {
+      return res.json();
+    }).catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 
 }

@@ -43,16 +43,27 @@
 
 
           <!-- Posts -->
+          <div class="alert alert-success" style="text-align:center; padding:8px;" (click)="clickedNewPosts()" *ngIf="newposts.length">Load New Posts</div>
           <div class="panel panel-default" style="background-color:rgb(16, 16, 16);" *ngFor="let post of posts; let i = index">
            <div class="panel-heading" style="background-color:rgb(16, 16, 16);">
+             <p *ngIf="post.user_ID != post.original_poster" style="margin-bottom: 0px; color: #a7a7a3; font-size: 13px;">{{post.NAME}} shared <span style="color:#7c62a0; cursor:pointer;" (click)="openProfile(post.ORIGINALUSERID)">{{post.ORIGINALUSERNAME}}'</span>s post</p>
              <div class="media">
                <div class="media-left">
                  <a href="#">
-                   <img class="media-object img-rounded" src="{{post.image_url}}" style="height:50px; width:auto;" alt="...">
+                   <img (click)="openProfile(post.user_ID)" class="media-object img-rounded" src="{{post.image_url}}" style="height:50px; width:auto;" alt="...">
                  </a>
                </div>
                <div class="media-body">
-                 <p class="media-heading" style="text-align:left; color: rgb(124, 98, 160); font-weight: 800;">{{post.NAME}}</p>
+                   <div class="dropdown" style="position:absolute; right:25px;">
+                     <button class="btn btn-primary dropdown-toggle post-option" type="button" data-toggle="dropdown">
+                     <span class="caret"></span></button>
+                     <ul class="dropdown-menu">
+                       <li><a (click)="editPost()" *ngIf="post.user_ID == userID">Edit Post</a></li>
+                       <li><a (click)="deletePost(post, i)" *ngIf="post.user_ID == userID">Delete</a></li>
+                       <li><a (click)="share(post)" *ngIf="post.user_ID != userID">Share</a></li>
+                     </ul>
+                   </div>
+                 <p class="media-heading" style="text-align:left; color: rgb(124, 98, 160); font-weight: 800;" (click)="openProfile(post.user_ID)">{{post.NAME}}</p>
                  <div [innerHtml]="post.body" class="post-body"></div>
                </div>
              </div>
@@ -105,12 +116,12 @@
               <div class="media">
                 <div class="media-left media-middle">
                   <a href="#">
-                  <img src="{{user.image_url}}" class="media-object" style="height:40px;" alt="">
+                  <img src="{{user.image_url}}" class="media-object" style="height:30px;" alt="">
                   </a>
                 </div>
                 <div class="media-body" style="padding-top:5px;">
-                  <input class="form-control post-input" [(ngModel)]="commentText"  aria-describedby="basic-addon2" placeholder="What do you have to say?">
-                  <span *ngIf="commentText.length > 0">{{400-commentText.length}}</span>
+                  <input class="form-control post-input" [(ngModel)]="post.new_reply"  aria-describedby="basic-addon2" placeholder="What do you have to say?">
+                  <span *ngIf="post.new_reply.length > 0">{{400-post.new_reply.length}}</span>
                 </div>
               </div>
 
@@ -139,4 +150,9 @@
 
     </div>
     <button type="button" class="btn btn-circle btn-xl"><i class="glyphicon glyphicon-pencil"></i></button>
+    <a href="#home" class="page-scroll"><button type="button" class="btn btn-circle btn-xl" (click)="clickedNewPosts()" *ngIf="posts?.length > 20" style="margin-bottom:60px; background-color:#0b428e;"><i class="glyphicon glyphicon-arrow-up"></i></button></a>
+
+    <div class="alert alert-success alert-notification" [@visibilityChanged]="showAlert" (click)="clickedNewPosts()" style="bottom:10px; right:10px; position:fixed; z-index:10000;" role="alert">
+        <a href="#home" class="alert-link page-scroll">{{newPostsAlertText}}</a>
+    </div>
 </div>

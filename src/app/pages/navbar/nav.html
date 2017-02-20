@@ -78,6 +78,6 @@
         </div>
     </div>
 </nav>
-<div class="alert alert-success alert-notification" [@visibilityChanged]="notification_popup" (click)="gotoNotification(mostRecent)" style="bottom:10px; right:10px; position:fixed; z-index:10000;" role="alert">
+<div class="alert alert-success alert-notification" [@visibilityChanged]="notification_popup" (click)="gotoNotification(mostRecent)" style="bottom:10px; left:10px; position:fixed; z-index:10000;" role="alert">
     <a (click)="openProfile(mostRecent.notifier, mostRecent.ID)" class="alert-link">{{mostRecent?.notifier_name}}</a> {{mostRecent?.text}} <!-- <a href="#" class="alert-link">Web Version</a> -->
 </div>
