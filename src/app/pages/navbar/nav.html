@@ -34,27 +34,36 @@
                 <li id="users" [routerLinkActive]="['active']">
                     <a routerLink="users">Users</a>
                 </li>
+                <li [routerLinkActive]="['active']" class="hidden-lg hidden-md hidden-sm">
+                    <a routerLink="account">Account Settings</a>
+                </li>
+                <li [routerLinkActive]="['active']" class="hidden-lg hidden-md hidden-sm">
+                    <a routerLink="userforumposts">My Forum Posts</a>
+                </li>
+                <li [routerLinkActive]="['active']" class="hidden-lg hidden-md hidden-sm">
+                    <a style="color:#fb6464;" (click)="logout()">Log Out</a>
+                </li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right hidden-xs">
                 <li class="dropdown" style="margin-right:20px;">
                   <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" 
                       [ngClass]="{'notification-indicator-active': notification_check}"><i class="fa fa-bell" aria-hidden="true" style="font-size:20px;"></i></a>
                   <ul class="dropdown-menu">
                     <li>
-                        <a style="color:#de4d4d;" (click)="clearAllNotifications()">
+                        <a style="color:#de4d4d; cursor:pointer;" (click)="clearAllNotifications()">
                             Clear All
                         </a>
                     </li>
                     <li *ngIf="!notifications?.length">
                         <a>No Notifications</a>
                     </li>
-                    <li *ngFor="let notification of notifications; let i = index;"  [ngStyle]="{'background-color': !notification?.read ? 'rgba(135, 98, 166, 0.54)' : '' } ">
+                    <li *ngFor="let notification of notifications; let i = index;" [ngStyle]="{'background-color': !notification?.read ? 'rgba(135, 98, 166, 0.54)' : '' } ">
                         <a>
                             <span *ngIf="notification.type == 'forum-reply-like' || notification.type == 'forum-like'" class="glyphicon glyphicon-heart" aria-hidden="true" style="text-align:left; margin-right:3px; color:#de4d4d;"></span>
                             <span *ngIf="notification.type == 'forum-reply'" class="glyphicon glyphicon-th-list" aria-hidden="true" style="text-align:left; margin-right:3px; color:#669adc;"></span>
-                            <a (click)="openProfile(notification)" class="alert-link">{{notification.notifier_name}}</a> <span (click)="gotoNotification(notification)">{{notification.text}} </span>
+                            <a (click)="openProfile(notification)" class="alert-link" style="cursor:pointer;">{{notification.notifier_name}}</a> <span (click)="gotoNotification(notification)">{{notification.text}} </span>
                             <span style="color:#956bb9;">{{notification.timestamp | timeAgo}}</span>
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true" style="margin-left:5px; text-align:right; color:#de4d4d;" 
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true" style="margin-left:5px; text-align:right; color:#de4d4d; cursor:pointer;" 
                             (click)="removeNotification(notification.ID, i)"></span>
                         </a>
                     </li>

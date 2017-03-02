@@ -34,8 +34,13 @@ export class HomeComponent implements OnInit{
            this._socialService.getPosts(this.index).subscribe(res => {
            	for(let post of res){
            		post.body = this.md.convert(post.body);
+           		for(let comment of post.comments.COMMENTS){
+					comment.body = this.md.convert(comment.body.toString());
+				}
            		post.IMAGES = post.IMAGES.split(',');
-           		post['new_reply'] = [];
+           		post['new_comment'] = '';
+           		post['singleComment'] = true;
+           		post['comment_images'] = [];
            	}
            	this.posts.push(...res);
            	this.index += 20;
@@ -61,15 +66,23 @@ export class HomeComponent implements OnInit{
 	loaded = false;
 	newPostsAlertText = "";
 	showAlert = false;
+	loading_comments = false;
+	saving_post = false;
+	tempCommentIndex = 0;
+	comment_uploading = false;
 	ngOnInit(){
 		this._socialService.getPosts(this.index).subscribe(res => {
-			console.log(res);
 			this.posts = res;
 			this.index += 20;
 			for(let post of this.posts){
 				post.body = this.md.convert(post.body);
+				for(let comment of post.comments.COMMENTS){
+					comment.body = this.md.convert(comment.body.toString());
+				}
 				post.IMAGES = post.IMAGES.split(',');
-				post['new_reply'] = [];
+				post['new_comment'] = '';
+				post['singleComment'] = true;
+				post['comment_images'] = [];
 			}
 			this.loaded = true;
 			if(res.length < 20){
@@ -84,12 +97,26 @@ export class HomeComponent implements OnInit{
 		}); 
 		setInterval(() => {
 			if(this.loaded){
-				this._socialService.getNewPosts(this.posts[0].ID).subscribe(res => {
+				let tempIndex;
+				if(this.newposts.length > 0 && this.newposts[0].ID){
+					// console.log('Used New Posts Array', this.newposts[0].ID);
+					tempIndex = this.newposts[0].ID
+				}else {
+					// console.log('Used The Posts Array', this.posts[0].ID);
+					tempIndex = this.posts[0].ID;
+				}
+				//Getting this to not grab duplicates
+				this._socialService.getNewPosts(tempIndex).subscribe(res => {
 					if(res.length > 0) {
 						for(let post of res){
 							post.body = this.md.convert(post.body);
+							for(let comment of post.comments.COMMENTS){
+								comment.body = this.md.convert(comment.body.toString());
+							}
 							post.IMAGES = post.IMAGES.split(',');
-							post['new_reply'] = [];
+							post['new_comment'] = '';
+							post['singleComment'] = true;
+							post['comment_images'] = [];
 						}
 						this.newposts.unshift(...res);
 						this.loaded = false;
@@ -97,7 +124,7 @@ export class HomeComponent implements OnInit{
 					}
 				});
 			}
-		}, 60000)
+		}, 2000)
 	}
 
 
@@ -107,6 +134,9 @@ export class HomeComponent implements OnInit{
 		}
 	}
 
+	showComments(index){
+		this.posts[index].singleComment = false;
+	}
 	newPostsAlert(amount){
 		this.newPostsAlertText =`${amount} new posts`;
 		this.showAlert = true;
@@ -123,8 +153,6 @@ export class HomeComponent implements OnInit{
 		}
 		this.newposts = [];
 		this.showAlert = false;
-		//scroll to top
-		// window.scrollTo(0,0);
 	}
 	//Converts file to base64
 	saveImage(inputValue: any): void {
@@ -153,19 +181,24 @@ export class HomeComponent implements OnInit{
 			'text': this.postText || "   ",
 			'images': this.images
 		}
-		if(this.postText.length > 0 || (this.images.length && this.images.length < 7)){
+		if(post.text.length <= 400 && (this.postText.trim().length > 0 || (this.images.length && this.images.length < 7)) && !this.saving_post){
+			this.saving_post = true;
 			this._socialService.savePost(post).subscribe(res => {
 				this._socialService.getNewPosts(this.posts[0].ID).subscribe(res => {
 					if(res.length > 0) {
 						for(let post of res){
 							post.body = this.md.convert(post.body);
 							post.IMAGES = post.IMAGES.split(',');
-							post['new_reply'] = [];
+							post['new_comment'] = '';
+							post['comment_images'] = [];
 						}
-						this.newposts.unshift(...res);
+						this.newposts.unshift(res[0]);
 						this.loaded = false;
 						this.newPostsAlert(res.length);
 					}
+					this.postText = "";
+					this.saving_post = false;
+					this.images = [];
 				});
 			});
 		}
@@ -213,8 +246,17 @@ export class HomeComponent implements OnInit{
 	    	});
     	}
     }   
-    editPost(){
-    	console.log("Post Edited");
+    getMoreComments(post, index){
+    	if(!this.loading_comments){
+    		this.loading_comments = true;
+    		this._socialService.getComments(this.userID, post.ID, post.comments.COMMENTS.length).subscribe(res => {
+    			for(let comment of res.comments.COMMENTS){
+					comment.body = this.md.convert(comment.body.toString());
+				}
+    			this.loading_comments = false;
+    			this.posts[index].comments.COMMENTS.push(...res.comments.COMMENTS);
+    		});
+    	}
     }
     share(post){
     	this._socialService.sharePost(post).subscribe(res => {
@@ -224,7 +266,8 @@ export class HomeComponent implements OnInit{
 						for(let post of res){
 							post.body = this.md.convert(post.body);
 							post.IMAGES = post.IMAGES.split(',');
-							post['new_reply'] = [];
+							post['new_comment'] = '';
+							post['comment_images'] = [];
 						}
 						this.newposts.unshift(...res);
 						this.loaded = false;
@@ -234,4 +277,93 @@ export class HomeComponent implements OnInit{
     		}
     	});
     }
+
+    //Likes and unlikes replies
+	likeComment(post, comment, i){
+		 var data = {
+            'commentID': comment.ID,
+            'userID': this.userID,
+            'token':this.user.token,
+            'posterID': comment.user_ID
+        }
+		if(comment.LIKEID != this.user.Id){
+			this._socialService.likeComment(data).subscribe(res => {
+				post.comments.COMMENTS[i].LIKEID = this.userID;
+				post.comments.COMMENTS[i].likes += 1;
+			});		
+		}else{
+			this._socialService.likeComment(data).subscribe(res => {
+				if(res.status == 200){
+					post.comments.COMMENTS[i].LIKEID = "";
+					post.comments.COMMENTS[i].likes -= 1;
+				}
+			});
+		}
+    }
+
+
+    deleteComment(comment, comment_index, post_index){
+    	if(confirm("are you sure you want to delete the comment?")){
+	    	this._socialService.deleteComment(comment).subscribe(res => {
+	    		if(res.status == 200){
+	    			this.posts[post_index].comments.COMMENTS.splice(comment_index, 1);
+	    		}
+	    	});
+    	}
+    }   
+
+    saveComment(post_index){
+    	let post = this.posts[post_index];
+		let comment = {
+			'text': post.new_comment || "   ",
+			'rootID': post.ID,
+			'images': post.comment_images
+		}
+		console.log(comment.text)
+		if(comment.text.length <= 400 && (comment.text.trim().length > 0  || comment.images.length == 1) && !this.saving_post){
+			this.saving_post = true;
+			this._socialService.saveComment(comment).subscribe(res => {
+				if(res.status == 200){
+					this.saving_post = false;
+					res.comment[0].body = this.md.convert(res.comment[0].body.toString());
+					this.posts[post_index].comments.COMMENTS.unshift(res.comment[0]);
+					this.posts[post_index].new_comment = [];
+					this.posts[post_index].comments.TOTAL_COMMENTS++;
+					this.removeCommentUpload(post_index);
+				}
+			});
+		}
+	}
+
+	//Converts file to base64
+	saveCommentImage(inputValue: any, index): void {
+	  	  var file:File = inputValue.files[0];
+	  if(typeof file != 'undefined'){
+	  	  var myReader:FileReader = new FileReader();
+	  	  myReader.onloadend = (e) => {
+	  	    this.newimage = myReader.result;
+	  		this._socialService.uploadPic(this.newimage).subscribe(res => {
+	  			this.posts[index].comment_images.push(res.data.link);
+	  			this.comment_uploading = false;
+	  		});
+	  	  }
+	  	  myReader.readAsDataURL(file);
+	  	} else {
+	  		this.comment_uploading = false;
+	  	}
+	  
+	}
+
+	//Sends the image through a function whenever the file input is used
+	commentChangeListener($event, index) : void {
+	  this.tempCommentIndex = index;
+	  if(this.images.length < 7){
+	  	this.comment_uploading = true;
+	  	this.saveCommentImage($event.target, index);
+	  }
+	}
+
+	removeCommentUpload(index) {
+		this.posts[index].comment_images = [];
+	}
 }

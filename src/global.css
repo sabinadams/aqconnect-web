@@ -170,6 +170,9 @@ footer {
     border-color: transparent;
 }
 
+.in, .collapsing {
+    background-color:#2d2638;
+}
 .navbar-default .nav > li>a,
 .navbar-default .nav>li>a:focus {
     text-transform: uppercase;

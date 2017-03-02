@@ -11,7 +11,7 @@
 								Change Profile Picture<input type="file" accept="image/*" (change)="changeListener($event)">
 							</span><br>
 							<div class="loader" *ngIf="!picloaded">Loading...</div>
-							<img *ngIf="picloaded" src="{{user?.image_url}}"  style="height:400px; width:auto; border-radius:7px; text-align:center;" alt="">
+							<img class="img-responsive" *ngIf="picloaded" src="{{user?.image_url}}"  style="height:400px; width:auto; border-radius:7px; text-align:center; margin:auto;" alt="">
 					</div>
 					<hr style="max-width:100%; width:100%:">
 					<label>Username: </label>

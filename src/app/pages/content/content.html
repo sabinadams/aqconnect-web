@@ -5,8 +5,8 @@
            <h2>Whatcha looking for?</h2>
            <hr style="width:100%; max-width:100%; border-color:#000000;">
        </div>
-       <div class="col-lg-5 text-center">
-           <h2>Items</h2><hr> 
+       <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 col-lg-offset-1">
+           <h2 style="text-align:center;">Items</h2><hr> 
            <div class="col-lg-6 media wow fadeInLeft" *ngFor="let type of content_types; let i = index;">
                <div class="media" (click)="openList(type.ID)">
                  <div class="media-left media-middle">
@@ -15,13 +15,13 @@
                    </div>
                  </div>
                  <div class="media-body">
-                   <h4 class="media-heading">{{type.name}}</h4>
+                   <h4 class="media-heading hidden-xs">{{type.name}}</h4>
                  </div>
                </div>
            </div>
        </div>
-       <div class="col-lg-4 text-center">
-            <h2>Other Content</h2><hr>
+       <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+            <h2 style="text-align:center;">Other</h2><hr>
             <div class="col-lg-6 media wow fadeInRight" *ngFor="let category of categories; let i = index;">
                <div class="media" (click)="openList(category.source, 'non-item')">
                  <div class="media-left media-middle">
@@ -30,17 +30,17 @@
                    </div>
                  </div>
                  <div class="media-body">
-                   <h4 class="media-heading">{{category.name}}</h4>
+                   <h4 class="media-heading hidden-xs">{{category.name}}</h4>
                  </div>
                </div>
            </div>
        </div>
-       <div class="col-lg-3 text-center">
+       <!-- <div class="col-lg-3 text-center">
            <h3>Are we missing something?</h3>
            <p>Click an option below to contribute!</p>
            <a href="#latest" class="btn btn-primary btn-xl">Item</a>
            <a href="#latest" class="btn btn-primary btn-xl">Other Content</a>
-       </div>
+       </div> -->
    </div>
 </div>
 <!-- End Opening Page -->

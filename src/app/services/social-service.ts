@@ -9,7 +9,6 @@ import 'rxjs/add/operator/map';
 export class SocialService {
   constructor(private _httpClient: HttpClient, private _http: Http) {}
 
-  //Grabs all Content Types (Armor, Weapon, etc...)
   savePost(post){
     let data = {'post': post, 'user': JSON.parse(localStorage.getItem('user'))};
     return this._httpClient.post('http://aq.trycf.com/api/index.cfm/savepost/', {'data': data}).map( (res) => {
@@ -65,6 +64,37 @@ export class SocialService {
   getNewPosts(start){
     let userID = JSON.parse(localStorage.getItem('user')).Id;
     return this._httpClient.get(`http://aq.trycf.com/api/index.cfm/newposts/${userID}/${start}`).map( (res) => {
+      return res.json();
+    }).catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  getComments(userID, postID, start){
+    return this._httpClient.get(`http://aq.trycf.com/api/index.cfm/comments/${userID}/${postID}/${start}`).map( (res) => {
+      return res.json();
+    }).catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  //Likes and unlikes comments
+  likeComment(data){
+    return this._httpClient.post('http://aq.trycf.com/api/index.cfm/likecomment/', {'data':data}) // ...using post request
+    .map((res:Response) => {
+        if(res.status == 200 && res.statusText == "OK"){let data = res.json(); return data;}
+     }) // ...and calling .json() on the response to return data
+    .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  saveComment(comment){
+    let data = {'comment': comment, 'user': JSON.parse(localStorage.getItem('user'))};
+    return this._httpClient.post('http://aq.trycf.com/api/index.cfm/savecomment/', {'data': data}).map( (res) => {
+      return res.json();
+    }).catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  //Deletes a Comment
+  deleteComment(comment){
+    let user = JSON.parse(localStorage.getItem('user'));
+    let data = {'comment': comment, 'user': user};
+    return this._httpClient.post(`http://aq.trycf.com/api/index.cfm/deletecomment/`, {'data': data}).map( (res) => {
       return res.json();
     }).catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
