@@ -170,7 +170,7 @@ footer {
     border-color: transparent;
 }
 
-.in, .collapsing {
+.navbar-collapse.in, .navbar-collapse.collapsing {
     background-color:#2d2638;
 }
 .navbar-default .nav > li>a,

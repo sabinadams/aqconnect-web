@@ -1,214 +1,307 @@
-<!-- 
-  1. Reply to comments
-  2. Mentions
-  3. banner for errors
- -->
+<!--
+1. Reply to comments
+2. Mentions
+3. banner for errors
+4. Split this page up into:
+    -Profile-side-panel
+    -News Feed
+      -Post
+      -Post Form
+      -Comment
+    -Chat Panel
+-->
 
-<profile-side-panel></profile-side-panel>
+<!-- Side Panel -->
+  <profile-side-panel></profile-side-panel>
+<!-- End Side Panel -->
+
+<!-- Body Wrapper -->
 <div id="home">
-<div class="container">
-  
-  <div class="col-lg-offset-3 col-md-offset-4 col-sm-offset-4 col-lg-7 col-md-8 col-sm-8 col-xs-12">
-    <!-- <div class="col-lg-12"> -->
-    
-    <!-- Text post -->
-    <div class="icons " style="text-align:right;">
-      
-      <span class="btn btn-default btn-file">
-        <i class="glyphicon glyphicon-camera input-icon" style="color:#0070ff;"><input type="file" accept="image/*" (change)="changeListener($event)"></i>
-      </span>
-      <!-- <i class="glyphicon glyphicon-pencil input-icon" style="color:#f14b4b;"></i> -->
-      <!-- <i class="glyphicon glyphicon-stats input-icon" style="color:#56b556;"></i> -->
-      <button *ngIf="!uploading && (rows == 4 || images.length > 0 && images.length < 6)" (click)="savePost();" class="btn btn-default post-submit" type="submit">Post</button>
-    </div>
-    <div class="form-group has-feedback" style="margin-bottom:15px;">
-      <textarea (blur)="checkBlur()" (focus)="rows = 4;" [(ngModel)]="postText" class="form-control post-input" rows="{{rows}}"  aria-describedby="basic-addon2" id="text-post" placeholder="What do you have to say?"></textarea>
-      <span *ngIf="postText.length > 0" [ngStyle]="{'color': postText.length > 400 ? '#a74040' : ''}">
-          {{400-postText.length}}
-      </span>
-      
-      <div class="image-uploads">
-        <div class="uploading" *ngIf="uploading">
-          Uploading Image
-          <div class="load-2">
-            <div class="line" style="background-color:#8961ab;"></div>
-            <div class="line" style="background-color:#a74040;"></div>
-            <div class="line" style="background-color:#0b428f;"></div>
-          </div>
-        </div>
-        <div class="uploaded-image text-center" *ngFor="let image of images; let i = index;" style="display:inline-block;">
-          <img  src="{{image}}" style="height:50px; width:auto; margin:10px 10px 0px 10px; border-radius:20px;" alt=""><br>
-          <span class="remove-upload" aria-hidden="true" (click)="removeUpload(i)">Remove</span>
-        </div>
-      </div>
-      
-    </div>
-    <!-- Posts -->
-    <div class="alert alert-success" style="text-align:center; padding:8px;" (click)="clickedNewPosts()" *ngIf="newposts.length">Load New Posts</div>
-    <div class="panel panel-default" style="background-color:rgb(16, 16, 16);" *ngFor="let post of posts; let i = index">
-      <div class="panel-heading" style="background-color:rgb(16, 16, 16);">
-        <p *ngIf="post.user_ID != post.original_poster" style="margin-bottom: 0px; color: #a7a7a3; font-size: 13px;">{{post.NAME}} shared <span style="color:#7c62a0; cursor:pointer;" (click)="openProfile(post.ORIGINALUSERID)">{{post.ORIGINALUSERNAME}}'</span>s post</p>
-        <div class="media">
-          <div class="media-left">
-            <a href="#">
-              <img (click)="openProfile(post.user_ID)" class="media-object img-rounded" src="{{post.image_url}}" style="height:50px; width:auto;" alt="...">
-            </a>
-          </div>
-          <div class="media-body">
-            <div class="dropdown" style="position:absolute; right:25px;">
-              <button class="btn btn-primary dropdown-toggle post-option" type="button" data-toggle="dropdown">
-              <span class="caret"></span></button>
-              <ul class="dropdown-menu">
-                <li><a (click)="editPost()" *ngIf="post.user_ID == userID">Edit Post</a></li>
-                <li><a (click)="deletePost(post, i)" *ngIf="post.user_ID == userID">Delete</a></li>
-                <li><a (click)="share(post)" *ngIf="post.user_ID != userID">Share</a></li>
-              </ul>
-            </div>
-            <p class="media-heading" style="text-align:left; margin:0; color: rgb(124, 98, 160); font-weight: 800;" (click)="openProfile(post.user_ID)">{{post.NAME}}</p>
-            <div [innerHtml]="post.body" class="post-body"></div>
-          </div>
-        </div>
-        <div class="post-image-container" *ngIf="post.IMAGES.length > 0 && post.IMAGES[0] != '' && post.IMAGES.length < 2">
-          <img *ngFor="let image of post.IMAGES" class="img-rounded img-responsive post-image-single text-center" src="{{image}}" alt="">
-        </div>
-        <div class="post-image-container" *ngIf="post.IMAGES.length == 2 && post.IMAGES[0] != ''">
-          <img *ngFor="let image of post.IMAGES" class="img-rounded img-responsive post-image-double text-center" style="width:50%; display:inline;" src="{{image}}" alt="">
-        </div>
-        <div class="post-image-container-carousel" *ngIf="post.IMAGES.length >2 && post.IMAGES[0] != ''">
-          <div class="well images">
-            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-              <div class="carousel-inner">
-                <div class="item active">
-                  <img class="img-responsive post-image-multi" src="{{post.IMAGES[0]}}" alt="...">
-                </div>
-                <div class="item" *ngFor="let image of post.IMAGES | slice:1">
-                  <img class="img-responsive post-image-multi" src="{{image}}" alt="...">
-                </div>
-              </div>
-              <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left"></span>
-              </a>
-              <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right"></span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Stuff after the post content like comments and post date -->
-      <div class="panel-body" style="background-color: #2a2238;">
-        <div class="row">
-          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="text-align:left;">
-            <span  (click)="likePost(post, i)" *ngIf="!(post.user_ID == userID)" [ngStyle]="{'color':+post?.LIKEID | liked:userID}" style="margin-right:2px; font-size:17px; cursor:pointer;" class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-            <span style="margin-right:5px;">{{post.likes}} <span *ngIf="post.user_ID == userID">Likes</span></span>
-            <span  style="color:#fff; margin-right:2px; font-size:17px; cursor:pointer;" class="glyphicon glyphicon-comment" aria-hidden="true"></span>
-            <span style="margin-right:5px;">{{post.comments.TOTAL_COMMENTS}}</span>
-          </div>
-          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="text-align:right; ">
-            {{post.timestamp | timeAgo}}
-          </div>
-        </div>
-        <!-- <hr style="max-width:95%;width:95%;"> -->
-      </div>
+  <div class="container">
 
-      <!-- Comments -->
-      <div class="panel-body" *ngIf="post.singleComment && post.comments.COMMENTS.length > 0">
-        <div class="media comments">
-          <div class="media-left">
-            <a href="#">
-              <img (click)="openProfile(post.user_ID)" class="media-object img-rounded" src="{{post.comments.COMMENTS[0].USERIMAGE}}" style="height:30px; width:auto;" alt="...">
-            </a>
-          </div>
-          <div class="media-body">
-            <span style="font-weight:bold; color:rgb(124, 98, 160);" (click)="openProfile(post.user_ID)">{{post.comments.COMMENTS[0].name}} </span> 
-            <small style="color:#adadad; margin-left:5px;"> {{post.comments.COMMENTS[0].timestamp | timeAgo}}</small>
-            
-            <span style="font-size:15px; float:right;cursor:pointer;" >
-              <span  *ngIf="!(post.comments.COMMENTS[0].user_ID == userID)" (click)="likeComment(post, post.comments.COMMENTS[0], 0)" [ngStyle]="{'color':+post.comments.COMMENTS[0]?.LIKEID | liked:userID}" class="glyphicon glyphicon-heart" aria-hidden="true"></span> 
-              <small>{{post.comments.COMMENTS[0].likes}} <span *ngIf="post.comments.COMMENTS[0].user_ID == userID">Likes</span></small>
-              <span  style="color:#a74040; font-size:14px;" *ngIf="post.comments.COMMENTS[0].user_ID == userID" (click)="deleteComment( post.comments.COMMENTS[0], 0, i)" class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-            </span>
-            <div [innerHtml]="post.comments.COMMENTS[0].body" class="comment-body"></div>
-            <img class="comment-image-single img-responsive" *ngIf="post?.comments?.COMMENTS[0]?.image_url?.length > 0" src="{{post.comments.COMMENTS[0].image_url}}" alt="">
-          </div>
-        </div>
-        <div class="showMore" style="text-align:center; margin-top:5px; cursor:pointer;" *ngIf="post.comments.COMMENTS.length > 1" (click)="showComments(i)"><a>Show More Comments</a></div>
+
+    <!-- News Feed Container -->
+    <div class="col-lg-offset-3 col-md-offset-4 col-sm-offset-4 col-lg-7 col-md-8 col-sm-8 col-xs-12">
+
+
+      <!-- Post Form -->
+      <div class="icons " style="text-align:right;">
+        <span class="btn btn-default btn-file">
+          <i class="glyphicon glyphicon-camera input-icon" style="color:#0070ff;"><input type="file" accept="image/*" (change)="changeListener($event)"></i>
+        </span>
+        <button *ngIf="!uploading && (rows == 4 || images.length > 0 && images.length < 6)" (click)="savePost();" class="btn btn-default post-submit" type="submit">Post</button>
       </div>
+      <div class="form-group has-feedback" style="margin-bottom:15px;">
+        <textarea (blur)="checkBlur()" (focus)="rows = 4;" [(ngModel)]="postText" class="form-control post-input" rows="{{rows}}"  aria-describedby="basic-addon2" id="text-post" placeholder="What do you have to say?"></textarea>
+        <span *ngIf="postText.length > 0" [ngStyle]="{'color': postText.length > 400 ? '#a74040' : ''}">
+          {{400-postText.length}}
+        </span>
+        <div class="image-uploads">
+
+          <!-- Image Upload Status Indicator -->
+          <div class="uploading" *ngIf="uploading">
+            Uploading Image
+            <div class="load-2">
+              <div class="line" style="background-color:#8961ab;"></div>
+              <div class="line" style="background-color:#a74040;"></div>
+              <div class="line" style="background-color:#0b428f;"></div>
+            </div>
+          </div>
+          <!-- End Image Upload Status Indicator -->
+
+          <!-- Uploaded Images -->
+          <div class="uploaded-image text-center" *ngFor="let image of images; let i = index;" style="display:inline-block;">
+            <img  src="{{image}}" style="height:50px; width:auto; margin:10px 10px 0px 10px; border-radius:20px;" alt=""><br>
+            <span class="remove-upload" aria-hidden="true" (click)="removeUpload(i)">Remove</span>
+          </div>
+          <!-- End Uploaded Images -->
+        </div>
+      </div><!-- End Post Form -->
+
+
+      <!-- New Posts Indicator -->
+        <div class="alert alert-success" style="text-align:center; padding:8px;" (click)="clickedNewPosts()" *ngIf="newposts.length">Load New Posts</div>
+      <!-- End New Posts Indicator -->
       
-      <div class="multi-comment" *ngIf="!post.singleComment && post.comments.COMMENTS.length > 0">
-        <div class="panel-body multi-body" style="padding:3px 5px 5px 5px;" *ngFor="let comment of post.comments.COMMENTS; let j = index">
-          <div class="media comments">
+
+      <!-- News Feed Posts -->
+      <div class="panel panel-default" style="background-color:rgb(16, 16, 16);" *ngFor="let post of posts; let i = index">
+        <div class="panel-heading" style="background-color:rgb(16, 16, 16);">
+
+          <!-- "Shared" Indicator -->
+            <p *ngIf="post.user_ID != post.original_poster" style="margin-bottom: 0px; color: #a7a7a3; font-size: 13px;">{{post.NAME}} shared <span style="color:#7c62a0; cursor:pointer;" (click)="openProfile(post.ORIGINALUSERID)">{{post.ORIGINALUSERNAME}}'</span>s post</p>
+          <!-- End "Shared" Indicator -->
+
+          <div class="media">
             <div class="media-left">
               <a href="#">
-                <img (click)="openProfile(post.user_ID)" class="media-object img-rounded" src="{{comment.USERIMAGE}}" style="height:30px; width:auto;" alt="...">
+                <!-- Post's Poster Image -->
+                <img (click)="openProfile(post.user_ID)" class="media-object img-rounded" src="{{post.image_url}}" style="height:50px; width:auto;" alt="...">
               </a>
             </div>
             <div class="media-body">
-              <span style="font-weight:bold; color:rgb(124, 98, 160);" (click)="openProfile(post.user_ID)">{{comment.name}} </span> 
-              <small style="color:#adadad; margin-left:5px;"> {{comment.timestamp | timeAgo}}</small>
-              <span style="margin-right:5px; font-size:17px; float:right;cursor:pointer;" >
-                <span *ngIf="!(comment.user_ID == userID)" (click)="likeComment(post, comment, j)" [ngStyle]="{'color':+comment.LIKEID | liked:userID}" class="glyphicon glyphicon-heart" aria-hidden="true"></span> 
-                <small>{{comment.likes}} <span *ngIf="comment.user_ID == userID">Likes</span></small>
-              </span>
 
-              <div [innerHtml]="comment.body" class="comment-body"></div>
-              <img class="comment-image-single img-responsive" *ngIf="comment.image_url.length > 0" src="{{comment.image_url}}" alt="">
+              <!-- Dropdown for Post Options -->
+                <div class="dropdown" style="position:absolute; right:25px;">
+                  <button class="btn btn-primary dropdown-toggle post-option" type="button" data-toggle="dropdown">
+                  <span class="caret"></span></button>
+                  <ul class="dropdown-menu">
+                    <li><a (click)="editPost()" *ngIf="post.user_ID == userID">Edit Post</a></li>
+                    <li><a (click)="deletePost(post, i)" *ngIf="post.user_ID == userID">Delete</a></li>
+                    <li><a (click)="share(post)" *ngIf="post.user_ID != userID">Share</a></li>
+                  </ul>
+                </div> 
+              <!-- End Dropdown for Post Options --> 
+              
+              <!-- Poster's Name -->
+              <p class="media-heading" style="text-align:left; margin:0; color: rgb(124, 98, 160); font-weight: 800;" (click)="openProfile(post.user_ID)">{{post.NAME}}</p>
+              <!-- Post Body Text -->
+              <div [innerHtml]="post.body" class="post-body"></div>
+
+            </div> <!-- End Media Body -->
+          </div> <!-- End Media -->
+
+          <!-- Single-Image Post -->
+            <div class="post-image-container" *ngIf="post.IMAGES.length > 0 && post.IMAGES[0] != '' && post.IMAGES.length < 2">
+              <img *ngFor="let image of post.IMAGES" class="img-rounded img-responsive post-image-single text-center" src="{{image}}" alt="">
+            </div>
+          <!-- End Single-Image Post -->
+
+          <!-- Double-Image Post -->
+            <div class="post-image-container" *ngIf="post.IMAGES.length == 2 && post.IMAGES[0] != ''">
+              <img *ngFor="let image of post.IMAGES" class="img-rounded img-responsive post-image-double text-center" style="width:50%; display:inline;" src="{{image}}" alt="">
+            </div>
+          <!-- End Double-Image Post -->
+          
+          <!-- Multi-Imaeg Post (3+) -->
+          <div class="post-image-container-carousel" *ngIf="post.IMAGES.length >2 && post.IMAGES[0] != ''">
+            <div class="well images">
+              <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                  <div class="item active">
+                    <img class="img-responsive post-image-multi" src="{{post.IMAGES[0]}}" alt="...">
+                  </div>
+                  <div class="item" *ngFor="let image of post.IMAGES | slice:1">
+                    <img class="img-responsive post-image-multi" src="{{image}}" alt="...">
+                  </div>
+                </div>
+                <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                  <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+                <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                  <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <!-- End Multi-Image Post (3+) -->
+
+        </div><!-- End News Feed Posts -->
+
+        <!-- Post Stats -->
+        <div class="panel-body" style="background-color: #2a2238;">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="text-align:left;">
+              <!-- Like Button -->
+              <span  (click)="likePost(post, i)" *ngIf="!(post.user_ID == userID)" [ngStyle]="{'color':+post?.LIKEID | liked:userID}" style="margin-right:2px; font-size:17px; cursor:pointer;" class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+              <!-- Like Count -->
+              <span style="margin-right:5px;">{{post.likes}} <span *ngIf="post.user_ID == userID">Likes</span></span>
+              <!-- Comment Count -->
+              <span  style="color:#fff; margin-right:2px; font-size:17px; cursor:pointer;" class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+              <span style="margin-right:5px;">{{post.comments.TOTAL_COMMENTS}}</span>
+            </div>
+            <!-- Post date -->
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="text-align:right; ">
+              {{post.timestamp | timeAgo}}
             </div>
           </div>
         </div>
-        <div class="panel-body showMore" style="text-align:center; padding:8px; cursor:pointer;" *ngIf="post.comments.COMMENTS.length < post.comments.TOTAL_COMMENTS" (click)="getMoreComments(post, i)" ><a>Show More Comments</a></div>
-      </div>
+        <!-- End Post Stats -->
 
-      <div class="panel-body" style="background-color: #2a2238;">
-        <div class="row" style="padding-left:20px; padding-right:20px; margin-top:10px; ">
-          <div class="media">
-            <div class="media-left media-middle">
+        <!-- Comments -->
+
+        <!-- Single Comment-->
+        <div class="panel-body" *ngIf="post.singleComment && post.comments.COMMENTS.length > 0">
+          <div class="media comments">
+            <div class="media-left">
               <a href="#">
-                <img src="{{user.image_url}}" class="media-object" style="height:30px;" alt="">
+                <!-- Commenter Image -->
+                <img (click)="openProfile(post.user_ID)" class="media-object img-rounded" src="{{post.comments.COMMENTS[0].USERIMAGE}}" style="height:30px; width:auto;" alt="...">
               </a>
             </div>
-
-            <div class="media-body form-group" style="padding-top:5px;">
-              <div class="input-group">
-                <input class="form-control post-input" [(ngModel)]="post.new_comment"  aria-describedby="basic-addon2" placeholder="Leave a comment">
-                <span class="input-group-addon" id="basic-addon2" style="padding: 0; background-color: #36333d;" *ngIf="post.comment_images.length < 1">
-                  <span class="btn btn-default btn-file">
-                    <i class="glyphicon glyphicon-camera input-icon" style="color:#0070ff; font-size:12px;"><input type="file" accept="image/*" (change)="commentChangeListener($event, i)"></i>
-                  </span>
-                </span>
-                <span class="input-group-addon" id="basic-addon2" (click)="saveComment(i); newemail = '';">Comment</span>
-              </div>
-              <div class="uploading" *ngIf="comment_uploading && tempCommentIndex == i">
-                <div class="load-2">
-                  <div class="line" style="background-color:#8961ab;"></div>
-                  <div class="line" style="background-color:#a74040;"></div>
-                  <div class="line" style="background-color:#0b428f;"></div>
-                </div>
-              </div>
-              <div class="uploaded-image text-center" *ngFor="let image of post.comment_images;" style="display:inline-block;">
-                <img  src="{{image}}" style="height:50px; width:auto; margin:10px 10px 0px 10px; border-radius:20px;" alt=""><br>
-                <span class="remove-upload" aria-hidden="true" (click)="removeCommentUpload(i)">Remove</span>
-              </div>
-
-              <span *ngIf="post.new_comment.length > 0" [ngStyle]="{'color': post.new_comment.length > 400 ? '#a74040' : ''}">{{400-post.new_comment.length}}</span>
+            <div class="media-body">
+              <!-- Commenter Name -->
+              <span style="font-weight:bold; color:rgb(124, 98, 160);" (click)="openProfile(post.user_ID)">{{post.comments.COMMENTS[0].name}} </span>
+              <!-- Comment Date -->
+              <small style="color:#adadad; margin-left:5px;"> {{post.comments.COMMENTS[0].timestamp | timeAgo}}</small>
+              <!-- Comment Stats -->
+              <span style="font-size:15px; float:right;cursor:pointer;" >
+                <span  *ngIf="!(post.comments.COMMENTS[0].user_ID == userID)" (click)="likeComment(post, post.comments.COMMENTS[0], 0)" [ngStyle]="{'color':+post.comments.COMMENTS[0]?.LIKEID | liked:userID}" class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+                <small>{{post.comments.COMMENTS[0].likes}} <span *ngIf="post.comments.COMMENTS[0].user_ID == userID">Likes</span></small>
+                <span  style="color:#a74040; font-size:14px;" *ngIf="post.comments.COMMENTS[0].user_ID == userID" (click)="deleteComment( post.comments.COMMENTS[0], 0, i)" class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+              </span>
+              <!-- Comment Body (Optional) -->
+              <div [innerHtml]="post.comments.COMMENTS[0].body" class="comment-body"></div>
+              <!-- Comment Image (Optional) -->
+              <img class="comment-image-single img-responsive" *ngIf="post?.comments?.COMMENTS[0]?.image_url?.length > 0" src="{{post.comments.COMMENTS[0].image_url}}" alt="">
             </div>
           </div>
+          <!-- Shows more comments that are already loaded (Optional) -->
+          <div class="showMore" style="text-align:center; margin-top:5px; cursor:pointer;" *ngIf="post.comments.COMMENTS.length > 1" (click)="showComments(i)"><a>Show More Comments</a></div>
         </div>
-      </div>
+        <!-- End Single Comment -->
+
+        <!-- Multi-Comment -->
+        <div class="multi-comment" *ngIf="!post.singleComment && post.comments.COMMENTS.length > 0">
+          <div class="panel-body multi-body" style="padding:3px 5px 5px 5px;" *ngFor="let comment of post.comments.COMMENTS; let j = index">
+            <div class="media comments">
+              <div class="media-left">
+                <a href="#">
+                  <!-- Commenter Image -->
+                  <img (click)="openProfile(post.user_ID)" class="media-object img-rounded" src="{{comment.USERIMAGE}}" style="height:30px; width:auto;" alt="...">
+                </a>
+              </div>
+              <div class="media-body">
+                <!-- Commenter Name -->
+                <span style="font-weight:bold; color:rgb(124, 98, 160);" (click)="openProfile(post.user_ID)">{{comment.name}} </span>
+                <!-- Comment Date -->
+                <small style="color:#adadad; margin-left:5px;"> {{comment.timestamp | timeAgo}}</small>
+                <!-- Comment Stats -->
+                <span style="margin-right:5px; font-size:17px; float:right;cursor:pointer;" >
+                  <span *ngIf="!(comment.user_ID == userID)" (click)="likeComment(post, comment, j)" [ngStyle]="{'color':+comment.LIKEID | liked:userID}" class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+                  <small>{{comment.likes}} <span *ngIf="comment.user_ID == userID">Likes</span></small>
+                </span>
+                <!-- Comment Body (Optional) -->
+                <div [innerHtml]="comment.body" class="comment-body"></div>
+                <!-- Comment Image (Optional) -->
+                <img class="comment-image-single img-responsive" *ngIf="comment.image_url.length > 0" src="{{comment.image_url}}" alt="">
+              </div>
+            </div>
+
+           
+          </div>
+          <!-- Load More Comments(Gets more comments from server) -->
+          <div class="panel-body showMore" style="text-align:center; padding:8px; cursor:pointer;" *ngIf="post.comments.COMMENTS.length < post.comments.TOTAL_COMMENTS" (click)="getMoreComments(post, i)" ><a>Show More Comments</a></div>
+        </div>
+        <!-- End Multi-Comment -->
+
+        <!-- Comment Form -->
+        <div class="panel-body" style="background-color: #2a2238;">
+          <div class="row" style="padding-left:20px; padding-right:20px; margin-top:10px; ">
+            <div class="media">
+              <div class="media-left media-middle">
+                <a href="#">
+                  <!-- User's Image -->
+                  <img src="{{user.image_url}}" class="media-object" style="height:30px;" alt="">
+                </a>
+              </div>
+              <div class="media-body form-group" style="padding-top:5px;">
+
+                <div class="input-group">
+                  <!-- Input Box -->
+                  <input class="form-control post-input" [(ngModel)]="post.new_comment"  aria-describedby="basic-addon2" placeholder="Leave a comment">
+                  
+                  <!-- Attach Image Button -->
+                    <span class="input-group-addon" id="basic-addon2" style="padding: 0; background-color: #36333d;" *ngIf="post.comment_images.length < 1">
+                      <span class="btn btn-default btn-file">
+                        <i class="glyphicon glyphicon-camera input-icon" style="color:#0070ff; font-size:12px;"><input type="file" accept="image/*" (change)="commentChangeListener($event, i)"></i>
+                      </span>
+                    </span>
+                  <!-- End Attach Image Button -->
+                  
+                  <!-- Submit -->
+                  <span class="input-group-addon" id="basic-addon2" (click)="saveComment(i); newemail = '';">Comment</span>
+                </div><!-- End Input Group -->
+
+                <!-- Image Uploading Indicator -->
+                  <div class="uploading" *ngIf="comment_uploading && tempCommentIndex == i">
+                    <div class="load-2">
+                      <div class="line" style="background-color:#8961ab;"></div>
+                      <div class="line" style="background-color:#a74040;"></div>
+                      <div class="line" style="background-color:#0b428f;"></div>
+                    </div>
+                  </div>
+                <!-- End Image Uploading Indicator -->
+
+                <!-- Uploaded Image -->
+                <div class="uploaded-image text-center" *ngFor="let image of post.comment_images;" style="display:inline-block;">
+                  <img  src="{{image}}" style="height:50px; width:auto; margin:10px 10px 0px 10px; border-radius:20px;" alt=""><br>
+                  <span class="remove-upload" aria-hidden="true" (click)="removeCommentUpload(i)">Remove</span>
+                </div>
+                <!-- End Uploaded Image -->
+
+                <!-- Post Remaining Char Count -->
+                <span *ngIf="post.new_comment.length > 0" [ngStyle]="{'color': post.new_comment.length > 400 ? '#a74040' : ''}">{{400-post.new_comment.length}}</span>
+                <!-- End Post Remaining Char Count -->
+
+              </div>
+            </div>
+          </div>
+        </div><!-- End Comment Form -->
+
+      </div><!-- Container -->
+
+      <!-- Loading More Posts Indicator -->
+        <div class="load-2" style="text-align:center; margin-bottom:60px; margin-top:10px;" *ngIf="!end">
+          <div class="line" style="background-color:#8961ab;"></div>
+          <div class="line" style="background-color:#a74040;"></div>
+          <div class="line" style="background-color:#0b428f;"></div>
+        </div>
+      <!-- End Loading More Posts Indicator -->
+
     </div>
+  </div><!-- End News Feed Container -->
 
 
-    <!-- End Posts -->
-    <div class="load-2" style="text-align:center; margin-bottom:60px; margin-top:10px;" *ngIf="!end">
-      <div class="line" style="background-color:#8961ab;"></div>
-      <div class="line" style="background-color:#a74040;"></div>
-      <div class="line" style="background-color:#0b428f;"></div>
+  <!-- Static Post Form Button -->
+  <button type="button" class="btn btn-circle btn-xl"><i class="glyphicon glyphicon-pencil"></i></button>
+
+  <!-- Scroll-To-Top -->
+  <a href="#home" class="page-scroll"><button type="button" class="btn btn-circle btn-xl" (click)="clickedNewPosts()" *ngIf="posts?.length > 20" style="margin-bottom:60px; background-color:#0b428e;"><i class="glyphicon glyphicon-arrow-up"></i></button></a>
+  
+  <!-- New Posts Alert -->
+    <div class="alert alert-success alert-notification" [@visibilityChanged]="showAlert" (click)="clickedNewPosts()" style="bottom:10px; right:10px; position:fixed; z-index:10000;" role="alert">
+      <a href="#home" class="alert-link page-scroll">{{newPostsAlertText}}</a>
     </div>
-  </div>
-</div>
-<button type="button" class="btn btn-circle btn-xl"><i class="glyphicon glyphicon-pencil"></i></button>
-<a href="#home" class="page-scroll"><button type="button" class="btn btn-circle btn-xl" (click)="clickedNewPosts()" *ngIf="posts?.length > 20" style="margin-bottom:60px; background-color:#0b428e;"><i class="glyphicon glyphicon-arrow-up"></i></button></a>
-<div class="alert alert-success alert-notification" [@visibilityChanged]="showAlert" (click)="clickedNewPosts()" style="bottom:10px; right:10px; position:fixed; z-index:10000;" role="alert">
-  <a href="#home" class="alert-link page-scroll">{{newPostsAlertText}}</a>
-</div>
-</div>
+  <!-- End New Posts Alert -->
+</div><!-- End Body Wrapper -->

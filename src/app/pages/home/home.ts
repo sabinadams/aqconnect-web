@@ -88,7 +88,6 @@ export class HomeComponent implements OnInit{
 			if(res.length < 20){
 				this.end = true;
 			}
-
 		});
 		$('a.page-scroll').bind('click', function(event) {
 		    var $ele = $(this);
@@ -100,10 +99,10 @@ export class HomeComponent implements OnInit{
 				let tempIndex;
 				if(this.newposts.length > 0 && this.newposts[0].ID){
 					// console.log('Used New Posts Array', this.newposts[0].ID);
-					tempIndex = this.newposts[0].ID
+					tempIndex = this.convertTimestamp(this.newposts[0].reply_timestamp)
 				}else {
 					// console.log('Used The Posts Array', this.posts[0].ID);
-					tempIndex = this.posts[0].ID;
+					tempIndex = this.convertTimestamp(this.posts[0].reply_timestamp);
 				}
 				//Getting this to not grab duplicates
 				this._socialService.getNewPosts(tempIndex).subscribe(res => {
@@ -124,10 +123,20 @@ export class HomeComponent implements OnInit{
 					}
 				});
 			}
-		}, 2000)
+		}, 60000)
 	}
 
+	convertTimestamp(timestamp){
+	  var date = new Date(timestamp);
+      var year = date.getFullYear();
+      var month = ("0"+(date.getMonth()+1)).substr(-2);
+      var day = ("0"+date.getDate()).substr(-2);
+      var hour = ("0"+date.getHours()).substr(-2);
+      var minutes = ("0"+date.getMinutes()).substr(-2);
+      var seconds = ("0"+date.getSeconds()).substr(-2);
 
+      return year+"-"+month+"-"+day+" "+hour+":"+minutes+":"+seconds;
+	}
 	checkBlur(){
 		if(this.postText.length < 1){
 			this.rows = 1;
@@ -184,7 +193,7 @@ export class HomeComponent implements OnInit{
 		if(post.text.length <= 400 && (this.postText.trim().length > 0 || (this.images.length && this.images.length < 7)) && !this.saving_post){
 			this.saving_post = true;
 			this._socialService.savePost(post).subscribe(res => {
-				this._socialService.getNewPosts(this.posts[0].ID).subscribe(res => {
+				this._socialService.getNewPosts(this.convertTimestamp(this.posts[0].reply_timestamp)).subscribe(res => {
 					if(res.length > 0) {
 						for(let post of res){
 							post.body = this.md.convert(post.body);
@@ -261,7 +270,7 @@ export class HomeComponent implements OnInit{
     share(post){
     	this._socialService.sharePost(post).subscribe(res => {
     		if(res.status == 200){
-    			this._socialService.getNewPosts(this.posts[0].ID).subscribe(res => {
+    			this._socialService.getNewPosts(this.convertTimestamp(this.posts[0].reply_timestamp)).subscribe(res => {
 					if(res.length > 0) {
 						for(let post of res){
 							post.body = this.md.convert(post.body);
