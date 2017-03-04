@@ -328,7 +328,6 @@ export class HomeComponent implements OnInit{
 			'rootID': post.ID,
 			'images': post.comment_images
 		}
-		console.log(comment.text)
 		if(comment.text.length <= 400 && (comment.text.trim().length > 0  || comment.images.length == 1) && !this.saving_post){
 			this.saving_post = true;
 			this._socialService.saveComment(comment).subscribe(res => {

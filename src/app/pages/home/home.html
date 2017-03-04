@@ -186,6 +186,38 @@
               <img class="comment-image-single img-responsive" *ngIf="post?.comments?.COMMENTS[0]?.image_url?.length > 0" src="{{post.comments.COMMENTS[0].image_url}}" alt="">
             </div>
           </div>
+
+
+
+          <div class="reply-box">
+            <div class="media comments">
+              <div class="media-left">
+                <a href="#">
+                  <!-- Commenter Image -->
+                  <img class="media-object img-rounded" src="http://placehold.it/100x100" style="height:30px; width:auto;" alt="...">
+                </a>
+              </div>
+              <div class="media-body">
+                <!-- Commenter Name -->
+                <span style="font-weight:bold; color:rgb(124, 98, 160);" >Fan</span>
+                <!-- Comment Date -->
+                <small style="color:#adadad; margin-left:5px;"> {{post.comments.COMMENTS[0].timestamp | timeAgo}}</small>
+                <!-- Comment Stats -->
+                <span style="font-size:15px; float:right;cursor:pointer;" >
+                  <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+                  <small>20 <span>Likes</span></small>
+                  <span  style="color:#a74040; font-size:14px;"  class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                </span>
+                <!-- Comment Body (Optional) -->
+                <div [innerHtml]="post.comments.COMMENTS[0].body" class="comment-body"></div>
+                <!-- Comment Image (Optional) -->
+                <img class="comment-image-single img-responsive"  src="http://placehold.it/100x100" alt="">
+              </div>
+            </div>
+          </div>
+
+
+
           <!-- Shows more comments that are already loaded (Optional) -->
           <div class="showMore" style="text-align:center; margin-top:5px; cursor:pointer;" *ngIf="post.comments.COMMENTS.length > 1" (click)="showComments(i)"><a>Show More Comments</a></div>
         </div>
@@ -217,9 +249,35 @@
                 <img class="comment-image-single img-responsive" *ngIf="comment.image_url.length > 0" src="{{comment.image_url}}" alt="">
               </div>
             </div>
-
+            <div class="reply-box">
+              <div class="media comments">
+                <div class="media-left">
+                  <a href="#">
+                    <!-- Commenter Image -->
+                    <img class="media-object img-rounded" src="http://placehold.it/100x100" style="height:30px; width:auto;" alt="...">
+                  </a>
+                </div>
+                <div class="media-body">
+                  <!-- Commenter Name -->
+                  <span style="font-weight:bold; color:rgb(124, 98, 160);" >Fan</span>
+                  <!-- Comment Date -->
+                  <small style="color:#adadad; margin-left:5px;"> {{comment.timestamp | timeAgo}}</small>
+                  <!-- Comment Stats -->
+                  <span style="font-size:15px; float:right;cursor:pointer;" >
+                    <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+                    <small>20 <span>Likes</span></small>
+                    <span  style="color:#a74040; font-size:14px;"  class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                  </span>
+                  <!-- Comment Body (Optional) -->
+                  <div [innerHtml]="comment.body" class="comment-body"></div>
+                  <!-- Comment Image (Optional) -->
+                  <img class="comment-image-single img-responsive"  src="http://placehold.it/100x100" alt="">
+                </div>
+              </div>
+            </div>
            
           </div>
+
           <!-- Load More Comments(Gets more comments from server) -->
           <div class="panel-body showMore" style="text-align:center; padding:8px; cursor:pointer;" *ngIf="post.comments.COMMENTS.length < post.comments.TOTAL_COMMENTS" (click)="getMoreComments(post, i)" ><a>Show More Comments</a></div>
         </div>

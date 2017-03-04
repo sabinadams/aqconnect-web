@@ -60,6 +60,7 @@
 #home .post-body>p {
     color:#fff;
     margin-bottom:5px;
+    font-size:14px;
 }
 
 #home .comment-body>p {
@@ -268,4 +269,11 @@
 }
 #home .input-group-addon:hover {
   background-color:rgb(35, 32, 39);
+}
+
+#home .reply-box {
+  margin-left:25px;
+  border: solid #282828;
+  border-width: 0 0px 0px 2px;
+  padding:6px 5px 5px 0px;
 }
