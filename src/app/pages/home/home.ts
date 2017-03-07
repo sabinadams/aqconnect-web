@@ -36,11 +36,15 @@ export class HomeComponent implements OnInit{
            		post.body = this.md.convert(post.body);
            		for(let comment of post.comments.COMMENTS){
 					comment.body = this.md.convert(comment.body.toString());
+					comment['new_reply'] = "";
+					comment['reply_image'] = [];
+					comment['show_replies'] = false;
 				}
            		post.IMAGES = post.IMAGES.split(',');
            		post['new_comment'] = '';
            		post['singleComment'] = true;
            		post['comment_images'] = [];
+
            	}
            	this.posts.push(...res);
            	this.index += 20;
@@ -79,6 +83,9 @@ export class HomeComponent implements OnInit{
 				post.body = this.md.convert(post.body);
 				for(let comment of post.comments.COMMENTS){
 					comment.body = this.md.convert(comment.body.toString());
+					comment['new_reply'] = "";
+					comment['reply_image'] = [];
+					comment['show_replies'] = false;
 				}
 				post.IMAGES = post.IMAGES.split(',');
 				post['new_comment'] = '';
@@ -112,6 +119,9 @@ export class HomeComponent implements OnInit{
 							post.body = this.md.convert(post.body);
 							for(let comment of post.comments.COMMENTS){
 								comment.body = this.md.convert(comment.body.toString());
+								comment['new_reply'] = "";
+								comment['reply_image'] = [];
+								comment['show_replies'] = false;
 							}
 							post.IMAGES = post.IMAGES.split(',');
 							post['new_comment'] = '';
@@ -262,6 +272,9 @@ export class HomeComponent implements OnInit{
     		this._socialService.getComments(this.userID, post.ID, post.comments.COMMENTS.length).subscribe(res => {
     			for(let comment of res.comments.COMMENTS){
 					comment.body = this.md.convert(comment.body.toString());
+					comment['new_reply'] = "";
+					comment['reply_image'] = [];
+					comment['show_replies'] = false;
 				}
     			this.loading_comments = false;
     			this.posts[index].comments.COMMENTS.push(...res.comments.COMMENTS);
@@ -336,7 +349,7 @@ export class HomeComponent implements OnInit{
 					this.saving_post = false;
 					res.comment[0].body = this.md.convert(res.comment[0].body.toString());
 					this.posts[post_index].comments.COMMENTS.unshift(res.comment[0]);
-					this.posts[post_index].new_comment = [];
+					this.posts[post_index].new_comment = "";
 					this.posts[post_index].comments.TOTAL_COMMENTS++;
 					this.removeCommentUpload(post_index);
 				}
@@ -375,4 +388,28 @@ export class HomeComponent implements OnInit{
 	removeCommentUpload(index) {
 		this.posts[index].comment_images = [];
 	}
+
+
+	saveReply(post_index, comment_index){
+    	let comment = this.posts[post_index].comments.COMMENTS[comment_index];
+		let reply = {
+			'text': comment.new_reply || "   ",
+			'parentID': comment.ID,
+			'images': comment.reply_image
+		}
+		if(reply.text.length <= 400 && (reply.text.trim().length > 0  || reply.images.length == 1) && !this.saving_post){
+			this.saving_post = true;
+			this._socialService.saveReply(reply).subscribe(res => {
+				if(res.status == 200){
+					this.saving_post = false;
+					res.reply[0].body = this.md.convert(res.reply[0].body.toString());
+					this.posts[post_index].comments.COMMENTS[comment_index].replies.unshift(res.reply[0]);
+					this.posts[post_index].comments.COMMENTS[comment_index].new_reply = "";
+					// this.posts[post_index].comments.TOTAL_COMMENTS++;
+					// this.removeCommentUpload(post_index);
+				}
+			});
+		}
+	}
+
 }

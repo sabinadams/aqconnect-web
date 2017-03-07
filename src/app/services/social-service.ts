@@ -99,4 +99,11 @@ export class SocialService {
     }).catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 
+  saveReply(reply){
+    let data = {'reply': reply, 'user': JSON.parse(localStorage.getItem('user'))};
+    return this._httpClient.post('http://aq.trycf.com/api/index.cfm/savereply/', {'data': data}).map( (res) => {
+      return res.json();
+    }).catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
 }
