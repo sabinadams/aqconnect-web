@@ -72,6 +72,7 @@ export class HomeComponent implements OnInit{
 	comment_uploading = false;
 	ngOnInit(){
 		this._socialService.getPosts(this.index).subscribe(res => {
+			console.log(res);
 			this.posts = res;
 			this.index += 20;
 			for(let post of this.posts){
@@ -345,7 +346,7 @@ export class HomeComponent implements OnInit{
 
 	//Converts file to base64
 	saveCommentImage(inputValue: any, index): void {
-	  	  var file:File = inputValue.files[0];
+	  var file:File = inputValue.files[0];
 	  if(typeof file != 'undefined'){
 	  	  var myReader:FileReader = new FileReader();
 	  	  myReader.onloadend = (e) => {

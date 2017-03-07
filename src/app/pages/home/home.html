@@ -188,9 +188,9 @@
           </div>
 
 
-
+          
           <div class="reply-box">
-            <div class="media comments">
+            <div class="media comments"  *ngFor="let reply of post.comments.COMMENTS[0].replies">
               <div class="media-left">
                 <a href="#">
                   <!-- Commenter Image -->
@@ -201,17 +201,17 @@
                 <!-- Commenter Name -->
                 <span style="font-weight:bold; color:rgb(124, 98, 160);" >Fan</span>
                 <!-- Comment Date -->
-                <small style="color:#adadad; margin-left:5px;"> {{post.comments.COMMENTS[0].timestamp | timeAgo}}</small>
+                <small style="color:#adadad; margin-left:5px;"> {{reply.timestamp | timeAgo}}</small>
                 <!-- Comment Stats -->
                 <span style="font-size:15px; float:right;cursor:pointer;" >
                   <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-                  <small>20 <span>Likes</span></small>
+                  <small>{{reply.likes}} <span>Likes</span></small>
                   <span  style="color:#a74040; font-size:14px;"  class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                 </span>
                 <!-- Comment Body (Optional) -->
-                <div [innerHtml]="post.comments.COMMENTS[0].body" class="comment-body"></div>
+                <div [innerHtml]="reply.body" class="comment-body"></div>
                 <!-- Comment Image (Optional) -->
-                <img class="comment-image-single img-responsive"  src="http://placehold.it/100x100" alt="">
+                <!-- <img class="comment-image-single img-responsive"  src="http://placehold.it/100x100" alt=""> -->
               </div>
             </div>
           </div>
@@ -249,8 +249,8 @@
                 <img class="comment-image-single img-responsive" *ngIf="comment.image_url.length > 0" src="{{comment.image_url}}" alt="">
               </div>
             </div>
-            <div class="reply-box">
-              <div class="media comments">
+            <div class="reply-box" >
+              <div class="media comments" *ngFor="let reply of comment.replies">
                 <div class="media-left">
                   <a href="#">
                     <!-- Commenter Image -->
@@ -261,17 +261,17 @@
                   <!-- Commenter Name -->
                   <span style="font-weight:bold; color:rgb(124, 98, 160);" >Fan</span>
                   <!-- Comment Date -->
-                  <small style="color:#adadad; margin-left:5px;"> {{comment.timestamp | timeAgo}}</small>
+                  <small style="color:#adadad; margin-left:5px;"> {{reply.timestamp | timeAgo}}</small>
                   <!-- Comment Stats -->
                   <span style="font-size:15px; float:right;cursor:pointer;" >
                     <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-                    <small>20 <span>Likes</span></small>
+                    <small>{{reply.likes}} <span>Likes</span></small>
                     <span  style="color:#a74040; font-size:14px;"  class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                   </span>
                   <!-- Comment Body (Optional) -->
-                  <div [innerHtml]="comment.body" class="comment-body"></div>
+                  <div [innerHtml]="reply.body" class="comment-body"></div>
                   <!-- Comment Image (Optional) -->
-                  <img class="comment-image-single img-responsive"  src="http://placehold.it/100x100" alt="">
+                  <!-- <img class="comment-image-single img-responsive"  src="http://placehold.it/100x100" alt=""> -->
                 </div>
               </div>
             </div>

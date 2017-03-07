@@ -250,8 +250,8 @@
 }
 
 #home .multi-comment {
-  max-height: 400px;
-  overflow-y: scroll;
+  /*max-height: 400px;*/
+  /*overflow-y: scroll;*/
 }
 
 #home .multi-body:hover {
@@ -267,6 +267,7 @@
     color:#956bb9;
     cursor:pointer;
 }
+
 #home .input-group-addon:hover {
   background-color:rgb(35, 32, 39);
 }
