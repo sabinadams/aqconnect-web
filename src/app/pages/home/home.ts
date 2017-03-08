@@ -74,6 +74,7 @@ export class HomeComponent implements OnInit{
 	saving_post = false;
 	tempCommentIndex = 0;
 	comment_uploading = false;
+	loading_replies = false;
 	ngOnInit(){
 		this._socialService.getPosts(this.index).subscribe(res => {
 			console.log(res);
@@ -411,5 +412,21 @@ export class HomeComponent implements OnInit{
 			});
 		}
 	}
+
+	getMoreReplies(post, index){
+    	if(!this.loading_replies){
+    		this.loading_replies = true;
+    		this._socialService.getComments(this.userID, post.ID, post.comments.COMMENTS.length).subscribe(res => {
+    			for(let comment of res.comments.COMMENTS){
+					comment.body = this.md.convert(comment.body.toString());
+					comment['new_reply'] = "";
+					comment['reply_image'] = [];
+					comment['show_replies'] = false;
+				}
+    			this.loading_replies = false;
+    			this.posts[index].comments.COMMENTS.push(...res.comments.COMMENTS);
+    		});
+    	}
+    }
 
 }

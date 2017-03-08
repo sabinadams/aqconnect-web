@@ -12,7 +12,7 @@
 -->
 
 <!-- Side Panel -->
-  <profile-side-panel></profile-side-panel>
+<profile-side-panel></profile-side-panel>
 <!-- End Side Panel -->
 
 <!-- Body Wrapper -->
@@ -55,6 +55,7 @@
             <span class="remove-upload" aria-hidden="true" (click)="removeUpload(i)">Remove</span>
           </div>
           <!-- End Uploaded Images -->
+
         </div>
       </div><!-- End Post Form -->
 
@@ -179,18 +180,16 @@
                 <span  *ngIf="!(post.comments.COMMENTS[0].user_ID == userID)" (click)="likeComment(post, post.comments.COMMENTS[0], 0)" [ngStyle]="{'color':+post.comments.COMMENTS[0]?.LIKEID | liked:userID}" class="glyphicon glyphicon-heart" aria-hidden="true"></span>
                 <small>{{post.comments.COMMENTS[0].likes}} <span *ngIf="post.comments.COMMENTS[0].user_ID == userID">Likes</span></small>
                 <span  style="color:#a74040; font-size:14px;" *ngIf="post.comments.COMMENTS[0].user_ID == userID" (click)="deleteComment( post.comments.COMMENTS[0], 0, i)" class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                <br>
-                <span *ngIf="post.comments.COMMENTS[0].show_replies == false" style="cursor:pointer; font-size:12px; float:right;" (click)="post.comments.COMMENTS[0].show_replies = true">
-                  <span  style="color:#8961ab; font-size:14px;" class="glyphicon glyphicon-share-alt" aria-hidden="true"></span> 
-                  <span *ngIf="post.comments.COMMENTS[0].replies.length > 0">Show replies</span>
-                  <span *ngIf="post.comments.COMMENTS[0].replies.length == 0">Reply</span>
-                </span>
               </span>
               <!-- Comment Body (Optional) -->
               <div [innerHtml]="post.comments.COMMENTS[0].body" class="comment-body"></div>
               <!-- Comment Image (Optional) -->
               <img class="comment-image-single img-responsive" *ngIf="post?.comments?.COMMENTS[0]?.image_url?.length > 0" src="{{post.comments.COMMENTS[0].image_url}}" alt="">
-              
+              <span *ngIf="post.comments.COMMENTS[0].show_replies == false" style="cursor:pointer; font-size:12px; float:right;" (click)="post.comments.COMMENTS[0].show_replies = true">
+                  <span  style="color:#8961ab; font-size:14px;" class="glyphicon glyphicon-share-alt" aria-hidden="true"></span> 
+                  <span *ngIf="post.comments.COMMENTS[0].replies.length > 0">Show replies</span>
+                  <span *ngIf="post.comments.COMMENTS[0].replies.length == 0">Reply</span>
+                </span>
             </div>
           </div>
 
@@ -275,7 +274,7 @@
 
           <!-- Shows more comments that are already loaded (Optional) -->
           <div class="showMore" style="text-align:center; margin-top:5px; cursor:pointer;" *ngIf="post.comments.COMMENTS.length > 1" (click)="showComments(i)"><a>Show More Comments</a></div>
-        </div>
+          </div>
         <!-- End Single Comment -->
 
         <!-- Multi-Comment -->
@@ -356,7 +355,9 @@
                   <!-- End Uploaded Image -->
 
                   <!-- Post Remaining Char Count -->
-                  <span *ngIf="comment.new_reply.length > 0" [ngStyle]="{'color': comment.new_reply.length > 400 ? '#a74040' : ''}">{{400-comment.new_reply.length}}</span>
+                  <span *ngIf="comment.new_reply.length > 0" [ngStyle]="{'color': comment.new_reply.length > 400 ? '#a74040' : ''}">
+                  {{400-comment.new_reply.length}}
+                  </span>
                   <!-- End Post Remaining Char Count -->
 
                 </div>
@@ -474,4 +475,5 @@
       <a href="#home" class="alert-link page-scroll">{{newPostsAlertText}}</a>
     </div>
   <!-- End New Posts Alert -->
+
 </div><!-- End Body Wrapper -->
