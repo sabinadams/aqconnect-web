@@ -1,28 +1,133 @@
+<style>
+
+	.flip-container {
+		-webkit-perspective: 1000;
+		-moz-perspective: 1000;
+		-o-perspective: 1000;
+		perspective: 1000;
+	}
+
+	.flip-container:hover .flipper {
+		-webkit-transform: rotateY(180deg);
+		-moz-transform: rotateY(180deg);
+		-o-transform: rotateY(180deg);
+		transform: rotateY(180deg);
+	}
+
+	.flip-container, .front, .back {
+		width: 100%;
+		height: 150px;
+		border:0;
+		padding:10px;
+	}
+
+	.flipper {
+		-webkit-transition: 0.6s;
+		-webkit-transform-style: preserve-3d;
+
+		-moz-transition: 0.6s;
+		-moz-transform-style: preserve-3d;
+
+		-o-transition: 0.6s;
+		-o-transform-style: preserve-3d;
+
+		transition: 0.6s;
+		transform-style: preserve-3d;
+
+		position: relative;
+	}
+
+	.front, .back {
+		-webkit-backface-visibility: hidden;
+		-moz-backface-visibility: hidden;
+		-o-backface-visibility: hidden;
+		backface-visibility: hidden;
+
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	.front {
+		background-position: center center;
+		backgound-repeat:no-repeat;
+		z-index: 2;
+
+	}
+	.front::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		background-image: linear-gradient(to bottom right,#3e789a,#522d73);
+		opacity: .6;
+	}
+
+	.back {
+		-webkit-transform: rotateY(180deg);
+		-moz-transform: rotateY(180deg);
+		-o-transform: rotateY(180deg);
+		transform: rotateY(180deg);
+		background: #f8f8f8;
+	}
+
+
+
+
+	.back p {
+		position: absolute;
+		/*bottom: 40px;*/
+		left: 0;
+		right: 0;
+		text-align: center;
+		padding: 0 20px;
+		font-family: arial;
+		line-height: 2em;
+	}
+
+</style>
 <div id="news">
-	<div class="container-fluid">
-		<div class="col-lg-8 col-lg-offset-2">
-			<ul class="list-group">
-			  <div class="loader" *ngIf="!news || !news.length">Loading...</div>
-			  <li *ngFor="let post of news; let i = index;" class="list-group-item" >
-			  	<div class="row">
-			  		<div class="col-lg-2">
-			  			<span class="label label-default" [ngStyle]="{'background-color':+post?.news_type | newsType:'color'}">
-			  				{{post.news_type | newsType}} 
-			  			</span>
-			  		</div>
-			  		<div class="col-lg-7">
-			  			<p data-toggle="modal" href="#newsModal" (click)="openDetail(post.ID)">{{post.name}}</p>
-			  			<hr>
-			  			<p style="color: #956bb9;"><small>{{post.text_preview}}</small></p>
-			  		</div>
-					<div class="col-lg-3">
-						{{post.AUTHOR}} on {{post.date | date:"MM/dd/yyyy"}} <br>
-						Likes: {{post.likes}} <br>
-						<span style="font-size:25px;" class="glyphicon glyphicon-heart" aria-hidden="true" [ngStyle]="{'color':+post?.LIKEID | liked:userID}" (click)="likePost(i)"></span>
+	<div class="container">
+		<!--<div class="col-lg-8 col-lg-offset-2">-->
+			<!--<ul class="list-group">-->
+			  <!--<div class="loader" *ngIf="!news || !news.length">Loading...</div>-->
+			  <!--<li *ngFor="let post of news; let i = index;" class="list-group-item" >-->
+			  	<!--<div class="row">-->
+			  		<!--<div class="col-lg-2">-->
+			  			<!--<span class="label label-default" [ngStyle]="{'background-color':+post?.news_type | newsType:'color'}">-->
+			  				<!--{{post.news_type | newsType}} -->
+			  			<!--</span>-->
+			  		<!--</div>-->
+			  		<!--<div class="col-lg-7">-->
+			  			<!--<p data-toggle="modal" href="#newsModal" (click)="openDetail(post.ID)">{{post.name}}</p>-->
+			  			<!--<hr>-->
+			  			<!--<p style="color: #956bb9;"><small>{{post.text_preview}}</small></p>-->
+			  		<!--</div>-->
+					<!--<div class="col-lg-3">-->
+						<!--{{post.AUTHOR}} on {{post.date | date:"MM/dd/yyyy"}} <br>-->
+						<!--Likes: {{post.likes}} <br>-->
+						<!--<span style="font-size:25px;" class="glyphicon glyphicon-heart" aria-hidden="true" [ngStyle]="{'color':+post?.LIKEID | liked:userID}" (click)="likePost(i)"></span>-->
+					<!--</div>-->
+			  	<!--</div>-->
+			  <!--</li>-->
+			<!--</ul>-->
+		<!--</div>-->
+		<div class="col-lg-12">
+			<div class="col-lg-3" style="padding:10px;" *ngFor="let post of news; let i = index;">
+				<div class="flip-container">
+					<div class="flipper">
+						<div class="front" [ngStyle]="{'background-image': 'url(' + post.IMAGE_URL + ')'}">
+							<span class="name">{{post.name}}</span>
+						</div>
+						<div class="back">
+							<p>{{post.text_preview}}</p>
+						</div>
 					</div>
-			  	</div>
-			  </li>
-			</ul>
+				</div>
+			</div>
 		</div>
+
 	</div>
 </div>
