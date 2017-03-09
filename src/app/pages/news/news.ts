@@ -11,8 +11,9 @@ export class NewsPage implements OnInit {
 	news:any;
 	defaultImage = 'http://aq3d.com/media/2190/header-aq3d-main.jpg';
 	userID = JSON.parse(localStorage.getItem('user')).Id;
-  filterType = "ID";
-  highestID: number;
+    filterType = "ID";
+    highestID: number;
+    showLimit = 12;
 	ngOnInit(){
 		this._newsService.getNews().subscribe(res => {
 		  console.log(res);
@@ -30,6 +31,9 @@ export class NewsPage implements OnInit {
     	this._router.navigate(['/news', {outlets: {'newspage': ['newsdetail', newsID]}}]);
     }
 
+    showMore(){
+		this.showLimit += 6;
+	}
     //Likes and unlikes replies
 	likePost(index){
 		let data = {

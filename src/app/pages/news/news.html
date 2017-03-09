@@ -1,181 +1,202 @@
 <style>
-  #news {
-    background-color:#16141f;
-  }
-	.flip-container {
-		-webkit-perspective: 1000;
-		-moz-perspective: 1000;
-		-o-perspective: 1000;
-		perspective: 1000;
-	}
+    #news {
+        background-color: #16141f;
+    }
 
-	.flip-container:hover .flipper {
-		-webkit-transform: rotateY(180deg);
-		-moz-transform: rotateY(180deg);
-		-o-transform: rotateY(180deg);
-		transform: rotateY(180deg);
-	}
+    .flip-container {
+        -webkit-perspective: 1000;
+        -moz-perspective: 1000;
+        -o-perspective: 1000;
+        perspective: 1000;
+    }
 
-	.flip-container, .front, .back {
-		width: 100%;
-		height: 200px;
-		border:0;
-		padding:10px;
-	}
+    .flip-container:hover .flipper {
+        -webkit-transform: rotateY(180deg);
+        -moz-transform: rotateY(180deg);
+        -o-transform: rotateY(180deg);
+        transform: rotateY(180deg);
+    }
 
-	.flipper {
-		-webkit-transition: 0.6s;
-		-webkit-transform-style: preserve-3d;
+    .flip-container, .front, .back {
+        width: 100%;
+        height: 200px;
+        border: 0;
+        padding: 10px;
+    }
 
-		-moz-transition: 0.6s;
-		-moz-transform-style: preserve-3d;
+    .flipper {
+        -webkit-transition: 0.6s;
+        -webkit-transform-style: preserve-3d;
 
-		-o-transition: 0.6s;
-		-o-transform-style: preserve-3d;
+        -moz-transition: 0.6s;
+        -moz-transform-style: preserve-3d;
 
-		transition: 0.6s;
-		transform-style: preserve-3d;
+        -o-transition: 0.6s;
+        -o-transform-style: preserve-3d;
 
-		position: relative;
-	}
+        transition: 0.6s;
+        transform-style: preserve-3d;
 
-	.front, .back {
-		-webkit-backface-visibility: hidden;
-		-moz-backface-visibility: hidden;
-		-o-backface-visibility: hidden;
-		backface-visibility: hidden;
+        position: relative;
+    }
 
-		position: absolute;
-		top: 0;
-		left: 0;
-	}
+    .front, .back {
+        -webkit-backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
+        -o-backface-visibility: hidden;
+        backface-visibility: hidden;
 
-	.front {
-		background-position: center center;
-		backgound-repeat:no-repeat;
-    background-size:cover;
-		z-index: 2;
-    color:#fff;
-    box-shadow:2px 4px 10px 0 rgba(0,0,0,.15);
-    background-color:rgba(25, 17, 33, 0.9);
-    word-wrap: break-word;
-    font-weight: 700;
-    line-height: 1.25;
-    font-size:15px;
-    text-align:center;
-    /*padding-top:20%;*/
-	}
-	.front::before {
-		content: '';
-		position: absolute;
-		top: 0;
-		right: 0;
-		bottom: 0;
-		left: 0;
-    z-index: -1;
-		background-image: linear-gradient(to bottom right,rgba(20, 40, 51, 0.6),rgba(82, 45, 115, 0.6));
-	}
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
 
-	.back {
-		-webkit-transform: rotateY(180deg);
-		-moz-transform: rotateY(180deg);
-		-o-transform: rotateY(180deg);
-		transform: rotateY(180deg);
-    background: #181721;
-    box-shadow: 0 0 20px 0 rgba(149, 107, 185, 0.35);
-    border: 2px solid rgb(22, 20, 31);
-    overflow-y:scroll;
-	}
+    .front {
+        background-position: center center;
+        backgound-repeat: no-repeat;
+        background-size: cover;
+        z-index: 2;
+        color: #fff;
+        box-shadow: 2px 4px 10px 0 rgba(0, 0, 0, .15);
+        background-color: rgba(25, 17, 33, 0.9);
+        word-wrap: break-word;
+        font-weight: 700;
+        line-height: 1.25;
+        font-size: 15px;
+        text-align: center;
+        /*padding-top:20%;*/
+    }
 
-	.back p {
-		left: 0;
-		right: 0;
-		padding: 5px 20px;
-		font-family: arial;
-		line-height: 2em;
-    color:#fff;
-    cursor:pointer;
-	}
-  .preview-text {
-    font-size:15px;
-  }
-  .author-photo {
-    top:50%;
-    height:50px;
-    width:auto;
-    border-radius:50%;
-    display:block;
-    margin:auto;
-    border: 5px solid rgba(25, 17, 33, 0.65);
-    margin-top:20%
-  }
-  .label {
-    position:absolute;
-    left:10px;
-  }
+    .front::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: -1;
+        background-image: linear-gradient(to bottom right, rgba(20, 40, 51, 0.6), rgba(82, 45, 115, 0.6));
+    }
 
-  .ui.fluid.dropdown {
-    display: inline;
-    background-color: #36333d;
-    width:50%;
-    color:rgb(149, 107, 185);
-  }
+    .back {
+        -webkit-transform: rotateY(180deg);
+        -moz-transform: rotateY(180deg);
+        -o-transform: rotateY(180deg);
+        transform: rotateY(180deg);
+        background: #181721;
+        box-shadow: 0 0 20px 0 rgba(149, 107, 185, 0.35);
+        border: 2px solid rgb(22, 20, 31);
+        overflow-y: scroll;
+    }
+
+    .back p {
+        left: 0;
+        right: 0;
+        padding: 5px 20px;
+        font-family: arial;
+        line-height: 2em;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    .preview-text {
+        font-size: 15px;
+    }
+
+    .author-photo {
+        top: 50%;
+        height: 50px;
+        width: auto;
+        border-radius: 50%;
+        display: block;
+        margin: auto;
+        border: 5px solid rgba(25, 17, 33, 0.65);
+        margin-top: 20%
+    }
+
+    .label {
+        position: absolute;
+        left: 10px;
+    }
+
+    .ui.fluid.dropdown {
+        display: inline;
+        background-color: #36333d;
+        width: 50%;
+        color: rgb(149, 107, 185);
+    }
 </style>
 <div id="news">
-	<div class="container-fluid">
-		<div class="col-lg-12">
+    <div class="container-fluid">
+        <div class="col-lg-12">
 
-      <div class="row">
-        <div class="col-lg-6 col-xs-12" >
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search Article Titles" [(ngModel)]="filter" style="border-radius:5px;">
-          </div>
-        </div>
-        <div class="col-lg-6 hidden-xs" style="text-align:right;">
-          <select [(ngModel)]="filterType" name="search" placeholder="Select A Filter" class="ui fluid search selection dropdown">
-            <option value="ID">Most Recent</option>
-            <option value="alpha">Alphabetical</option>
-            <option value="name">Reverse Alphabetical</option>
-            <option value="news_type">Type</option>
-          </select>
-        </div>
-      </div>
-      <div class="loader" *ngIf="!news || !news.length">Loading...</div>
-			<div class="col-lg-3" style="padding:10px;" *ngFor="let post of (news | search:filter | sort:filterType ); let i = index;">
-				<div class="flip-container">
-					<div class="flipper">
-						<div class="front" [ngStyle]="{'background-image': 'url(' +  post.images[0].image_url + ')', 'border': post.ID == highestID ? '2px solid #9e9e16' : ''}">
+            <div class="row">
+                <div class="col-lg-6 col-xs-12">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search More Titles" [(ngModel)]="filter"
+                               style="border-radius:5px;">
+                    </div>
+                </div>
+                <div class="col-lg-6 hidden-xs" style="text-align:right;">
+                    <select [(ngModel)]="filterType" name="search" placeholder="Select A Filter"
+                            class="ui fluid search selection dropdown">
+                        <option value="ID">Most Recent</option>
+                        <option value="alpha">Alphabetical</option>
+                        <option value="name">Reverse Alphabetical</option>
+                        <option value="news_type">Type</option>
+                    </select>
+                </div>
+            </div>
+            <div class="loader" *ngIf="!news || !news.length">Loading...</div>
+            <div class="news-holder" *ngFor="let post of (news | search:filter | sort:filterType ); let i = index;">
+                <div class="col-lg-3" style="padding:10px;" *ngIf="i < showLimit">
+                    <div class="flip-container" >
+                        <div class="flipper">
+                            <div class="front"
+                                 [ngStyle]="{'background-image': 'url(' +  post.images[0].image_url + ')', 'border': post.ID == highestID ? '2px solid #9e9e16' : ''}">
               <span class="label label-default" [ngStyle]="{'background-color':+post?.news_type | newsType:'color'}">
 			  				{{post.news_type | newsType}}
 			  			</span>
-              <span *ngIf="post.ID == highestID" style="color:#9e9e16; float:right; font-size:12px;">Latest Post</span>
-              <img class="author-photo" [src]="post.IMAGE_URL" alt="">
-							<p class="name">{{post.name}}</p>
-						</div>
-						<div class="back" data-toggle="modal" href="#newsModal" (click)="openDetail(post.ID)">
-              <div class="row">
-                <p>{{post.name}}</p>
-              </div>
-              <hr>
-              <div class="row">
-                <div class="col-lg-9">
-                  Posted by {{post.AUTHOR}} on {{post.date | date:"MM/dd/yyyy"}}
+                                <span *ngIf="post.ID == highestID" style="color:#9e9e16; float:right; font-size:12px;">Latest Post</span>
+                                <img class="author-photo" [src]="post.IMAGE_URL" alt="">
+                                <p class="name">{{post.name}}</p>
+                            </div>
+                            <div class="back" data-toggle="modal" href="#newsModal" (click)="openDetail(post.ID)">
+                                <div class="row">
+                                    <p>{{post.name}}</p>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-lg-9">
+                                        Posted by {{post.AUTHOR}} on {{post.date | date:"MM/dd/yyyy"}}
+                                    </div>
+                                    <div class="col-lg-3">
+                                    <span style="font-size:20px; cursor:pointer; margin-top:5px;"
+                                          class="glyphicon glyphicon-heart" aria-hidden="true"
+                                          [ngStyle]="{'color':+post?.LIKEID | liked:userID}"
+                                          (click)="likePost(i)"></span>
+                                        {{post.likes}}
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <small style="padding:2px 15px;">Preview:</small>
+                                    <p class="preview-text">{{post.text_preview}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-lg-3">
-                  <span style="font-size:20px; cursor:pointer; margin-top:5px;" class="glyphicon glyphicon-heart" aria-hidden="true" [ngStyle]="{'color':+post?.LIKEID | liked:userID}" (click)="likePost(i)"></span>
-                  {{post.likes}}
-                </div>
-              </div>
-              <hr>
-              <div class="row">
-                <small style="padding:2px 15px;">Preview: </small>
-                <p class="preview-text">{{post.text_preview}}</p>
-              </div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-	</div>
+            </div>
+        </div>
+        <div *ngIf="news?.length" class="row loading-info" style="margin:20px;">
+            <span style="float:right; margin: 5px 0;">Showing {{showLimit}} out of {{news?.length}}</span>
+            <button *ngIf="showLimit < news?.length"
+                    style="text-align:center; display:inline; border-color:rgba(176, 85, 230, 0.23); color:rgba(176, 85, 230, 0.23);"
+                    type="button" class="btn btn-primary btn-lg btn-block"
+                    (click)="showMore()">
+                Show More
+            </button>
+        </div>
+    </div>
 </div>
