@@ -207,22 +207,22 @@
 
                   <div class="input-group">
                     <!-- Input Box -->
-                    <input class="form-control post-input" [(ngModel)]="post.comments.COMMENTS[0].new_reply"  aria-describedby="basic-addon2" placeholder="Reply to {{post.NAME}}'s comment">
+                    <input class="form-control post-input" [(ngModel)]="post.comments.COMMENTS[0].new_reply"  aria-describedby="basic-addon2" placeholder="Reply to {{post.comments.COMMENTS[0].name}}'s comment">
                     
                     <!-- Attach Image Button -->
-                      <span class="input-group-addon" id="basic-addon2" style="padding: 0; background-color: #36333d;" *ngIf="post.comment_images.length < 1">
+                      <span class="input-group-addon" id="basic-addon2" style="padding: 0; background-color: #36333d;" *ngIf="post.comments.COMMENTS[0].reply_image.length < 1">
                         <span class="btn btn-default btn-file">
-                          <i class="glyphicon glyphicon-camera input-icon" style="color:#0070ff; font-size:12px;"><input type="file" accept="image/*" (change)="commentChangeListener($event, i)"></i>
+                          <i class="glyphicon glyphicon-camera input-icon" style="color:#0070ff; font-size:12px;"><input type="file" accept="image/*" (change)="replyChangeListener($event, i, 0)"></i>
                         </span>
                       </span>
                     <!-- End Attach Image Button -->
                     
                     <!-- Submit -->
-                    <span class="input-group-addon" id="basic-addon2" (click)="saveReply(i, 0); newemail = '';">Comment</span>
+                    <span class="input-group-addon" id="basic-addon2" (click)="saveReply(i, 0); newemail = '';">Reply</span>
                   </div><!-- End Input Group -->
 
                   <!-- Image Uploading Indicator -->
-                    <div class="uploading" *ngIf="comment_uploading && tempCommentIndex == i">
+                    <div class="uploading" *ngIf="reply_uploading && tempCommentIndex == 0">
                       <div class="load-2">
                         <div class="line" style="background-color:#8961ab;"></div>
                         <div class="line" style="background-color:#a74040;"></div>
@@ -232,9 +232,9 @@
                   <!-- End Image Uploading Indicator -->
 
                   <!-- Uploaded Image -->
-                  <div class="uploaded-image text-center" *ngFor="let image of post.comment_images;" style="display:inline-block;">
+                  <div class="uploaded-image text-center" *ngFor="let image of post.comments.COMMENTS[0].reply_image;" style="display:inline-block;">
                     <img  src="{{image}}" style="height:50px; width:auto; margin:10px 10px 0px 10px; border-radius:20px;" alt=""><br>
-                    <span class="remove-upload" aria-hidden="true" (click)="removeCommentUpload(i)">Remove</span>
+                    <span class="remove-upload" aria-hidden="true" (click)="removeReplyUpload(i, 0)">Remove</span>
                   </div>
                   <!-- End Uploaded Image -->
 
@@ -244,7 +244,7 @@
 
                 </div>
               </div>
-              <div class="media comments" *ngFor="let reply of post.comments.COMMENTS[0].replies">
+              <div class="media comments" *ngFor="let reply of post.comments.COMMENTS[0].replies; let k = index;">
                 <div class="media-left">
                   <a href="#">
                     <!-- Commenter Image -->
@@ -258,16 +258,17 @@
                   <small style="color:#adadad; margin-left:5px;"> {{reply.timestamp | timeAgo}}</small>
                   <!-- Comment Stats -->
                   <span style="font-size:15px; float:right;cursor:pointer;" >
-                    <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+                    <span *ngIf="reply.user_ID != userID" (click)="likeReply(reply, comment, k)" [ngStyle]="{'color':+reply?.LIKEID | liked:userID}"class="glyphicon glyphicon-heart" aria-hidden="true"></span>
                     <small>{{reply.likes}} <span>Likes</span></small>
-                    <span  style="color:#a74040; font-size:14px;"  class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    <span *ngIf="reply.user_ID == userID" (click)="deleteReply(reply, k, 0, i)" style="color:#a74040; font-size:14px;"  class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                   </span>
                   <!-- Comment Body (Optional) -->
                   <div [innerHtml]="reply.body" class="comment-body"></div>
                   <!-- Comment Image (Optional) -->
-                  <!-- <img class="comment-image-single img-responsive"  src="http://placehold.it/100x100" alt=""> -->
+                  <img class="comment-image-single img-responsive"  src="{{reply.image_url}}" alt="">
                 </div>
               </div>
+              <div class="showMore" style="text-align:center; margin-top:5px; cursor:pointer;" *ngIf="post.comments.COMMENTS[0].replies.length < post.comments.COMMENTS[0].total_replies" (click)="getMoreReplies(i, 0)"><a>Show Older Replies</a></div>
             </div>
 
 
@@ -323,22 +324,22 @@
 
                   <div class="input-group">
                     <!-- Input Box -->
-                    <input class="form-control post-input" [(ngModel)]="comment.new_reply"  aria-describedby="basic-addon2" placeholder="Reply to {{post.NAME}}'s comment">
+                    <input class="form-control post-input" [(ngModel)]="comment.new_reply"  aria-describedby="basic-addon2" placeholder="Reply to {{comment.name}}'s comment">
                     
-                    <!-- Attach Image Button -->
-                      <span class="input-group-addon" id="basic-addon2" style="padding: 0; background-color: #36333d;" *ngIf="post.comment_images.length < 1">
+                   <!-- Attach Image Button -->
+                      <span class="input-group-addon" id="basic-addon2" style="padding: 0; background-color: #36333d;" *ngIf="comment.reply_image.length < 1">
                         <span class="btn btn-default btn-file">
-                          <i class="glyphicon glyphicon-camera input-icon" style="color:#0070ff; font-size:12px;"><input type="file" accept="image/*" (change)="commentChangeListener($event, i)"></i>
+                          <i class="glyphicon glyphicon-camera input-icon" style="color:#0070ff; font-size:12px;"><input type="file" accept="image/*" (change)="replyChangeListener($event, i, j)"></i>
                         </span>
                       </span>
                     <!-- End Attach Image Button -->
                     
                     <!-- Submit -->
-                    <span class="input-group-addon" id="basic-addon2" (click)="saveReply(i, j); newemail = '';">Comment</span>
+                    <span class="input-group-addon" id="basic-addon2" (click)="saveReply(i, j); newemail = '';">Reply</span>
                   </div><!-- End Input Group -->
 
                   <!-- Image Uploading Indicator -->
-                    <div class="uploading" *ngIf="comment_uploading && tempCommentIndex == i">
+                    <div class="uploading" *ngIf="reply_uploading && tempCommentIndex == j">
                       <div class="load-2">
                         <div class="line" style="background-color:#8961ab;"></div>
                         <div class="line" style="background-color:#a74040;"></div>
@@ -348,9 +349,9 @@
                   <!-- End Image Uploading Indicator -->
 
                   <!-- Uploaded Image -->
-                  <div class="uploaded-image text-center" *ngFor="let image of post.comment_images;" style="display:inline-block;">
+                  <div class="uploaded-image text-center" *ngFor="let image of comment.reply_image;" style="display:inline-block;">
                     <img  src="{{image}}" style="height:50px; width:auto; margin:10px 10px 0px 10px; border-radius:20px;" alt=""><br>
-                    <span class="remove-upload" aria-hidden="true" (click)="removeCommentUpload(i)">Remove</span>
+                    <span class="remove-upload" aria-hidden="true" (click)="removeReplyUpload(i, j)">Remove</span>
                   </div>
                   <!-- End Uploaded Image -->
 
@@ -362,7 +363,7 @@
 
                 </div>
               </div>
-              <div class="media comments" *ngFor="let reply of comment.replies">
+              <div class="media comments" *ngFor="let reply of comment.replies; let k = index;">
                 <div class="media-left">
                   <a href="#">
                     <!-- Commenter Image -->
@@ -376,16 +377,17 @@
                   <small style="color:#adadad; margin-left:5px;"> {{reply.timestamp | timeAgo}}</small>
                   <!-- Comment Stats -->
                   <span style="font-size:15px; float:right;cursor:pointer;" >
-                    <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+                    <span *ngIf="reply.user_ID != userID" (click)="likeReply(reply, comment, k)" [ngStyle]="{'color':+reply?.LIKEID | liked:userID}" class="glyphicon glyphicon-heart" aria-hidden="true"></span>
                     <small>{{reply.likes}} <span>Likes</span></small>
-                    <span  style="color:#a74040; font-size:14px;"  class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    <span *ngIf="reply.user_ID == userID" (click)="deleteReply(reply, k, j, i)" style="color:#a74040; font-size:14px;"  class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                   </span>
                   <!-- Comment Body (Optional) -->
                   <div [innerHtml]="reply.body" class="comment-body"></div>
                   <!-- Comment Image (Optional) -->
-                  <!-- <img class="comment-image-single img-responsive"  src="http://placehold.it/100x100" alt=""> -->
+                  <img class="comment-image-single img-responsive"  src="{{reply.image_url}}" alt="">
                 </div>
               </div>
+              <div class="showMore" style="text-align:center; margin-top:5px; cursor:pointer;" *ngIf="comment.replies.length < comment.total_replies" (click)="getMoreReplies(i, j)"><a>Show Older Replies</a></div>
             </div>
            
 

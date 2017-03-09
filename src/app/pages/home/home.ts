@@ -39,6 +39,9 @@ export class HomeComponent implements OnInit{
 					comment['new_reply'] = "";
 					comment['reply_image'] = [];
 					comment['show_replies'] = false;
+					for(let reply of comment.replies){
+						reply.body = this.md.convert(reply.body.toString());
+					}
 				}
            		post.IMAGES = post.IMAGES.split(',');
            		post['new_comment'] = '';
@@ -75,6 +78,7 @@ export class HomeComponent implements OnInit{
 	tempCommentIndex = 0;
 	comment_uploading = false;
 	loading_replies = false;
+	reply_uploading = false;
 	ngOnInit(){
 		this._socialService.getPosts(this.index).subscribe(res => {
 			console.log(res);
@@ -87,6 +91,9 @@ export class HomeComponent implements OnInit{
 					comment['new_reply'] = "";
 					comment['reply_image'] = [];
 					comment['show_replies'] = false;
+					for(let reply of comment.replies){
+						reply.body = this.md.convert(reply.body.toString());
+					}
 				}
 				post.IMAGES = post.IMAGES.split(',');
 				post['new_comment'] = '';
@@ -123,6 +130,9 @@ export class HomeComponent implements OnInit{
 								comment['new_reply'] = "";
 								comment['reply_image'] = [];
 								comment['show_replies'] = false;
+								for(let reply of comment.replies){
+									reply.body = this.md.convert(reply.body.toString());
+								}
 							}
 							post.IMAGES = post.IMAGES.split(',');
 							post['new_comment'] = '';
@@ -276,6 +286,9 @@ export class HomeComponent implements OnInit{
 					comment['new_reply'] = "";
 					comment['reply_image'] = [];
 					comment['show_replies'] = false;
+					for(let reply of comment.replies){
+						reply.body = this.md.convert(reply.body.toString());
+					}
 				}
     			this.loading_comments = false;
     			this.posts[index].comments.COMMENTS.push(...res.comments.COMMENTS);
@@ -348,10 +361,16 @@ export class HomeComponent implements OnInit{
 			this._socialService.saveComment(comment).subscribe(res => {
 				if(res.status == 200){
 					this.saving_post = false;
+					res.comment[0]['new_reply'] = "";
+					res.comment[0]['reply_image'] = [];
+					res.comment[0]['show_replies'] = false;
+					res.comment[0]['replies'] = [];
+					res.comment[0]['total_replies'] = 0;
 					res.comment[0].body = this.md.convert(res.comment[0].body.toString());
 					this.posts[post_index].comments.COMMENTS.unshift(res.comment[0]);
 					this.posts[post_index].new_comment = "";
 					this.posts[post_index].comments.TOTAL_COMMENTS++;
+
 					this.removeCommentUpload(post_index);
 				}
 			});
@@ -406,27 +425,94 @@ export class HomeComponent implements OnInit{
 					res.reply[0].body = this.md.convert(res.reply[0].body.toString());
 					this.posts[post_index].comments.COMMENTS[comment_index].replies.unshift(res.reply[0]);
 					this.posts[post_index].comments.COMMENTS[comment_index].new_reply = "";
-					// this.posts[post_index].comments.TOTAL_COMMENTS++;
-					// this.removeCommentUpload(post_index);
+					this.posts[post_index].comments.COMMENTS[comment_index].reply_image = [];
 				}
 			});
 		}
 	}
 
-	getMoreReplies(post, index){
+	getMoreReplies(post_index, comment_index){
+		let post = this.posts[post_index];
+		let comment = post.comments.COMMENTS[comment_index];
     	if(!this.loading_replies){
     		this.loading_replies = true;
-    		this._socialService.getComments(this.userID, post.ID, post.comments.COMMENTS.length).subscribe(res => {
-    			for(let comment of res.comments.COMMENTS){
-					comment.body = this.md.convert(comment.body.toString());
-					comment['new_reply'] = "";
-					comment['reply_image'] = [];
-					comment['show_replies'] = false;
+    		this._socialService.getReplies(this.userID, comment.ID, post.ID, comment.replies.length).subscribe(res => {
+    			console.log(res)
+    			for(let reply of res.replies){
+					reply.body = this.md.convert(reply.body.toString());
 				}
+				this.posts[post_index].comments.COMMENTS[comment_index].replies.push(...res.replies);
+				this.posts[post_index].comments.COMMENTS[comment_index].new_reply = "";
+				this.posts[post_index].comments.COMMENTS[comment_index].total_replies = res.total_replies;
     			this.loading_replies = false;
-    			this.posts[index].comments.COMMENTS.push(...res.comments.COMMENTS);
     		});
     	}
     }
 
+    //Converts file to base64
+	saveReplyImage(inputValue: any, post_index, comment_index): void {
+	  var file:File = inputValue.files[0];
+	  if(typeof file != 'undefined'){
+	  	  var myReader:FileReader = new FileReader();
+	  	  myReader.onloadend = (e) => {
+	  	    this.newimage = myReader.result;
+	  		this._socialService.uploadPic(this.newimage).subscribe(res => {
+	  			this.posts[post_index].comments.COMMENTS[comment_index].reply_image.push(res.data.link);
+	  			this.reply_uploading = false;
+	  		});
+	  	  }
+	  	  myReader.readAsDataURL(file);
+	  	} else {
+	  		this.reply_uploading = false;
+	  	}
+	  
+	}
+
+	//Sends the image through a function whenever the file input is used
+	replyChangeListener($event, post_index, comment_index) : void {
+	  this.tempCommentIndex = comment_index;
+	  if(this.images.length < 7){
+	  	this.reply_uploading = true;
+	  	this.saveReplyImage($event.target, post_index, comment_index);
+	  }
+	}
+
+	removeReplyUpload(post_index, comment_index) {
+		this.posts[post_index].comments.COMMENTS[comment_index].reply_image = [];
+	}
+
+	deleteReply(reply, reply_index, comment_index, post_index){
+		console.log(reply_index);
+    	if(confirm("are you sure you want to delete the reply?")){
+	    	this._socialService.deleteReply(reply).subscribe(res => {
+	    		if(res.status == 200){
+	    			this.posts[post_index].comments.COMMENTS[comment_index].replies.splice(reply_index, 1);
+	    			this.posts[post_index].comments.COMMENTS[comment_index].total_replies--;
+	    		}
+	    	});
+    	}
+    }
+
+    //Likes and unlikes replies
+	likeReply(reply, comment, reply_index){
+		 var data = {
+            'replyID': reply.ID,
+            'userID': this.userID,
+            'token':this.user.token,
+            'posterID': reply.user_ID
+        }
+		if(reply.LIKEID != this.user.Id){
+			this._socialService.likeReply(data).subscribe(res => {
+				reply.LIKEID = this.userID;
+				reply.likes += 1;
+			});		
+		}else{
+			this._socialService.likeReply(data).subscribe(res => {
+				if(res.status == 200){
+					reply.LIKEID = "";
+					reply.likes -= 1;
+				}
+			});
+		}
+    } 
 }

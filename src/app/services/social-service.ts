@@ -106,4 +106,27 @@ export class SocialService {
     }).catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 
+  getReplies(userID, commentID, postID, start){
+    return this._httpClient.get(`http://aq.trycf.com/api/index.cfm/replies/${userID}/${commentID}/${postID}/${start}`).map( (res) => {
+      return res.json();
+    }).catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  //Deletes a Comment
+  deleteReply(reply){
+    let user = JSON.parse(localStorage.getItem('user'));
+    let data = {'reply': reply, 'user': user};
+    return this._httpClient.post(`http://aq.trycf.com/api/index.cfm/deletereply/`, {'data': data}).map( (res) => {
+      return res.json();
+    }).catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  //Likes and unlikes replies
+  likeReply(data){
+    return this._httpClient.post('http://aq.trycf.com/api/index.cfm/likereply/', {'data':data}) // ...using post request
+    .map((res:Response) => {
+        if(res.status == 200 && res.statusText == "OK"){let data = res.json(); return data;}
+     }) // ...and calling .json() on the response to return data
+    .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
 }
