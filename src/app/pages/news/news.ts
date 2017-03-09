@@ -9,9 +9,21 @@ import { NewsService } from '../../services/news-service';
 export class NewsPage implements OnInit {
 	constructor(private _router: Router, private _newsService: NewsService){}
 	news:any;
+	defaultImage = 'http://aq3d.com/media/2190/header-aq3d-main.jpg';
 	userID = JSON.parse(localStorage.getItem('user')).Id;
+  filterType = "ID";
+  highestID: number;
 	ngOnInit(){
-		this._newsService.getNews().subscribe(res => { console.log(res); this.news = res;});
+		this._newsService.getNews().subscribe(res => {
+		  console.log(res);
+		  for(let article of res){
+		    if(!article.images.length){
+		      article.images.push({image_url: this.defaultImage});
+        }
+      }
+      this.highestID = res[0].ID
+		  this.news = res;
+		});
 	}
 
 	openDetail(newsID){

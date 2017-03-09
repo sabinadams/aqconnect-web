@@ -1,5 +1,7 @@
 <style>
-
+  #news {
+    background-color:#16141f;
+  }
 	.flip-container {
 		-webkit-perspective: 1000;
 		-moz-perspective: 1000;
@@ -16,7 +18,7 @@
 
 	.flip-container, .front, .back {
 		width: 100%;
-		height: 150px;
+		height: 200px;
 		border:0;
 		padding:10px;
 	}
@@ -51,8 +53,17 @@
 	.front {
 		background-position: center center;
 		backgound-repeat:no-repeat;
+    background-size:cover;
 		z-index: 2;
-
+    color:#fff;
+    box-shadow:2px 4px 10px 0 rgba(0,0,0,.15);
+    background-color:rgba(25, 17, 33, 0.9);
+    word-wrap: break-word;
+    font-weight: 700;
+    line-height: 1.25;
+    font-size:15px;
+    text-align:center;
+    /*padding-top:20%;*/
 	}
 	.front::before {
 		content: '';
@@ -61,8 +72,8 @@
 		right: 0;
 		bottom: 0;
 		left: 0;
-		background-image: linear-gradient(to bottom right,#3e789a,#522d73);
-		opacity: .6;
+    z-index: -1;
+		background-image: linear-gradient(to bottom right,rgba(20, 40, 51, 0.6),rgba(82, 45, 115, 0.6));
 	}
 
 	.back {
@@ -70,59 +81,96 @@
 		-moz-transform: rotateY(180deg);
 		-o-transform: rotateY(180deg);
 		transform: rotateY(180deg);
-		background: #f8f8f8;
+    background: #181721;
+    box-shadow: 0 0 20px 0 rgba(149, 107, 185, 0.35);
+    border: 2px solid rgb(22, 20, 31);
+    overflow-y:scroll;
 	}
-
-
-
 
 	.back p {
-		position: absolute;
-		/*bottom: 40px;*/
 		left: 0;
 		right: 0;
-		text-align: center;
-		padding: 0 20px;
+		padding: 5px 20px;
 		font-family: arial;
 		line-height: 2em;
+    color:#fff;
+    cursor:pointer;
 	}
+  .preview-text {
+    font-size:15px;
+  }
+  .author-photo {
+    top:50%;
+    height:50px;
+    width:auto;
+    border-radius:50%;
+    display:block;
+    margin:auto;
+    border: 5px solid rgba(25, 17, 33, 0.65);
+    margin-top:20%
+  }
+  .label {
+    position:absolute;
+    left:10px;
+  }
 
+  .ui.fluid.dropdown {
+    display: inline;
+    background-color: #36333d;
+    width:50%;
+    color:rgb(149, 107, 185);
+  }
 </style>
 <div id="news">
-	<div class="container">
-		<!--<div class="col-lg-8 col-lg-offset-2">-->
-			<!--<ul class="list-group">-->
-			  <!--<div class="loader" *ngIf="!news || !news.length">Loading...</div>-->
-			  <!--<li *ngFor="let post of news; let i = index;" class="list-group-item" >-->
-			  	<!--<div class="row">-->
-			  		<!--<div class="col-lg-2">-->
-			  			<!--<span class="label label-default" [ngStyle]="{'background-color':+post?.news_type | newsType:'color'}">-->
-			  				<!--{{post.news_type | newsType}} -->
-			  			<!--</span>-->
-			  		<!--</div>-->
-			  		<!--<div class="col-lg-7">-->
-			  			<!--<p data-toggle="modal" href="#newsModal" (click)="openDetail(post.ID)">{{post.name}}</p>-->
-			  			<!--<hr>-->
-			  			<!--<p style="color: #956bb9;"><small>{{post.text_preview}}</small></p>-->
-			  		<!--</div>-->
-					<!--<div class="col-lg-3">-->
-						<!--{{post.AUTHOR}} on {{post.date | date:"MM/dd/yyyy"}} <br>-->
-						<!--Likes: {{post.likes}} <br>-->
-						<!--<span style="font-size:25px;" class="glyphicon glyphicon-heart" aria-hidden="true" [ngStyle]="{'color':+post?.LIKEID | liked:userID}" (click)="likePost(i)"></span>-->
-					<!--</div>-->
-			  	<!--</div>-->
-			  <!--</li>-->
-			<!--</ul>-->
-		<!--</div>-->
+	<div class="container-fluid">
 		<div class="col-lg-12">
-			<div class="col-lg-3" style="padding:10px;" *ngFor="let post of news; let i = index;">
+
+      <div class="row">
+        <div class="col-lg-6 col-xs-12" >
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search Article Titles" [(ngModel)]="filter" style="border-radius:5px;">
+          </div>
+        </div>
+        <div class="col-lg-6 hidden-xs" style="text-align:right;">
+          <select [(ngModel)]="filterType" name="search" placeholder="Select A Filter" class="ui fluid search selection dropdown">
+            <option value="ID">Most Recent</option>
+            <option value="alpha">Alphabetical</option>
+            <option value="name">Reverse Alphabetical</option>
+            <option value="news_type">Type</option>
+          </select>
+        </div>
+      </div>
+      <div class="loader" *ngIf="!news || !news.length">Loading...</div>
+			<div class="col-lg-3" style="padding:10px;" *ngFor="let post of (news | search:filter | sort:filterType ); let i = index;">
 				<div class="flip-container">
 					<div class="flipper">
-						<div class="front" [ngStyle]="{'background-image': 'url(' + post.IMAGE_URL + ')'}">
-							<span class="name">{{post.name}}</span>
+						<div class="front" [ngStyle]="{'background-image': 'url(' +  post.images[0].image_url + ')', 'border': post.ID == highestID ? '2px solid #9e9e16' : ''}">
+              <span class="label label-default" [ngStyle]="{'background-color':+post?.news_type | newsType:'color'}">
+			  				{{post.news_type | newsType}}
+			  			</span>
+              <span *ngIf="post.ID == highestID" style="color:#9e9e16; float:right; font-size:12px;">Latest Post</span>
+              <img class="author-photo" [src]="post.IMAGE_URL" alt="">
+							<p class="name">{{post.name}}</p>
 						</div>
-						<div class="back">
-							<p>{{post.text_preview}}</p>
+						<div class="back" data-toggle="modal" href="#newsModal" (click)="openDetail(post.ID)">
+              <div class="row">
+                <p>{{post.name}}</p>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-lg-9">
+                  Posted by {{post.AUTHOR}} on {{post.date | date:"MM/dd/yyyy"}}
+                </div>
+                <div class="col-lg-3">
+                  <span style="font-size:20px; cursor:pointer; margin-top:5px;" class="glyphicon glyphicon-heart" aria-hidden="true" [ngStyle]="{'color':+post?.LIKEID | liked:userID}" (click)="likePost(i)"></span>
+                  {{post.likes}}
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <small style="padding:2px 15px;">Preview: </small>
+                <p class="preview-text">{{post.text_preview}}</p>
+              </div>
 						</div>
 					</div>
 				</div>
