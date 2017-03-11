@@ -12,7 +12,7 @@
 }
 
 #forums .panel-heading {
-    background-color:#1d1d1d;
+    background-color:rgb(12, 11, 17);
     border:0;
 }
 
@@ -22,7 +22,7 @@
 }
 
 #forums .panel-body {
-    background-color:#1d1d1d;
+    background-color:rgb(12, 11, 17);
     max-height:70px;
     height:70px;
     overflow-y: scroll;

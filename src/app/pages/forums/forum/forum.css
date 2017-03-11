@@ -47,9 +47,9 @@
 }
 
 #forumpage li.list-group-item {
-    background-color: #1D1D1D;
-    border: 1px solid rgb(149, 107, 185);
-} 
+    background-color: #0c0b11;
+    border: 1px solid rgba(149, 107, 185, 0.43);
+}
 .modal-dialog {
   width:70%;
 }

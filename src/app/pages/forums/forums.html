@@ -1,6 +1,7 @@
+
 <div id="forums">
 	<div class="container">
-		<div class="col-lg-6" *ngFor="let forum of forums">
+		<div class="col-lg-6" *ngFor="let forum of forums" [ngStyle]="{'background': 'url(' + forum.image_url + ') cover'}">
 			<div class="panel panel-default" (click)="openForum(forum.ID)">
 			  <div class="panel-heading">
 			    <h3 class="panel-title">{{forum.name}}</h3>

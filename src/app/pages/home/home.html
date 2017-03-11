@@ -63,7 +63,7 @@
       <!-- New Posts Indicator -->
         <div class="alert alert-success" style="text-align:center; padding:8px;" (click)="clickedNewPosts()" *ngIf="newposts.length">Load New Posts</div>
       <!-- End New Posts Indicator -->
-      
+
 
       <!-- News Feed Posts -->
       <div class="panel panel-default" style="background-color:rgb(16, 16, 16);" *ngFor="let post of posts; let i = index">
@@ -91,9 +91,9 @@
                     <li><a (click)="deletePost(post, i)" *ngIf="post.user_ID == userID">Delete</a></li>
                     <li><a (click)="share(post)" *ngIf="post.user_ID != userID">Share</a></li>
                   </ul>
-                </div> 
-              <!-- End Dropdown for Post Options --> 
-              
+                </div>
+              <!-- End Dropdown for Post Options -->
+
               <!-- Poster's Name -->
               <p class="media-heading" style="text-align:left; margin:0; color: rgb(124, 98, 160); font-weight: 800;" (click)="openProfile(post.user_ID)">{{post.NAME}}</p>
               <!-- Post Body Text -->
@@ -113,7 +113,7 @@
               <img *ngFor="let image of post.IMAGES" class="img-rounded img-responsive post-image-double text-center" style="width:50%; display:inline;" src="{{image}}" alt="">
             </div>
           <!-- End Double-Image Post -->
-          
+
           <!-- Multi-Imaeg Post (3+) -->
           <div class="post-image-container-carousel" *ngIf="post.IMAGES.length >2 && post.IMAGES[0] != ''">
             <div class="well images">
@@ -140,7 +140,7 @@
         </div><!-- End News Feed Posts -->
 
         <!-- Post Stats -->
-        <div class="panel-body" style="background-color: #2a2238;">
+        <div class="panel-body" style="background-color:transparent;">
           <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="text-align:left;">
               <!-- Like Button -->
@@ -186,7 +186,7 @@
               <!-- Comment Image (Optional) -->
               <img class="comment-image-single img-responsive" *ngIf="post?.comments?.COMMENTS[0]?.image_url?.length > 0" src="{{post.comments.COMMENTS[0].image_url}}" alt="">
               <span *ngIf="post.comments.COMMENTS[0].show_replies == false" style="cursor:pointer; font-size:12px; float:right;" (click)="post.comments.COMMENTS[0].show_replies = true">
-                  <span  style="color:#8961ab; font-size:14px;" class="glyphicon glyphicon-share-alt" aria-hidden="true"></span> 
+                  <span  style="color:#8961ab; font-size:14px;" class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
                   <span *ngIf="post.comments.COMMENTS[0].replies.length > 0">Show replies</span>
                   <span *ngIf="post.comments.COMMENTS[0].replies.length == 0">Reply</span>
                 </span>
@@ -194,7 +194,7 @@
           </div>
 
 
-          
+
           <div class="reply-box" *ngIf="post.comments.COMMENTS[0].show_replies" style="padding:5px;">
               <div class="media">
                 <div class="media-left media-middle">
@@ -208,7 +208,7 @@
                   <div class="input-group">
                     <!-- Input Box -->
                     <input class="form-control post-input" [(ngModel)]="post.comments.COMMENTS[0].new_reply"  aria-describedby="basic-addon2" placeholder="Reply to {{post.comments.COMMENTS[0].name}}'s comment">
-                    
+
                     <!-- Attach Image Button -->
                       <span class="input-group-addon" id="basic-addon2" style="padding: 0; background-color: #36333d;" *ngIf="post.comments.COMMENTS[0].reply_image.length < 1">
                         <span class="btn btn-default btn-file">
@@ -216,7 +216,7 @@
                         </span>
                       </span>
                     <!-- End Attach Image Button -->
-                    
+
                     <!-- Submit -->
                     <span class="input-group-addon" id="basic-addon2" (click)="saveReply(i, 0); newemail = '';">Reply</span>
                   </div><!-- End Input Group -->
@@ -304,7 +304,7 @@
                 <!-- Comment Image (Optional) -->
                 <img class="comment-image-single img-responsive" *ngIf="comment.image_url.length > 0" src="{{comment.image_url}}" alt="">
                  <span *ngIf="comment.show_replies == false" style="cursor:pointer; font-size:12px; float:right;" (click)="comment.show_replies = true">
-                  <span  style="color:#8961ab; font-size:14px;" class="glyphicon glyphicon-share-alt" aria-hidden="true"></span> 
+                  <span  style="color:#8961ab; font-size:14px;" class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
                   <span *ngIf="comment.replies.length > 0">Show replies</span>
                   <span *ngIf="comment.replies.length == 0">Reply</span>
                 </span>
@@ -325,7 +325,7 @@
                   <div class="input-group">
                     <!-- Input Box -->
                     <input class="form-control post-input" [(ngModel)]="comment.new_reply"  aria-describedby="basic-addon2" placeholder="Reply to {{comment.name}}'s comment">
-                    
+
                    <!-- Attach Image Button -->
                       <span class="input-group-addon" id="basic-addon2" style="padding: 0; background-color: #36333d;" *ngIf="comment.reply_image.length < 1">
                         <span class="btn btn-default btn-file">
@@ -333,7 +333,7 @@
                         </span>
                       </span>
                     <!-- End Attach Image Button -->
-                    
+
                     <!-- Submit -->
                     <span class="input-group-addon" id="basic-addon2" (click)="saveReply(i, j); newemail = '';">Reply</span>
                   </div><!-- End Input Group -->
@@ -389,7 +389,7 @@
               </div>
               <div class="showMore" style="text-align:center; margin-top:5px; cursor:pointer;" *ngIf="comment.replies.length < comment.total_replies" (click)="getMoreReplies(i, j)"><a>Show Older Replies</a></div>
             </div>
-           
+
 
           </div>
 
@@ -413,7 +413,7 @@
                 <div class="input-group">
                   <!-- Input Box -->
                   <input class="form-control post-input" [(ngModel)]="post.new_comment"  aria-describedby="basic-addon2" placeholder="Leave a comment">
-                  
+
                   <!-- Attach Image Button -->
                     <span class="input-group-addon" id="basic-addon2" style="padding: 0; background-color: #36333d;" *ngIf="post.comment_images.length < 1">
                       <span class="btn btn-default btn-file">
@@ -421,7 +421,7 @@
                       </span>
                     </span>
                   <!-- End Attach Image Button -->
-                  
+
                   <!-- Submit -->
                   <span class="input-group-addon" id="basic-addon2" (click)="saveComment(i); newemail = '';">Comment</span>
                 </div><!-- End Input Group -->
@@ -471,7 +471,7 @@
 
   <!-- Scroll-To-Top -->
   <a href="#home" class="page-scroll"><button type="button" class="btn btn-circle btn-xl" (click)="clickedNewPosts()" *ngIf="posts?.length > 20" style="margin-bottom:60px; background-color:#0b428e;"><i class="glyphicon glyphicon-arrow-up"></i></button></a>
-  
+
   <!-- New Posts Alert -->
     <div class="alert alert-success alert-notification" [@visibilityChanged]="showAlert" (click)="clickedNewPosts()" style="bottom:10px; right:10px; position:fixed; z-index:10000;" role="alert">
       <a href="#home" class="alert-link page-scroll">{{newPostsAlertText}}</a>
