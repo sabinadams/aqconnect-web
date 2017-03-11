@@ -1,19 +1,13 @@
 #forums{
-	padding-top:70px;
+	padding-top:15%;
 }
 #forums .col-lg-8 {
-	float:none;
-	margin:auto;
-}
-
-#forums .panel {
-    border:0;
-
+  float: none;
+  margin: auto;
 }
 
 #forums .panel-heading {
     background-color:rgb(12, 11, 17);
-    border:0;
 }
 
 #forums .panel-title {
@@ -21,10 +15,12 @@
     font-weight:700;
 }
 
-#forums .panel-body {
+#forums .panel{
+    border:0;
     background-color:rgb(12, 11, 17);
-    max-height:70px;
-    height:70px;
+    padding:10px;
+    min-height:100px;
+    height:170px;
     overflow-y: scroll;
 }
 
